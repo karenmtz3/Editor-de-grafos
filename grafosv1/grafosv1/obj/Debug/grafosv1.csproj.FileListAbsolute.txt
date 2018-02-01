@@ -29,3 +29,13 @@ C:\Users\Karen\Desktop\Grafos\grafosv1\grafosv1\obj\Debug\grafosv1.csproj.Genera
 C:\Users\Karen\Desktop\Grafos\grafosv1\grafosv1\obj\Debug\grafosv1.csproj.CoreCompileInputs.cache
 C:\Users\Karen\Desktop\Grafos\grafosv1\grafosv1\obj\Debug\grafosv1.exe
 C:\Users\Karen\Desktop\Grafos\grafosv1\grafosv1\obj\Debug\grafosv1.pdb
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\bin\Debug\grafosv1.exe.config
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\bin\Debug\grafosv1.exe
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\bin\Debug\grafosv1.pdb
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.csprojResolveAssemblyReference.cache
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.Form1.resources
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.Properties.Resources.resources
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.csproj.GenerateResource.Cache
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.csproj.CoreCompileInputs.cache
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.exe
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.pdb

@@ -59,6 +59,7 @@ namespace grafosv1
 
         private void noDirigidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            move = false;
             bandera2 = true;
             //deshabilita el botón de dirigido y se ddibuja la línea
             dirigidoToolStripMenuItem.Enabled = false;
@@ -68,6 +69,7 @@ namespace grafosv1
         
         private void dirigidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            move = false;
             bandera2 = true;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
             noDirigidoToolStripMenuItem.Enabled = false;
@@ -82,6 +84,7 @@ namespace grafosv1
 
         private void QuitarAToolStripMenu_Click(object sender, EventArgs e)
         {
+            
             banderita = 3;
         }
 
@@ -94,9 +97,11 @@ namespace grafosv1
                 switch (banderita)
                 {
                     case 1: //inserta el nodo en la lista grafos
+                        move = false;
                         ListGrafo[0].InsertaVertice((ListGrafo[0].ListaVer.Count + 1).ToString(), x, y);
                         break;
                     case 2: //elimina el nodo de la lista grafos
+                        move = false;
                         ListGrafo[0].QuitaVertice(e.X, e.Y);
                         break;
                     case 3:
@@ -117,7 +122,6 @@ namespace grafosv1
                 {
                     if (aux >= 0)
                     {
-
                         label3.Text = "nodo a mover = " + aux.ToString();
                         ListGrafo[0].ListaVer[aux].x = e.X-wid/2;
                         ListGrafo[0].ListaVer[aux].y = e.Y-he/2;
@@ -129,22 +133,27 @@ namespace grafosv1
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+
+            move = true;
             //busca nodo origen y guarda las coordenadas del mousedown
             if (bandera2)
             {
+               move = false;
                temp1 = ListGrafo[0].Buscar(e.X, e.Y);
-                x1 = e.X;
-                y1 = e.Y;
-                label1.Text = "origen = "+ temp1.ToString();
+               x1 = e.X;
+               y1 = e.Y;
+               label1.Text = "origen = "+ temp1.ToString();
             }
-            move = true;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+
+            move = false;
             //busco nodo destino, guarda las coorenadas del mouseup e inserta las aristas
             if (bandera2)
             {
+                move = false;
                 int temp = ListGrafo[0].Buscar(e.X, e.Y);
                 x2 = e.X;
                 y2 = e.Y;
@@ -153,7 +162,6 @@ namespace grafosv1
                     ListGrafo[0].ListaVer[temp1].InsertaArista(x2,y2,x1,y1,ListGrafo[0].ListaVer.ElementAt(temp));
                 x1 = y1 = x2 = y2 = -1;
             }
-            move = false;
         }
      
         private void Form1_Paint(object sender, PaintEventArgs e)
