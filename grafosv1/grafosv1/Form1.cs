@@ -18,7 +18,7 @@ namespace grafosv1
         Pen lapiz2 = new Pen(Color.BlueViolet,3); //color de la arista
         public List<Grafo> ListGrafo; //lista de grafos
         public bool bandera; //bandera cuando se da click en el boton nodo
-        public bool bandera2; //checa el mouseup y mousedown
+        public bool bandera2; //bandera que se activa si se selecciono arista dirigida o no dirigida, checa el mouseup y mousedown
         public bool move; //bandera para ver si se activa el mover
         public int banderita; //checa cual sección del menú se presiono
         public int x1, y1, x2, y2; //coordenadas del nodo origen y nodo destino
@@ -59,9 +59,9 @@ namespace grafosv1
 
         private void noDirigidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            move = false;
+           // move = false;
             bandera2 = true;
-            //deshabilita el botón de dirigido y se ddibuja la línea
+            //deshabilita el botón de dirigido y se dibuja la línea
             dirigidoToolStripMenuItem.Enabled = false;
             lapiz2.StartCap = LineCap.NoAnchor;
             lapiz2.EndCap = LineCap.NoAnchor;
@@ -69,7 +69,7 @@ namespace grafosv1
         
         private void dirigidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            move = false;
+           // move = false;
             bandera2 = true;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
             noDirigidoToolStripMenuItem.Enabled = false;
@@ -97,11 +97,11 @@ namespace grafosv1
                 switch (banderita)
                 {
                     case 1: //inserta el nodo en la lista grafos
-                        move = false;
+                        //move = false;
                         ListGrafo[0].InsertaVertice((ListGrafo[0].ListaVer.Count + 1).ToString(), x, y);
                         break;
                     case 2: //elimina el nodo de la lista grafos
-                        move = false;
+                        //move = false;
                         ListGrafo[0].QuitaVertice(e.X, e.Y);
                         break;
                     case 3:
