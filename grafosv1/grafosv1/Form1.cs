@@ -61,6 +61,7 @@ namespace grafosv1
         {
            // move = false;
             bandera2 = true;
+            banderita = 4;
             //deshabilita el botón de dirigido y se dibuja la línea
             dirigidoToolStripMenuItem.Enabled = false;
             lapiz2.StartCap = LineCap.NoAnchor;
@@ -71,6 +72,7 @@ namespace grafosv1
         {
            // move = false;
             bandera2 = true;
+            banderita = 4;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
             noDirigidoToolStripMenuItem.Enabled = false;
             lapiz2.StartCap = LineCap.ArrowAnchor;
@@ -79,13 +81,13 @@ namespace grafosv1
 
         private void moverToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            banderita = 4;
+            banderita = 3;
         }
 
         private void QuitarAToolStripMenu_Click(object sender, EventArgs e)
         {
             
-            banderita = 3;
+            //banderita = 3;
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -104,11 +106,8 @@ namespace grafosv1
                         //move = false;
                         ListGrafo[0].QuitaVertice(e.X, e.Y);
                         break;
-                    case 3:
-                        break;
-                    case 4: //activa bandera de mover
-                        move = true;
-                        break;
+                    /*case 3:
+                        break;*/
                 }
             }
             Invalidate();
@@ -118,32 +117,62 @@ namespace grafosv1
         {
             if (move)
             {
+                label4.Text = "moviendo";
                 int aux = ListGrafo[0].Buscar(e.X,e.Y);
+                if (aux >= 0)
                 {
-                    if (aux >= 0)
+                    CVertice n = ListGrafo[0].ListaVer[aux];
+                    label3.Text = "nodo a mover = " + aux.ToString();
+                    ListGrafo[0].ListaVer[aux].x = e.X - wid / 2;
+                    ListGrafo[0].ListaVer[aux].y = e.Y - he / 2;
+                    for (int i = 0; i < n.ListAristas.Count; i++)
                     {
-                        label3.Text = "nodo a mover = " + aux.ToString();
-                        ListGrafo[0].ListaVer[aux].x = e.X-wid/2;
-                        ListGrafo[0].ListaVer[aux].y = e.Y-he/2;
+                        Arista a = n.ListAristas[i];
+                        //if ((ListaVer[i].x < dx && ListaVer[i].x + 40 > dx) && (ListaVer[i].y < dy && ListaVer[i].y + 40 > dy))
+                        if ((n.x < a.destx && n.x + 40 > a.destx) && (n.y < a.desty && n.y + 40 > a.desty))
+                        {
+                                //label5.Text = "Se encontró el origen";
+                                //label3.Text = "x= "+a.orix+" y= " + a.oriy;
+                                //mueve el origen de la arista x,y
+                                a.CambiaCoord(e.X, e.Y);
+                            //if ((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
+                                //label5.Text = "Se encontró el destino";
+                        }
+
+                            /* if ((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
+                            {
+                                label5.Text = "Se encontró el destino";
+                                a.CambiaCoordDes(e.X, e.Y);
+                            }
+                                if ((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
+                                    a.CambiaCoordDes(e.X, e.Y);
+                            }
+                                //mueve el origen de la arista x,y
+                                //a.CambiaCoord(e.X, e.Y);
+                            //else if((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
+                                //a.CambiaCoordDes(e.X, e.Y);*/
+                        }
+                        // ListGrafo[0].ListaVer[aux].ListAristas[i].CambiaCoord(e.X,e.Y);
                         Invalidate();
-                    }
                 }
             }
+            else
+                label4.Text = "No se mueve nada";
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-
-            move = true;
             //busca nodo origen y guarda las coordenadas del mousedown
             if (bandera2)
             {
-               move = false;
+               //move = false;
                temp1 = ListGrafo[0].Buscar(e.X, e.Y);
                x1 = e.X;
                y1 = e.Y;
                label1.Text = "origen = "+ temp1.ToString();
             }
+            if(banderita == 3)
+                move = true;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -151,7 +180,7 @@ namespace grafosv1
 
             move = false;
             //busco nodo destino, guarda las coorenadas del mouseup e inserta las aristas
-            if (bandera2)
+            if (bandera2 && banderita == 4)
             {
                 move = false;
                 int temp = ListGrafo[0].Buscar(e.X, e.Y);

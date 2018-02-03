@@ -21,9 +21,23 @@ namespace grafosv1
             desty = yd;
         }
 
-        public CVertice RegresaDest
+        public CVertice RegresaDest //vertice
         {
             get { return destino; }
+        }
+
+        public void CambiaCoord(int x, int y) //cords de origen de la arista
+        {
+            destx = x;
+            desty = y;
+        }
+
+        public void CambiaCoordDes(int x, int y) //cords de destino de la arista
+        {
+            /*destino.x = x;
+            destino.y = y;*/
+            orix = x;
+            oriy = y;
         }
     }
 }
