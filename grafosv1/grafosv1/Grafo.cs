@@ -9,14 +9,15 @@ namespace grafosv1
     public class Grafo
     {
         public List<CVertice> ListaVer; //lista de los vertices
-        public int auxi, auxd; //auxiliares que guardan la posición del nodo origen y nodo destino
+        public int auxi; //auxiliar que guarda la posición del nodo encontrado
 
         public Grafo()
         {
-            auxi = auxd = -1;
+            auxi = -1;
             ListaVer = new List<CVertice>();
         }
 
+        //inserta un nuevo vertice a la lista
         public void InsertaVertice(string n, int x, int y)
         {
             ListaVer.Add(new CVertice(n, x, y));
@@ -37,11 +38,11 @@ namespace grafosv1
             return auxi;
         }
 
+        //elimina el vertice junto con las aristas que tiene
         public void QuitaVertice(int dx, int dy)
         {
             int aux = Buscar(dx, dy);
             string nombre1 = ListaVer.ElementAt(aux).name;
-            //Console.WriteLine(aux);
             for (int i = 0; i < ListaVer.Count; i++)
             {
                 for(int j = 0; j < ListaVer[i].ListAristas.Count; j++)

@@ -12,32 +12,33 @@ namespace grafosv1
         public int destx, desty, orix, oriy;
         public CVertice destino;
 
-        public Arista(int xi, int yi, int xd, int yd, CVertice dest)
+        public Arista(int xd, int yd, int xo, int yo, CVertice dest)
         {
             destino = dest;
-            orix = xi;
-            oriy = yi;
+            orix = xo;
+            oriy = yo;
             destx = xd;
             desty = yd;
         }
 
+        //regresa el vertice destino
         public CVertice RegresaDest //vertice
         {
             get { return destino; }
         }
 
-        public void CambiaCoord(int x, int y) //cords de origen de la arista
+        //cambia las coordenadas del origen de la arista
+        public void CambiaCoord(int xo, int yo) //cords de origen de la arista
         {
-            destx = x;
-            desty = y;
+            orix = xo;
+            oriy = yo;
         }
 
-        public void CambiaCoordDes(int x, int y) //cords de destino de la arista
+        //cambia las coordenadas del destino de la arista
+        public void CambiaCoordDes(int xd, int yd)
         {
-            /*destino.x = x;
-            destino.y = y;*/
-            orix = x;
-            oriy = y;
+            destx = xd;
+            desty = yd;
         }
     }
 }

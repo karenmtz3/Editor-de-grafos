@@ -22,11 +22,13 @@ namespace grafosv1
             ListAristas = new List<Arista>();
         }
 
-        public void InsertaArista(int x1, int y1, int x2, int y2, CVertice des)
+        //inserta una arista a la lista de aristas
+        public void InsertaArista(int xd, int yd, int xo, int yo, CVertice des)
         {
-            ListAristas.Add(new Arista(x1,y1,x2,y2,des));
+            ListAristas.Add(new Arista(xd, yd, xo, yo,des));
         }
 
+        //regresa la lista de aristas
         public List<Arista> Regresa()
         {
             return ListAristas;
