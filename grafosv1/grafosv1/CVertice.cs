@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 
 namespace grafosv1
 {
+    [Serializable()]
     public class CVertice
     {
         public string name; //nombre del nodo

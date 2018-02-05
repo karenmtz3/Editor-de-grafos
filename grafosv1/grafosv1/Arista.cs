@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace grafosv1
 {
+    [Serializable()]
     public class Arista
     {
         public int destx, desty, orix, oriy;
@@ -39,6 +40,11 @@ namespace grafosv1
         {
             destx = xd;
             desty = yd;
+        }
+
+        public void EliminaArista()
+        {
+
         }
     }
 }

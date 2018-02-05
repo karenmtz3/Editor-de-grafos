@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace grafosv1
 {
+    [Serializable()]
     public class Grafo
     {
         public List<CVertice> ListaVer; //lista de los vertices
@@ -54,11 +55,6 @@ namespace grafosv1
             }
             ListaVer.ElementAt(aux).ListAristas.Clear();
             ListaVer.RemoveAt(aux);
-        }
-
-        public void EliminaArista()
-        {
-
         }
     }
 }

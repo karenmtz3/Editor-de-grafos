@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace grafosv1
 {
@@ -23,6 +26,11 @@ namespace grafosv1
         public int banderita; //checa cual sección del menú se presiono
         public int xo, yo, xd, yd; //coordenadas del nodo origen y nodo destino
         public int temp1; //se guarda la posición del nodo origen para poder hacer las aristas
+        int posG;
+
+        //variables para abrir y guardar el grafo
+        SaveFileDialog save;
+        OpenFileDialog open;
 
         public Form1()
         {
@@ -30,7 +38,7 @@ namespace grafosv1
             x = y = 100;
             xo = yo = xd = yd = 0;
             wid = he = 40;
-            banderita = 0;
+            posG = banderita = 0;
             move = bandera2 = false;
             ListGrafo = new List<Grafo>();
             
@@ -82,6 +90,63 @@ namespace grafosv1
             banderita = 3;
         }
 
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            save = new SaveFileDialog();
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                Stream st = File.Open(save.FileName, FileMode.Create);
+                BinaryFormatter bin = new BinaryFormatter();
+                bin.Serialize(st, ListGrafo);
+            }
+        }
+
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (b == DialogResult.Yes)
+            {
+                ListGrafo.Clear();
+                guardarToolStripMenuItem_Click(sender, e);
+                open = new OpenFileDialog();
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    Stream st = File.Open(open.FileName, FileMode.Open);
+                    BinaryFormatter bin = new BinaryFormatter();
+                    ListGrafo = (List<Grafo>)bin.Deserialize(st);
+                    st.Close();
+                }
+            }
+            else
+            {
+                open = new OpenFileDialog();
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    Stream st = File.Open(open.FileName, FileMode.Open);
+                    BinaryFormatter bin = new BinaryFormatter();
+                    ListGrafo = (List<Grafo>)bin.Deserialize(st);
+                    st.Close();
+                }
+            }
+            Invalidate();
+        }
+
+        private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (b == DialogResult.Yes)
+            {
+                guardarToolStripMenuItem_Click(sender, e);
+                ListGrafo.Clear();
+            }
+            else
+            {
+                ListGrafo.Clear();
+            }
+            posG = 0;
+            Invalidate();
+        }
+
         private void QuitarAToolStripMenu_Click(object sender, EventArgs e)
         {
 
@@ -96,15 +161,14 @@ namespace grafosv1
                 switch (banderita)
                 {
                     case 1: //inserta el nodo en la lista grafos
-                        ListGrafo[0].InsertaVertice((ListGrafo[0].ListaVer.Count + 1).ToString(), x, y);
+                        ListGrafo[posG].InsertaVertice((ListGrafo[posG].ListaVer.Count + 1).ToString(), x, y);
                         break;
                     case 2: //elimina el nodo de la lista grafos
-                        ListGrafo[0].QuitaVertice(e.X, e.Y);
+                        ListGrafo[posG].QuitaVertice(e.X, e.Y);
                         break;
-                    /*case 3:
-                        break;*/
                 }
             }
+           // posG++;
             Invalidate();
         }
 
@@ -113,10 +177,10 @@ namespace grafosv1
             if (move)
             {
                 label4.Text = "moviendo";
-                int aux = ListGrafo[0].Buscar(e.X,e.Y);
+                int aux = ListGrafo[posG].Buscar(e.X,e.Y);
                 if (aux >= 0)
                 {
-                    CVertice n = ListGrafo[0].ListaVer[aux];
+                    CVertice n = ListGrafo[posG].ListaVer[aux];
                     label3.Text = "nodo a mover = " + (aux+1).ToString();
                     n.x = e.X-wid/2;
                     n.y = e.Y-he/2;
@@ -161,7 +225,7 @@ namespace grafosv1
             //busca nodo origen y guarda las coordenadas del mousedown
             if (bandera2)
             {
-               temp1 = ListGrafo[0].Buscar(e.X, e.Y);
+               temp1 = ListGrafo[posG].Buscar(e.X, e.Y);
                xo = e.X;
                yo = e.Y;
                label1.Text = "origen = "+ (temp1+1).ToString();
@@ -178,12 +242,12 @@ namespace grafosv1
             if (bandera2 && banderita == 4)
             {
                 move = false;
-                int temp = ListGrafo[0].Buscar(e.X, e.Y);
+                int temp = ListGrafo[posG].Buscar(e.X, e.Y);
                 xd = e.X;
                 yd = e.Y;
                 label2.Text = "destino= " + (temp+1).ToString();
                 if (temp >= 0)
-                    ListGrafo[0].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[0].ListaVer.ElementAt(temp));
+                    ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[posG].ListaVer.ElementAt(temp));
                 xo = yo = xd = yd = -1;
             }
         }
