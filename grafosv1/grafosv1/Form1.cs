@@ -258,7 +258,7 @@ namespace grafosv1
                     //dibuja el circulo y la etiqueta del nodo
                     bandera = false;
                     Rectangle r = new Rectangle(ListGrafo[i].ListaVer[j].x, ListGrafo[i].ListaVer[j].y, wid, he);
-                    e.Graphics.DrawRectangle(lapiz,r);
+                    //e.Graphics.DrawRectangle(lapiz,r);
                     CVertice ver = ListGrafo[i].ListaVer[j];
                     e.Graphics.DrawEllipse(lapiz, ver.x, ver.y, wid, he);
                     e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
