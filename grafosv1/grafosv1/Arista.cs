@@ -37,10 +37,5 @@ namespace grafosv1
             destx = destino.x;
             desty = destino.y;
         }
-
-        public void EliminaArista()
-        {
-
-        }
     }
 }

@@ -167,6 +167,10 @@ namespace grafosv1
                         ListGrafo[posG].QuitaVertice(e.X, e.Y);
                         break;
                     case 5:
+                        for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+                        {
+                            ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
+                        }
                         break;
                 }
             }
@@ -218,7 +222,6 @@ namespace grafosv1
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-
             move = false;
             //busca nodo destino, guarda las coorenadas del mouseup e inserta las aristas
             if (bandera2 && banderita == 4)
@@ -233,6 +236,11 @@ namespace grafosv1
                 if (temp >= 0)
                     ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[posG].ListaVer.ElementAt(temp));
                 //xo = yo = xd = yd = -1;
+            }
+            if (banderita == 5) //activa elimina arista
+            {
+                for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+                    ListGrafo[posG].ListaVer[i].EliminaArista(xd, yd, xo, yo);
             }
         }
      

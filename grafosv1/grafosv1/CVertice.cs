@@ -23,6 +23,7 @@ namespace grafosv1
             ListAristas = new List<Arista>();
         }
 
+        //recorre la lista de aristas de ada nodo y les cambia las coordenadas
         public void Cambia()
         {
             for (int i = 0; i < ListAristas.Count; i++)
@@ -41,6 +42,11 @@ namespace grafosv1
             return ListAristas;
         }
 
-       
+        public void EliminaArista(int xd, int yd, int xo, int yo)
+        {
+            //buscar arista 
+
+        }
+
     }
 }
