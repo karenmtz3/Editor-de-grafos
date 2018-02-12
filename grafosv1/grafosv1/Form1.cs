@@ -31,7 +31,7 @@ namespace grafosv1
         //variables para abrir y guardar el grafo
         SaveFileDialog save;
         OpenFileDialog open;
-        bool guardar = false;
+        bool forma = false;
 
         public Form1()
         {
@@ -91,7 +91,7 @@ namespace grafosv1
                 Stream st = File.Open(save.FileName, FileMode.Create);
                 BinaryFormatter bin = new BinaryFormatter();
                 bin.Serialize(st, ListGrafo);
-                guardar = true;
+                
             }
         }
 
@@ -131,18 +131,15 @@ namespace grafosv1
             //habilita los botones de dirgido y no dirigido
             dirigidoToolStripMenuItem.Enabled = true;
             noDirigidoToolStripMenuItem.Enabled = true;
-            if (!guardar) //si no esta guardado
+            DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (b == DialogResult.Yes)
             {
-                DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (b == DialogResult.Yes)
-                {
-                    guardarToolStripMenuItem_Click(sender, e);
-                    ListGrafo.Clear();
-                }
-                else
-                {
-                    ListGrafo.Clear();
-                }
+                guardarToolStripMenuItem_Click(sender, e);
+                ListGrafo.Clear();
+            }
+            else
+            {
+                ListGrafo.Clear();
             }
             ListGrafo = new List<Grafo>();
             posG = 0;
@@ -178,8 +175,14 @@ namespace grafosv1
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
+           if (bandera2)
+            {
+                xd = e.X;
+                yd = e.Y;
+            }
             if (move)
             {
+                forma = false;
                 label4.Text = "moviendo";
                 int aux = ListGrafo[posG].Buscar(e.X, e.Y);
                 if (aux >= 0)
@@ -195,6 +198,7 @@ namespace grafosv1
             }
             else
                 label4.Text = "No se mueve nada";
+            Invalidate();
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -202,6 +206,7 @@ namespace grafosv1
             //busca nodo origen y guarda las coordenadas del mousedown
             if (bandera2)
             {
+                forma = true;
                temp1 = ListGrafo[posG].Buscar(e.X, e.Y);
                xo = e.X;
                yo = e.Y;
@@ -219,6 +224,7 @@ namespace grafosv1
             if (bandera2 && banderita == 4)
             {
                 move = false;
+                forma = false;
                 int temp = ListGrafo[posG].Buscar(e.X, e.Y);
                 xd = e.X;
                 yd = e.Y;
@@ -226,13 +232,14 @@ namespace grafosv1
                 destv = temp;
                 if (temp >= 0)
                     ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[posG].ListaVer.ElementAt(temp));
-                xo = yo = xd = yd = -1;
+                //xo = yo = xd = yd = -1;
             }
         }
      
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            
+            if(forma)
+                e.Graphics.DrawLine(lapiz2, xd, yd, xo, yo);
             for (int i = 0; i < ListGrafo.Count; i++)
                 for (int j = 0; j < ListGrafo[i].ListaVer.Count; j++)
                 {
