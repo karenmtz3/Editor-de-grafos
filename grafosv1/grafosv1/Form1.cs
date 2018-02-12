@@ -25,12 +25,13 @@ namespace grafosv1
         public bool move; //bandera para ver si se activa el mover
         public int banderita; //checa cual sección del menú se presiono
         public int xo, yo, xd, yd; //coordenadas del nodo origen y nodo destino
-        public int temp1; //se guarda la posición del nodo origen para poder hacer las aristas
+        public int temp1, destv; //se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
         public int posG; //posición de la lista de grafos
 
         //variables para abrir y guardar el grafo
         SaveFileDialog save;
         OpenFileDialog open;
+        bool guardar = false;
 
         public Form1()
         {
@@ -40,6 +41,7 @@ namespace grafosv1
             wid = he = 40;
             posG = banderita = 0;
             move = bandera2 = false;
+            temp1 = 0;
             ListGrafo = new List<Grafo>();
             
             ListGrafo.Add(new Grafo());
@@ -89,6 +91,7 @@ namespace grafosv1
                 Stream st = File.Open(save.FileName, FileMode.Create);
                 BinaryFormatter bin = new BinaryFormatter();
                 bin.Serialize(st, ListGrafo);
+                guardar = true;
             }
         }
 
@@ -128,16 +131,18 @@ namespace grafosv1
             //habilita los botones de dirgido y no dirigido
             dirigidoToolStripMenuItem.Enabled = true;
             noDirigidoToolStripMenuItem.Enabled = true;
-
-            DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-            if (b == DialogResult.Yes)
+            if (!guardar) //si no esta guardado
             {
-                guardarToolStripMenuItem_Click(sender, e);
-                ListGrafo.Clear();
-            }
-            else
-            {
-                ListGrafo.Clear();
+                DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (b == DialogResult.Yes)
+                {
+                    guardarToolStripMenuItem_Click(sender, e);
+                    ListGrafo.Clear();
+                }
+                else
+                {
+                    ListGrafo.Clear();
+                }
             }
             ListGrafo = new List<Grafo>();
             posG = 0;
@@ -146,7 +151,7 @@ namespace grafosv1
 
         private void QuitarAToolStripMenu_Click(object sender, EventArgs e)
         {
-
+            banderita = 5;
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -164,6 +169,8 @@ namespace grafosv1
                     case 2: //elimina el nodo de la lista grafos
                         ListGrafo[posG].QuitaVertice(e.X, e.Y);
                         break;
+                    case 5:
+                        break;
                 }
             }
             Invalidate();
@@ -174,44 +181,17 @@ namespace grafosv1
             if (move)
             {
                 label4.Text = "moviendo";
-                int aux = ListGrafo[posG].Buscar(e.X,e.Y);
+                int aux = ListGrafo[posG].Buscar(e.X, e.Y);
                 if (aux >= 0)
                 {
+                    Grafo n1 = ListGrafo[posG];
                     CVertice n = ListGrafo[posG].ListaVer[aux];
-                    label3.Text = "nodo a mover = " + (aux+1).ToString();
-                    n.x = e.X-wid/2;
-                    n.y = e.Y-he/2;
-                    for (int i = 0; i < n.ListAristas.Count; i++)
-                    {
-                        Arista a = n.ListAristas[i];
-                        //a.CambiaCoordDes(e.X - wid / 4, e.Y - he / 4);
-                        a.CambiaCoord(e.X - wid / 4, e.Y - he / 4);
-                        /*if ((n.x < a.destx && n.x + 40 > a.destx) && (n.y < a.desty && n.y + 40 > a.desty))
-                        {
-                                //label5.Text = "Se encontró el origen";
-                                //label3.Text = "x= "+a.orix+" y= " + a.oriy;
-                                //mueve el origen de la arista x,y
-                                a.CambiaCoord(e.X, e.Y);
-                            //if ((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
-                                //label5.Text = "Se encontró el destino";
-                        }*/
-
-                            /* if ((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
-                            {
-                                label5.Text = "Se encontró el destino";
-                                a.CambiaCoordDes(e.X, e.Y);
-                            }
-                                if ((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
-                                    a.CambiaCoordDes(e.X, e.Y);
-                            }
-                                //mueve el origen de la arista x,y
-                                //a.CambiaCoord(e.X, e.Y);
-                            //else if((n.x < a.orix && n.x + 40 > a.orix) && (n.y < a.oriy && n.y + 40 > a.oriy))
-                                //a.CambiaCoordDes(e.X, e.Y);*/
-                    }
-                        // ListGrafo[0].ListaVer[aux].ListAristas[i].CambiaCoord(e.X,e.Y);
-                        Invalidate();
+                    label3.Text = "nodo a mover = " + (aux + 1).ToString();
+                    n.x = e.X - wid / 2;
+                    n.y = e.Y - he / 2;
+                    n1.Cambiar();
                 }
+                Invalidate();
             }
             else
                 label4.Text = "No se mueve nada";
@@ -243,6 +223,7 @@ namespace grafosv1
                 xd = e.X;
                 yd = e.Y;
                 label2.Text = "destino= " + (temp+1).ToString();
+                destv = temp;
                 if (temp >= 0)
                     ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[posG].ListaVer.ElementAt(temp));
                 xo = yo = xd = yd = -1;

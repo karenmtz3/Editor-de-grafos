@@ -24,6 +24,12 @@ namespace grafosv1
             ListaVer.Add(new CVertice(n, x, y));
         }
 
+        public void Cambiar()
+        {
+            for (int i = 0; i < ListaVer.Count; i++)
+                ListaVer[i].Cambia();
+        }
+
         //busca nodo y guarda el indice en una variable auxiliar
         public int Buscar(int dx, int dy)
         {

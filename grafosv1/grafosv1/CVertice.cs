@@ -9,7 +9,7 @@ using System.Drawing.Drawing2D;
 namespace grafosv1
 {
     [Serializable()]
-    public class CVertice
+    public class CVertice 
     {
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
@@ -21,6 +21,12 @@ namespace grafosv1
             x = dx;
             y = dy;
             ListAristas = new List<Arista>();
+        }
+
+        public void Cambia()
+        {
+            for (int i = 0; i < ListAristas.Count; i++)
+                ListAristas[i].CambiaCoord(x, y);
         }
 
         //inserta una arista a la lista de aristas

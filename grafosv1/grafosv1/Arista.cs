@@ -11,6 +11,7 @@ namespace grafosv1
     public class Arista
     {
         public int destx, desty, orix, oriy;
+        public int peso;
         public CVertice destino;
 
         public Arista(int xd, int yd, int xo, int yo, CVertice dest)
@@ -33,13 +34,8 @@ namespace grafosv1
         {
             orix = xo;
             oriy = yo;
-        }
-
-        //cambia las coordenadas del destino de la arista
-        public void CambiaCoordDes(int xd, int yd)
-        {
-            destx = xd;
-            desty = yd;
+            destx = destino.x;
+            desty = destino.y;
         }
 
         public void EliminaArista()
