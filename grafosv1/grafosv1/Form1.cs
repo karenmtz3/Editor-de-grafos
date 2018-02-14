@@ -20,10 +20,10 @@ namespace grafosv1
         Pen lapiz = new Pen(Color.Blue,3); //color del contorno del nodo
         Pen lapiz2 = new Pen(Color.BlueViolet,3); //color de la arista
         public List<Grafo> ListGrafo; //lista de grafos
-        public bool bandera; //bandera cuando se da click en el boton nodo
-        public bool bandera2; //bandera que se activa si se selecciono arista dirigida o no dirigida, checa el mouseup y mousedown
-        public bool move; //bandera para ver si se activa el mover
-        public int banderita; //checa cual sección del menú se presiono
+        public bool BVertice; //bandera cuando se da click en el boton nodo
+        public bool TipoArista; //bandera que se activa si se selecciono arista dirigida o no dirigida, checa el mouseup y mousedown
+        public bool move, moveG; //bandera para ver si se activa el mover
+        public int menu; //checa cual sección del menú se presiono
         public int xo, yo, xd, yd; //coordenadas del nodo origen y nodo destino
         public int temp1, destv; //se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
         public int posG; //posición de la lista de grafos
@@ -32,6 +32,7 @@ namespace grafosv1
         SaveFileDialog save;
         OpenFileDialog open;
         bool forma = false;
+        bool guardado = false;
 
         public Form1()
         {
@@ -39,8 +40,8 @@ namespace grafosv1
             x = y = 100;
             xo = yo = xd = yd = 0;
             wid = he = 40;
-            posG = banderita = 0;
-            move = bandera2 = false;
+            posG = menu = 0;
+            move = moveG = TipoArista = false;
             temp1 = 0;
             ListGrafo = new List<Grafo>();
             
@@ -51,20 +52,20 @@ namespace grafosv1
 
         private void NodoToolStripMenu_Click(object sender, EventArgs e)
         {
-            banderita = 1;
-            bandera = true;
+            menu = 1;
+            BVertice = true;
         }
 
         private void QuitaNToolStripMenu_Click(object sender, EventArgs e)
         {
-            banderita = 2;
-            bandera2 = false;
+            menu = 2;
+            TipoArista = false;
         }
 
         private void noDirigidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bandera2 = true;
-            banderita = 4;
+            TipoArista = true;
+            menu = 4;
             //deshabilita el botón de dirigido y se dibuja la línea
             dirigidoToolStripMenuItem.Enabled = false;
             lapiz2.StartCap = LineCap.NoAnchor;
@@ -73,15 +74,15 @@ namespace grafosv1
         
         private void dirigidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bandera2 = true;
-            banderita = 4;
+            TipoArista = true;
+            menu = 4;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
             noDirigidoToolStripMenuItem.Enabled = false;
             lapiz2.StartCap = LineCap.ArrowAnchor;
             lapiz2.EndCap = LineCap.NoAnchor;
         }
 
-        private void moverToolStripMenuItem_Click(object sender, EventArgs e) { banderita = 3; }
+        private void moverToolStripMenuItem_Click(object sender, EventArgs e) { menu = 3; }
 
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -90,6 +91,7 @@ namespace grafosv1
             {
                 Stream st = File.Open(save.FileName, FileMode.Create);
                 BinaryFormatter bin = new BinaryFormatter();
+                guardado = true;
                 bin.Serialize(st, ListGrafo);
                 
             }
@@ -126,6 +128,13 @@ namespace grafosv1
             Invalidate();
         }
 
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void moverGrafoToolStripMenuItem1_Click(object sender, EventArgs e){  menu = 6; }
+
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //habilita los botones de dirgido y no dirigido
@@ -146,19 +155,16 @@ namespace grafosv1
             Invalidate();
         }
 
-        private void QuitarAToolStripMenu_Click(object sender, EventArgs e)
-        {
-            banderita = 5;
-        }
+        private void QuitarAToolStripMenu_Click(object sender, EventArgs e){ menu = 5; }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             x = e.X - wid / 2;
             y = e.Y - he / 2;
-            if (!bandera2)
+            if (!TipoArista)
             {
                 ListGrafo.Add(new Grafo());
-                switch (banderita)
+                switch (menu)
                 {
                     case 1: //inserta el nodo en la lista grafos
                         ListGrafo[posG].InsertaVertice((ListGrafo[posG].ListaVer.Count + 1).ToString(), x, y);
@@ -169,7 +175,7 @@ namespace grafosv1
                     case 5:
                         for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
                         {
-                            ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
+                            //ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
                         }
                         break;
                 }
@@ -179,7 +185,7 @@ namespace grafosv1
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-           if (bandera2)
+           if (TipoArista)
             {
                 xd = e.X;
                 yd = e.Y;
@@ -207,24 +213,59 @@ namespace grafosv1
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+            xo = e.X;
+            yo = e.Y;
             //busca nodo origen y guarda las coordenadas del mousedown
-            if (bandera2)
+            if (TipoArista)
             {
-                forma = true;
+               forma = true;
                temp1 = ListGrafo[posG].Buscar(e.X, e.Y);
                xo = e.X;
                yo = e.Y;
                label1.Text = "origen = "+ (temp1+1).ToString();
             }
-            if(banderita == 3)
+            if (menu == 3)
+            {
                 move = true;
+                moveG = false;
+            }
+            if (menu == 6)
+            {
+                moveG = true;
+                forma = false;
+            }
+            
         }
+
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            if (moveG)
+            {
+                //forma = false;
+                Grafo g = ListGrafo[posG];
+                int dx = e.X - xo;
+                int dy= e.Y - yo;
+                foreach (CVertice v in g.ListaVer)
+                {
+                    v.x +=dx;
+                    v.y +=dy;
+                    foreach (Arista a in v.ListAristas)
+                    {
+                        a.orix += dx;
+                        a.oriy += dy;
+                        a.destx += dx;
+                        a.desty += dy;
+                        
+
+                    }
+                }
+                forma = false;
+            }
+
             move = false;
             //busca nodo destino, guarda las coorenadas del mouseup e inserta las aristas
-            if (bandera2 && banderita == 4)
+            if (TipoArista && menu == 4)
             {
                 move = false;
                 forma = false;
@@ -237,22 +278,23 @@ namespace grafosv1
                     ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[posG].ListaVer.ElementAt(temp));
                 //xo = yo = xd = yd = -1;
             }
-            if (banderita == 5) //activa elimina arista
+            if (menu == 5) //activa elimina arista
             {
                 for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
                     ListGrafo[posG].ListaVer[i].EliminaArista(xd, yd, xo, yo);
             }
+
         }
      
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            if(forma)
+            if (forma)
                 e.Graphics.DrawLine(lapiz2, xd, yd, xo, yo);
             for (int i = 0; i < ListGrafo.Count; i++)
                 for (int j = 0; j < ListGrafo[i].ListaVer.Count; j++)
                 {
                     //dibuja el circulo y la etiqueta del nodo
-                    bandera = false;
+                    BVertice = false;
                     Rectangle r = new Rectangle(ListGrafo[i].ListaVer[j].x, ListGrafo[i].ListaVer[j].y, wid, he);
                     //e.Graphics.DrawRectangle(lapiz,r);
                     CVertice ver = ListGrafo[i].ListaVer[j];

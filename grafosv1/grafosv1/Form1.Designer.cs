@@ -41,6 +41,7 @@
             this.QuitaNToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.QuitarAToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.moverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moverGrafoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,12 +58,14 @@
             this.AristasToolStripMenu,
             this.QuitaNToolStripMenu,
             this.QuitarAToolStripMenu,
-            this.moverToolStripMenuItem});
+            this.moverToolStripMenuItem,
+            this.moverGrafoToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(524, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(702, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // nuevoToolStripMenuItem
             // 
@@ -77,21 +80,21 @@
             // nuevoToolStripMenuItem1
             // 
             this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
-            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.nuevoToolStripMenuItem1.Text = "Nuevo";
             this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
             // 
             // guardarToolStripMenuItem
             // 
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -148,9 +151,16 @@
             // moverToolStripMenuItem
             // 
             this.moverToolStripMenuItem.Name = "moverToolStripMenuItem";
-            this.moverToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.moverToolStripMenuItem.Text = "Mover";
+            this.moverToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
+            this.moverToolStripMenuItem.Text = "Mover Vértice";
             this.moverToolStripMenuItem.Click += new System.EventHandler(this.moverToolStripMenuItem_Click);
+            // 
+            // moverGrafoToolStripMenuItem1
+            // 
+            this.moverGrafoToolStripMenuItem1.Name = "moverGrafoToolStripMenuItem1";
+            this.moverGrafoToolStripMenuItem1.Size = new System.Drawing.Size(84, 20);
+            this.moverGrafoToolStripMenuItem1.Text = "Mover grafo";
+            this.moverGrafoToolStripMenuItem1.Click += new System.EventHandler(this.moverGrafoToolStripMenuItem1_Click);
             // 
             // label1
             // 
@@ -208,7 +218,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(524, 330);
+            this.ClientSize = new System.Drawing.Size(702, 424);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -252,6 +262,7 @@
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moverToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moverGrafoToolStripMenuItem1;
     }
 }
 
