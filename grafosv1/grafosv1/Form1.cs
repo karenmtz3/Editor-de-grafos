@@ -32,7 +32,8 @@ namespace grafosv1
         SaveFileDialog save;
         OpenFileDialog open;
         bool forma = false;
-        bool guardado = false;
+
+        bool moviendoG = false;
 
         public Form1()
         {
@@ -51,6 +52,7 @@ namespace grafosv1
             //ListGrafo.Add(new Grafo());
         }
 
+        //guardar el grafo
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             save = new SaveFileDialog();
@@ -58,12 +60,13 @@ namespace grafosv1
             {
                 Stream st = File.Open(save.FileName, FileMode.Create);
                 BinaryFormatter bin = new BinaryFormatter();
-                guardado = true;
+                //guardado = true;
                 bin.Serialize(st, ListGrafo);
                 
             }
         }
 
+        //abrir un grafo
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -100,6 +103,7 @@ namespace grafosv1
         {
 
         }
+
 
         private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -144,6 +148,7 @@ namespace grafosv1
             menu = 6;
         }
 
+        //crea un nuevo grafo y lo agrega a la lista de grafos
         private void nuevoGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             aristaToolStripMenuItem.Enabled = true;
@@ -174,16 +179,13 @@ namespace grafosv1
                 //posG = -1;
             }
             else
-            {
                 ListGrafo.Clear();
-            }
             ListGrafo = new List<Grafo>();
             //posG = 0;
             //temp1 = 0;
             Invalidate();
         }
 
-        private void QuitarAToolStripMenu_Click(object sender, EventArgs e){  }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -213,7 +215,30 @@ namespace grafosv1
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-           if (TipoArista)
+            /*if (moveG)
+            {
+                //forma = false;
+                Grafo g = ListGrafo[posG];
+                int dx = e.X - xo;
+                int dy = e.Y - yo;
+                foreach (CVertice v in g.ListaVer)
+                {
+                    v.x += dx;
+                    v.y += dy;
+                    foreach (Arista a in v.ListAristas)
+                    {
+                        a.orix += dx;
+                        a.oriy += dy;
+                        a.destx += dx;
+                        a.desty += dy;
+                    }
+                    
+                }
+                //dx = dy = 0;
+                forma = false;
+            }*/
+
+            if (TipoArista)
             {
                 xd = e.X;
                 yd = e.Y;
@@ -252,29 +277,33 @@ namespace grafosv1
                yo = e.Y;
                label1.Text = "origen = "+ (temp1+1).ToString();
             }
+            //activa bandera para mover nodos y aristas
             if (menu == 3)
             {
                 move = true;
                 moveG = false;
             }
+            //desactiva la bandera de si se esta en la forma 
             if (menu == 5)
                 forma = false;
 
+            //activa la bandera de mover grafo
             if (menu == 6)
             {
                 moveG = true;
                 forma = false;
-            }
-            
-            
+            } 
         }
-
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            /*if (menu == 6)
+                moveG = false;*/
+            //si esta activa la bandera de mover grafo se masignan las nuevas coordenadas de los nodos y aristas 
             if (moveG)
             {
                 //forma = false;
+                moviendoG = true;
                 Grafo g = ListGrafo[posG];
                 int dx = e.X - xo;
                 int dy= e.Y - yo;
@@ -288,8 +317,6 @@ namespace grafosv1
                         a.oriy += dy;
                         a.destx += dx;
                         a.desty += dy;
-                        
-
                     }
                 }
                 forma = false;

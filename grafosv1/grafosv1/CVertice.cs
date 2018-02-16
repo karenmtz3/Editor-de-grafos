@@ -15,6 +15,7 @@ namespace grafosv1
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
         
+        //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
         {
             name = nombre;
@@ -23,7 +24,7 @@ namespace grafosv1
             ListAristas = new List<Arista>();
         }
 
-        //recorre la lista de aristas de ada nodo y les cambia las coordenadas
+        //recorre la lista de aristas de cada nodo y les cambia las coordenadas
         public void Cambia()
         {
             for (int i = 0; i < ListAristas.Count; i++)
@@ -42,14 +43,15 @@ namespace grafosv1
             return ListAristas;
         }
 
+        //elimina la arista de la lista de aristas 
         public void EliminaArista(int x, int y)
         {
             //buscar arista 
             for(int i = 0; i < ListAristas.Count; i++)
             {
                 Arista ar = ListAristas[i];
-                float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix);
-                float ecy = (m * (x - ar.orix) + ar.oriy);
+                float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix); //calcula pendiente
+                float ecy = (m * (x - ar.orix) + ar.oriy); // calcula la ecuacion de la recta
                 if((int)ecy < y+3 && (int)ecy > y - 3)
                 {
                     ListAristas.Remove(ar);

@@ -14,6 +14,7 @@ namespace grafosv1
         public int etiqueta;
         public CVertice destino;
 
+        //constructor de la clase Arista
         public Arista(int xd, int yd, int xo, int yo, CVertice dest)
         {
             destino = dest;
