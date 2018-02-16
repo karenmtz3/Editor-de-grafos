@@ -100,5 +100,20 @@
   <ItemGroup>
     <None Include="Resources\software_vector_line_39821.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save-80_icon-icons.com_57276.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stock_open_36034.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\movearrowssymbolincircularbutton_79591.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\move_78474.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Line-Graph_41751.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

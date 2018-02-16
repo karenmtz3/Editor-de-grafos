@@ -42,9 +42,19 @@ namespace grafosv1
             return ListAristas;
         }
 
-        public void EliminaArista(int xd, int yd, int xo, int yo)
+        public void EliminaArista(int x, int y)
         {
             //buscar arista 
+            for(int i = 0; i < ListAristas.Count; i++)
+            {
+                Arista ar = ListAristas[i];
+                float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix);
+                float ecy = (m * (x - ar.orix) + ar.oriy);
+                if((int)ecy == y)
+                {
+                    ListAristas.Remove(ar);
+                }
+            }
 
         }
 

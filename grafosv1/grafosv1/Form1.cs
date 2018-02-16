@@ -40,49 +40,16 @@ namespace grafosv1
             x = y = 100;
             xo = yo = xd = yd = 0;
             wid = he = 40;
-            posG = menu = 0;
+            menu = 0;
+            posG = 0;//-1;
             move = moveG = TipoArista = false;
             temp1 = 0;
             ListGrafo = new List<Grafo>();
-            
-            ListGrafo.Add(new Grafo());
-        }
 
-        private void AristasToolStripMenu_Click(object sender, EventArgs e){ }
-
-        private void NodoToolStripMenu_Click(object sender, EventArgs e)
-        {
-            menu = 1;
-            BVertice = true;
+            vérticeToolStripMenuItem.Enabled = false;
+            aristaToolStripMenuItem.Enabled = false;
+            //ListGrafo.Add(new Grafo());
         }
-
-        private void QuitaNToolStripMenu_Click(object sender, EventArgs e)
-        {
-            menu = 2;
-            TipoArista = false;
-        }
-
-        private void noDirigidoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TipoArista = true;
-            menu = 4;
-            //deshabilita el botón de dirigido y se dibuja la línea
-            dirigidoToolStripMenuItem.Enabled = false;
-            lapiz2.StartCap = LineCap.NoAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;
-        }
-        
-        private void dirigidoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TipoArista = true;
-            menu = 4;
-            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
-            noDirigidoToolStripMenuItem.Enabled = false;
-            lapiz2.StartCap = LineCap.ArrowAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;
-        }
-
-        private void moverToolStripMenuItem_Click(object sender, EventArgs e) { menu = 3; }
 
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -122,6 +89,7 @@ namespace grafosv1
                     Stream st = File.Open(open.FileName, FileMode.Open);
                     BinaryFormatter bin = new BinaryFormatter();
                     ListGrafo = (List<Grafo>)bin.Deserialize(st);
+                    posG = 0;
                     st.Close();
                 }
             }
@@ -133,29 +101,89 @@ namespace grafosv1
 
         }
 
-        private void moverGrafoToolStripMenuItem1_Click(object sender, EventArgs e){  menu = 6; }
+        private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            menu = 1;
+            BVertice = true;
+        }
+
+        private void quitarNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 2;
+            TipoArista = false;
+        }
+
+        private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 3;
+        }
+
+        private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
+            noDirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.ArrowAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        private void noDirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de dirigido y se dibuja la línea
+            dirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.NoAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        private void moverGrafoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 6;
+        }
+
+        private void nuevoGrafoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            aristaToolStripMenuItem.Enabled = true;
+            vérticeToolStripMenuItem.Enabled = true;
+            Grafo g = new Grafo();
+            ListGrafo.Add(g);
+            posG++;
+        }
+
+        private void eliminaAristaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 5;
+        }
 
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            vérticeToolStripMenuItem.Enabled = false;
+            aristaToolStripMenuItem.Enabled = false;
             //habilita los botones de dirgido y no dirigido
-            dirigidoToolStripMenuItem.Enabled = true;
-            noDirigidoToolStripMenuItem.Enabled = true;
+            dirigidoToolStripMenuItem1.Enabled = true;
+            noDirigidoToolStripMenuItem1.Enabled = true;
             DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (b == DialogResult.Yes)
             {
                 guardarToolStripMenuItem_Click(sender, e);
                 ListGrafo.Clear();
+                
+                //posG = -1;
             }
             else
             {
                 ListGrafo.Clear();
             }
             ListGrafo = new List<Grafo>();
-            posG = 0;
+            //posG = 0;
+            //temp1 = 0;
             Invalidate();
         }
 
-        private void QuitarAToolStripMenu_Click(object sender, EventArgs e){ menu = 5; }
+        private void QuitarAToolStripMenu_Click(object sender, EventArgs e){  }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -173,10 +201,10 @@ namespace grafosv1
                         ListGrafo[posG].QuitaVertice(e.X, e.Y);
                         break;
                     case 5:
-                        for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+                        /*for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
                         {
                             //ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
-                        }
+                        }*/
                         break;
                 }
             }
@@ -229,11 +257,15 @@ namespace grafosv1
                 move = true;
                 moveG = false;
             }
+            if (menu == 5)
+                forma = false;
+
             if (menu == 6)
             {
                 moveG = true;
                 forma = false;
             }
+            
             
         }
 
@@ -280,8 +312,9 @@ namespace grafosv1
             }
             if (menu == 5) //activa elimina arista
             {
-                for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
-                    ListGrafo[posG].ListaVer[i].EliminaArista(xd, yd, xo, yo);
+                forma = false;
+                for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+                    ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
             }
 
         }

@@ -73,9 +73,39 @@ namespace grafosv1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Line_Graph_41751 {
+            get {
+                object obj = ResourceManager.GetObject("Line-Graph_41751", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137 {
             get {
                 object obj = ResourceManager.GetObject("minus-gross-horizontal-straight-line-symbol_icon-icons.com_74137", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap move_78474 {
+            get {
+                object obj = ResourceManager.GetObject("move_78474", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap movearrowssymbolincircularbutton_79591 {
+            get {
+                object obj = ResourceManager.GetObject("movearrowssymbolincircularbutton_79591", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +133,29 @@ namespace grafosv1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Save_80_icon_icons_com_57276 {
+            get {
+                object obj = ResourceManager.GetObject("Save-80_icon-icons.com_57276", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap software_vector_line_39821 {
             get {
                 object obj = ResourceManager.GetObject("software_vector_line_39821", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stock_open_36034 {
+            get {
+                object obj = ResourceManager.GetObject("stock_open_36034", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

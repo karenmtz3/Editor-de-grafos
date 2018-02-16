@@ -11,7 +11,7 @@ namespace grafosv1
     public class Arista
     {
         public int destx, desty, orix, oriy;
-        public int peso;
+        public int etiqueta;
         public CVertice destino;
 
         public Arista(int xd, int yd, int xo, int yo, CVertice dest)
