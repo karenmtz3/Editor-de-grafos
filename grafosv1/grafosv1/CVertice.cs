@@ -50,7 +50,7 @@ namespace grafosv1
                 Arista ar = ListAristas[i];
                 float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix);
                 float ecy = (m * (x - ar.orix) + ar.oriy);
-                if((int)ecy == y)
+                if((int)ecy < y+3 && (int)ecy > y - 3)
                 {
                     ListAristas.Remove(ar);
                 }
