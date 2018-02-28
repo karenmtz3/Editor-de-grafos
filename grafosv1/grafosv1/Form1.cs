@@ -28,6 +28,7 @@ namespace grafosv1
         public int temp1, destv; //se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
         public int posG; //posición de la lista de grafos
 
+
         //variables para abrir y guardar el grafo
         SaveFileDialog save;
         OpenFileDialog open;
@@ -80,7 +81,7 @@ namespace grafosv1
                     Stream st = File.Open(open.FileName, FileMode.Open);
                     BinaryFormatter bin = new BinaryFormatter();
                     ListGrafo = (List<Grafo>)bin.Deserialize(st);
-                    posG = 0;
+                    //posG = 0;
                     st.Close();
                 }
             }
@@ -92,7 +93,7 @@ namespace grafosv1
                     Stream st = File.Open(open.FileName, FileMode.Open);
                     BinaryFormatter bin = new BinaryFormatter();
                     ListGrafo = (List<Grafo>)bin.Deserialize(st);
-                    posG = 0;
+                    //posG = 0;
                     st.Close();
                 }
             }
@@ -157,9 +158,9 @@ namespace grafosv1
             //posG = ListGrafo.Count;
             Grafo g = new Grafo();
             ListGrafo.Add(g);
-            posG++;
-            label3.Text = "Posición de la lista: " + posG.ToString();
             label5.Text = "grafos en la lista: " + ListGrafo.Count.ToString();
+            posG++;
+            label3.Text = "Posición del grafo en la lista: " + posG.ToString();
         }
 
         private void eliminaAristaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,15 +179,18 @@ namespace grafosv1
             if (b == DialogResult.Yes)
             {
                 guardarToolStripMenuItem_Click(sender, e);
-                ListGrafo.Clear();
-                
-                //posG = -1;
+                //ListGrafo.Clear();
+
+                //posG += 1;
             }
             else
+            {
                 ListGrafo.Clear();
-            ListGrafo = new List<Grafo>();
-            //posG = 0;
-            //temp1 = 0;
+                posG = -1;
+            }
+            //ListGrafo = new List<Grafo>();
+
+            temp1 = 0;
             Invalidate();
         }
 
@@ -197,20 +201,14 @@ namespace grafosv1
             y = e.Y - he / 2;
             if (!TipoArista)
             {
-                ListGrafo.Add(new Grafo());
                 switch (menu)
                 {
                     case 1: //inserta el nodo en la lista grafos
                         ListGrafo[posG].InsertaVertice((ListGrafo[posG].ListaVer.Count + 1).ToString(), x, y);
+                        
                         break;
                     case 2: //elimina el nodo de la lista grafos
                         ListGrafo[posG].QuitaVertice(e.X, e.Y);
-                        break;
-                    case 5:
-                        /*for(int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
-                        {
-                            //ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
-                        }*/
                         break;
                 }
             }
