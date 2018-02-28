@@ -326,14 +326,15 @@ namespace grafosv1
      
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+
+            dx = xd - xo;
+            dy = yd - yo;
             if (forma)
                 e.Graphics.DrawLine(lapiz2, xd, yd, xo, yo);
             if(moveG)
             {
                     for (int j = 0; j < ListGrafo[posG].ListaVer.Count; j++)
                     {
-                        dx = xd - xo;
-                        dy = yd - yo;
                         //dibuja el circulo y la etiqueta del nodo
                         CVertice ver = ListGrafo[posG].ListaVer[j];
                         e.Graphics.DrawEllipse(lapiz, ver.x-(wid/10)+dx, ver.y-(he/10)+dy, wid, he);
@@ -364,13 +365,14 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                            e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
-                            /*Point[] points =
-                            {
-                                new Point(arista.destx,arista.desty),
-                                new Point(arista.orix, arista.oriy)
-                            };
-                            e.Graphics.DrawClosedCurve(lapiz2, points);*/
+                            //e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+                            Point p1 = new Point(arista.orix, arista.oriy);
+                            Point c1 = new Point(xd,yd);
+                            //Point c2 = new Point(xo, yo);
+                            Point p2 = new Point(arista.destx, arista.desty);
+
+                            e.Graphics.DrawBezier(lapiz2,p2,c1,c1,p1);
+                            xd = yd = 200;
                         }
                     }
             }
