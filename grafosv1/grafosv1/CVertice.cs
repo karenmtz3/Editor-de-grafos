@@ -34,7 +34,41 @@ namespace grafosv1
         //inserta una arista a la lista de aristas
         public void InsertaArista(int xd, int yd, int xo, int yo, CVertice des)
         {
-            ListAristas.Add(new Arista(xd, yd, xo, yo,des));
+            int r = 8, x1, y1, x2, y2;
+            x1 = y1 = x2 = y2 = 0;
+            //primer cuadrante
+            if (xd > xo && yo > yd)
+            {
+                x1 = xo + r;
+                y1 = yo;
+                x2 = xd - r;
+                y2 = yd;
+            }
+            //segundo cuadrante
+            else if (xd < xo && yo > yd)
+            {
+                x1 = xo - r;
+                y1 = yo;
+                x2 = xd + r;
+                y2 = yd;
+            }
+            //tercer cuadrante
+            else if (xd < xo && yo < yd)
+            {
+                x1 = xo - r;
+                y1 = yo;
+                x2 = xd + r;
+                y2 = yd;
+            }
+            //cuarto cuadrante
+            else if (xd > xo && yo < yd)
+            {
+                x1 = xo + r;
+                y1 = yo;
+                x2 = xd - r;
+                y2 = yd;
+            }
+                ListAristas.Add(new Arista(x2, y2, x1, y1,des));
         }
 
         //regresa la lista de aristas
