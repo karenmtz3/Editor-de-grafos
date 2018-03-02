@@ -179,7 +179,7 @@ namespace grafosv1
             if (b == DialogResult.Yes)
             {
                 guardarToolStripMenuItem_Click(sender, e);
-                //ListGrafo.Clear();
+                ListGrafo.Clear();
 
                 //posG += 1;
             }
@@ -342,8 +342,17 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                            e.Graphics.DrawLine(lapiz2, arista.destx+dx, arista.desty+dy, arista.orix+dx, arista.oriy+dy);
-                        }
+                        //e.Graphics.DrawLine(lapiz2, arista.destx+dx, arista.desty+dy, arista.orix+dx, arista.oriy+dy);
+                        int x1 = (arista.destx - arista.orix) / 10;
+                        int y1 = (arista.desty - arista.orix) / 10;
+
+                        Point p1 = new Point(arista.orix + dx, arista.oriy + dy);
+                        Point c1 = new Point(arista.orix + x1 + dx, arista.oriy + y1 + dy);
+                        Point c2 = new Point(arista.destx + x1 + dx, arista.desty + y1 + dy);
+                        Point p2 = new Point(arista.destx + dx, arista.desty + dy);
+
+                        e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
+                    }
                     }
             }
             else
@@ -364,13 +373,17 @@ namespace grafosv1
                         {
                             Arista arista = ver.ListAristas[k];
                             //e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+                            int x1 = (arista.destx - arista.orix)/10;
+                            int y1 = (arista.desty - arista.orix)/10;
+
                             Point p1 = new Point(arista.orix, arista.oriy);
-                            Point c1 = new Point(xd,yd);
-                            //Point c2 = new Point(xo, yo);
+                            Point c1 = new Point(arista.orix + x1, arista.oriy + y1);
+                            Point c2 = new Point(arista.destx + x1, arista.desty + y1);
                             Point p2 = new Point(arista.destx, arista.desty);
 
-                            e.Graphics.DrawBezier(lapiz2,p2,c1,c1,p1);
-                            xd = yd = 200;
+                            //if (temp1 == destv)
+                                //e.Graphics.DrawBezier();
+                            e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
                         }
                     }
             }
