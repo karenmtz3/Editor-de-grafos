@@ -28,7 +28,9 @@ namespace grafosv1
         public void Cambia()
         {
             for (int i = 0; i < ListAristas.Count; i++)
+            {
                 ListAristas[i].CambiaCoord(x, y);
+            }
         }
 
         //inserta una arista a la lista de aristas

@@ -32,26 +32,28 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moverGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vérticeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitarNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moverNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dirigidoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.noDirigidoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.vérticeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nuevoGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moverGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nuevoNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quitarNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.moverNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nuevaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dirigidoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.noDirigidoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -84,6 +86,123 @@
             this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.nuevoToolStripMenuItem1.Text = "Nuevo";
             this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
+            // 
+            // guardarToolStripMenuItem
+            // 
+            this.guardarToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Save_80_icon_icons_com_57276;
+            this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.guardarToolStripMenuItem.Text = "Guardar";
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
+            // 
+            // abrirToolStripMenuItem
+            // 
+            this.abrirToolStripMenuItem.Image = global::grafosv1.Properties.Resources.stock_open_36034;
+            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Text = "Abrir";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
+            // 
+            // grafoToolStripMenuItem
+            // 
+            this.grafoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevoGrafoToolStripMenuItem,
+            this.moverGrafoToolStripMenuItem});
+            this.grafoToolStripMenuItem.Name = "grafoToolStripMenuItem";
+            this.grafoToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.grafoToolStripMenuItem.Text = "Grafo";
+            // 
+            // nuevoGrafoToolStripMenuItem
+            // 
+            this.nuevoGrafoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Line_Graph_41751;
+            this.nuevoGrafoToolStripMenuItem.Name = "nuevoGrafoToolStripMenuItem";
+            this.nuevoGrafoToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.nuevoGrafoToolStripMenuItem.Text = "Nuevo Grafo";
+            this.nuevoGrafoToolStripMenuItem.Click += new System.EventHandler(this.nuevoGrafoToolStripMenuItem_Click);
+            // 
+            // moverGrafoToolStripMenuItem
+            // 
+            this.moverGrafoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.move_78474;
+            this.moverGrafoToolStripMenuItem.Name = "moverGrafoToolStripMenuItem";
+            this.moverGrafoToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.moverGrafoToolStripMenuItem.Text = "Mover Grafo";
+            this.moverGrafoToolStripMenuItem.Click += new System.EventHandler(this.moverGrafoToolStripMenuItem_Click);
+            // 
+            // vérticeToolStripMenuItem
+            // 
+            this.vérticeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevoNodoToolStripMenuItem,
+            this.quitarNodoToolStripMenuItem,
+            this.moverNodoToolStripMenuItem});
+            this.vérticeToolStripMenuItem.Name = "vérticeToolStripMenuItem";
+            this.vérticeToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.vérticeToolStripMenuItem.Text = "Vértice";
+            // 
+            // nuevoNodoToolStripMenuItem
+            // 
+            this.nuevoNodoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.perfect_circle_icon_icons_com_53928;
+            this.nuevoNodoToolStripMenuItem.Name = "nuevoNodoToolStripMenuItem";
+            this.nuevoNodoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.nuevoNodoToolStripMenuItem.Text = "Nuevo Nodo";
+            this.nuevoNodoToolStripMenuItem.Click += new System.EventHandler(this.nuevoNodoToolStripMenuItem_Click);
+            // 
+            // quitarNodoToolStripMenuItem
+            // 
+            this.quitarNodoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Close_Icon_Circle_icon_icons_com_69142;
+            this.quitarNodoToolStripMenuItem.Name = "quitarNodoToolStripMenuItem";
+            this.quitarNodoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.quitarNodoToolStripMenuItem.Text = "Quitar Nodo";
+            this.quitarNodoToolStripMenuItem.Click += new System.EventHandler(this.quitarNodoToolStripMenuItem_Click);
+            // 
+            // moverNodoToolStripMenuItem
+            // 
+            this.moverNodoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.movearrowssymbolincircularbutton_79591;
+            this.moverNodoToolStripMenuItem.Name = "moverNodoToolStripMenuItem";
+            this.moverNodoToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.moverNodoToolStripMenuItem.Text = "Mover Nodo";
+            this.moverNodoToolStripMenuItem.Click += new System.EventHandler(this.moverNodoToolStripMenuItem_Click);
+            // 
+            // aristaToolStripMenuItem
+            // 
+            this.aristaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevaAristaToolStripMenuItem,
+            this.eliminaAristaToolStripMenuItem});
+            this.aristaToolStripMenuItem.Name = "aristaToolStripMenuItem";
+            this.aristaToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.aristaToolStripMenuItem.Text = "Arista";
+            // 
+            // nuevaAristaToolStripMenuItem
+            // 
+            this.nuevaAristaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dirigidoToolStripMenuItem1,
+            this.noDirigidoToolStripMenuItem1});
+            this.nuevaAristaToolStripMenuItem.Image = global::grafosv1.Properties.Resources.software_vector_line_39821;
+            this.nuevaAristaToolStripMenuItem.Name = "nuevaAristaToolStripMenuItem";
+            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.nuevaAristaToolStripMenuItem.Text = "Nueva Arista";
+            // 
+            // dirigidoToolStripMenuItem1
+            // 
+            this.dirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.rightarrow1_80967;
+            this.dirigidoToolStripMenuItem1.Name = "dirigidoToolStripMenuItem1";
+            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.dirigidoToolStripMenuItem1.Text = "Dirigido";
+            this.dirigidoToolStripMenuItem1.Click += new System.EventHandler(this.dirigidoToolStripMenuItem1_Click);
+            // 
+            // noDirigidoToolStripMenuItem1
+            // 
+            this.noDirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137;
+            this.noDirigidoToolStripMenuItem1.Name = "noDirigidoToolStripMenuItem1";
+            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.noDirigidoToolStripMenuItem1.Text = "No dirigido";
+            this.noDirigidoToolStripMenuItem1.Click += new System.EventHandler(this.noDirigidoToolStripMenuItem1_Click);
+            // 
+            // eliminaAristaToolStripMenuItem
+            // 
+            this.eliminaAristaToolStripMenuItem.Name = "eliminaAristaToolStripMenuItem";
+            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
+            this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -136,122 +255,13 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "label5";
             // 
-            // vérticeToolStripMenuItem
+            // NumGrafo
             // 
-            this.vérticeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuevoNodoToolStripMenuItem,
-            this.quitarNodoToolStripMenuItem,
-            this.moverNodoToolStripMenuItem});
-            this.vérticeToolStripMenuItem.Name = "vérticeToolStripMenuItem";
-            this.vérticeToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.vérticeToolStripMenuItem.Text = "Vértice";
-            // 
-            // aristaToolStripMenuItem
-            // 
-            this.aristaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuevaAristaToolStripMenuItem,
-            this.eliminaAristaToolStripMenuItem});
-            this.aristaToolStripMenuItem.Name = "aristaToolStripMenuItem";
-            this.aristaToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.aristaToolStripMenuItem.Text = "Arista";
-            // 
-            // grafoToolStripMenuItem
-            // 
-            this.grafoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuevoGrafoToolStripMenuItem,
-            this.moverGrafoToolStripMenuItem});
-            this.grafoToolStripMenuItem.Name = "grafoToolStripMenuItem";
-            this.grafoToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.grafoToolStripMenuItem.Text = "Grafo";
-            // 
-            // eliminaAristaToolStripMenuItem
-            // 
-            this.eliminaAristaToolStripMenuItem.Name = "eliminaAristaToolStripMenuItem";
-            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
-            this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
-            // 
-            // guardarToolStripMenuItem
-            // 
-            this.guardarToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Save_80_icon_icons_com_57276;
-            this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.guardarToolStripMenuItem.Text = "Guardar";
-            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
-            // 
-            // abrirToolStripMenuItem
-            // 
-            this.abrirToolStripMenuItem.Image = global::grafosv1.Properties.Resources.stock_open_36034;
-            this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.abrirToolStripMenuItem.Text = "Abrir";
-            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
-            // 
-            // nuevoGrafoToolStripMenuItem
-            // 
-            this.nuevoGrafoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Line_Graph_41751;
-            this.nuevoGrafoToolStripMenuItem.Name = "nuevoGrafoToolStripMenuItem";
-            this.nuevoGrafoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.nuevoGrafoToolStripMenuItem.Text = "Nuevo Grafo";
-            this.nuevoGrafoToolStripMenuItem.Click += new System.EventHandler(this.nuevoGrafoToolStripMenuItem_Click);
-            // 
-            // moverGrafoToolStripMenuItem
-            // 
-            this.moverGrafoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.move_78474;
-            this.moverGrafoToolStripMenuItem.Name = "moverGrafoToolStripMenuItem";
-            this.moverGrafoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.moverGrafoToolStripMenuItem.Text = "Mover Grafo";
-            this.moverGrafoToolStripMenuItem.Click += new System.EventHandler(this.moverGrafoToolStripMenuItem_Click);
-            // 
-            // nuevoNodoToolStripMenuItem
-            // 
-            this.nuevoNodoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.perfect_circle_icon_icons_com_53928;
-            this.nuevoNodoToolStripMenuItem.Name = "nuevoNodoToolStripMenuItem";
-            this.nuevoNodoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.nuevoNodoToolStripMenuItem.Text = "Nuevo Nodo";
-            this.nuevoNodoToolStripMenuItem.Click += new System.EventHandler(this.nuevoNodoToolStripMenuItem_Click);
-            // 
-            // quitarNodoToolStripMenuItem
-            // 
-            this.quitarNodoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Close_Icon_Circle_icon_icons_com_69142;
-            this.quitarNodoToolStripMenuItem.Name = "quitarNodoToolStripMenuItem";
-            this.quitarNodoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.quitarNodoToolStripMenuItem.Text = "Quitar Nodo";
-            this.quitarNodoToolStripMenuItem.Click += new System.EventHandler(this.quitarNodoToolStripMenuItem_Click);
-            // 
-            // moverNodoToolStripMenuItem
-            // 
-            this.moverNodoToolStripMenuItem.Image = global::grafosv1.Properties.Resources.movearrowssymbolincircularbutton_79591;
-            this.moverNodoToolStripMenuItem.Name = "moverNodoToolStripMenuItem";
-            this.moverNodoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.moverNodoToolStripMenuItem.Text = "Mover Nodo";
-            this.moverNodoToolStripMenuItem.Click += new System.EventHandler(this.moverNodoToolStripMenuItem_Click);
-            // 
-            // nuevaAristaToolStripMenuItem
-            // 
-            this.nuevaAristaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dirigidoToolStripMenuItem1,
-            this.noDirigidoToolStripMenuItem1});
-            this.nuevaAristaToolStripMenuItem.Image = global::grafosv1.Properties.Resources.software_vector_line_39821;
-            this.nuevaAristaToolStripMenuItem.Name = "nuevaAristaToolStripMenuItem";
-            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.nuevaAristaToolStripMenuItem.Text = "Nueva Arista";
-            // 
-            // dirigidoToolStripMenuItem1
-            // 
-            this.dirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.rightarrow1_80967;
-            this.dirigidoToolStripMenuItem1.Name = "dirigidoToolStripMenuItem1";
-            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
-            this.dirigidoToolStripMenuItem1.Text = "Dirigido";
-            this.dirigidoToolStripMenuItem1.Click += new System.EventHandler(this.dirigidoToolStripMenuItem1_Click);
-            // 
-            // noDirigidoToolStripMenuItem1
-            // 
-            this.noDirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137;
-            this.noDirigidoToolStripMenuItem1.Name = "noDirigidoToolStripMenuItem1";
-            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
-            this.noDirigidoToolStripMenuItem1.Text = "No dirigido";
-            this.noDirigidoToolStripMenuItem1.Click += new System.EventHandler(this.noDirigidoToolStripMenuItem1_Click);
+            this.NumGrafo.Location = new System.Drawing.Point(223, 3);
+            this.NumGrafo.Name = "NumGrafo";
+            this.NumGrafo.Size = new System.Drawing.Size(33, 20);
+            this.NumGrafo.TabIndex = 7;
+            this.NumGrafo.ValueChanged += new System.EventHandler(this.NumGrafo_ValueChanged);
             // 
             // Form1
             // 
@@ -259,6 +269,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(792, 424);
+            this.Controls.Add(this.NumGrafo);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -279,6 +290,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,6 +319,7 @@
         private System.Windows.Forms.ToolStripMenuItem nuevoGrafoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moverGrafoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminaAristaToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown NumGrafo;
     }
 }
 
