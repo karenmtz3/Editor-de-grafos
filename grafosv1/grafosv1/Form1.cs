@@ -347,6 +347,7 @@ namespace grafosv1
                 destv = temp;
                 if (temp >= 0)
                     ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo,ListGrafo[posG].ListaVer.ElementAt(temp));
+                destv = 0;
                 //xo = yo = xd = yd = -1;
             }
             if (menu == 5) //activa elimina arista
@@ -433,7 +434,7 @@ namespace grafosv1
                         //dibuja el circulo y la etiqueta del nodo
                         BVertice = false;
                         Rectangle r = new Rectangle(ListGrafo[i].ListaVer[j].x, ListGrafo[i].ListaVer[j].y, wid, he);
-                        e.Graphics.DrawRectangle(lapiz,r);
+                        //e.Graphics.DrawRectangle(lapiz,r);
                         CVertice ver = ListGrafo[i].ListaVer[j];
                         e.Graphics.DrawEllipse(lapiz, ver.x, ver.y, wid, he);
                         e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
@@ -441,9 +442,8 @@ namespace grafosv1
                         //dibuja las líneas 
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
-
                             Arista arista = ver.ListAristas[k];
-                            int x1 = (arista.destx - arista.orix) / 10;
+                            /*int x1 = (arista.destx - arista.orix) / 10;
                             int y1 = (arista.desty - arista.orix) / 10;
 
                             Point p1 = new Point(arista.orix, arista.oriy);
@@ -451,18 +451,17 @@ namespace grafosv1
                             Point c2 = new Point(arista.destx + x1, arista.desty + y1);
                             Point p2 = new Point(arista.destx, arista.desty);
 
-                            e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
+                                e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);*/
                             //e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
-                           /* if (temp1 == destv)
-                            {
-                                int radio = wid / 2;
-                                Point p0 = new Point(arista.orix, arista.oriy + radio);
-                                Point c11 = new Point(arista.orix - (radio * 2), arista.oriy + (radio / 2));
-                                Point c21 = new Point(arista.destx - (2 * radio), arista.desty);
-                                Point p3 = new Point(arista.destx, arista.desty - radio);
-
-                                e.Graphics.DrawBezier(lapiz2, p3, c11, c21, p0);
-                            }*/
+                           // if (temp1 == destv)
+                            //{
+                                int radio = wid/2;
+                                Point p0 = new Point(arista.orix, arista.oriy + radio+15);
+                                Point c11 = new Point(arista.orix -(int)(radio * 3), arista.oriy + (radio / 2));
+                                Point c21 = new Point(arista.orix -(3 * radio), arista.oriy);
+                                Point p3 = new Point(arista.orix, arista.oriy - radio+12);
+                                e.Graphics.DrawBezier(lapiz2, p0, c11, c21, p3);
+                            //}
                         }
                     }
                 }
