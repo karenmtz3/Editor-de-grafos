@@ -14,7 +14,8 @@ namespace grafosv1
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
-        
+        int wi = 40;
+        int he = 40;
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
         {
@@ -27,7 +28,7 @@ namespace grafosv1
         //recorre la lista de aristas de cada nodo y les cambia las coordenadas
         public void Cambia()
         {
-            for (int i = 0; i < ListAristas.Count; i++)
+            for (int i = 0; i < ListAristas.Count;i++)
             {
                 ListAristas[i].CambiaCoord(x, y);
             }

@@ -33,19 +33,14 @@ namespace grafosv1
         //cambia las coordenadas del origen de la arista
         public void CambiaCoord(int xo, int yo) //cords de origen de la arista
         {
-            int ax1 = orix-xo;
-            int ay1 = oriy - yo;
-            int ax2 = destx - xo;
-            int ay2 = desty - yo;
+            int r = 20;
 
-            orix = xo;
-            oriy = yo;
-            //orix = xo;
-            //oriy = yo;
-            //destx = xd;
-            //desty = yd;
-            destx = destino.x;
-            desty = destino.y;
+            orix = xo + r;
+            oriy = yo + r;
+            destx = destino.x + r;
+            desty = destino.y + r;
+            
+
         }
     }
 }
