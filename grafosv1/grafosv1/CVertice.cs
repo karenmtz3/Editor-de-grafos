@@ -9,13 +9,11 @@ using System.Drawing.Drawing2D;
 namespace grafosv1
 {
     [Serializable()]
-    public class CVertice 
+    public class CVertice
     {
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
-        int wi = 40;
-        int he = 40;
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
         {
@@ -28,9 +26,11 @@ namespace grafosv1
         //recorre la lista de aristas de cada nodo y les cambia las coordenadas
         public void Cambia()
         {
-            for (int i = 0; i < ListAristas.Count;i++)
+            for (int i = 0; i < ListAristas.Count; i++)
             {
-                ListAristas[i].CambiaCoord(x, y);
+                int xm = x + 20;
+                int ym = y + 20;
+                ListAristas[i].CambiaCoord(xm, ym);
             }
         }
 
@@ -71,7 +71,7 @@ namespace grafosv1
                 x2 = xd - r;
                 y2 = yd;
             }
-                ListAristas.Add(new Arista(x2, y2, x1, y1,des));
+            ListAristas.Add(new Arista(x2, y2, x1, y1, des));
         }
 
         //regresa la lista de aristas
@@ -84,7 +84,27 @@ namespace grafosv1
         public void EliminaArista(int x, int y)
         {
             //buscar arista 
-            for(int i = 0; i < ListAristas.Count; i++)
+            for (int i = 0; i < ListAristas.Count; i++)
+            {
+                Arista ar = ListAristas[i];
+                int x1 = (ar.destx - ar.orix) / 10;
+                int y1 = (ar.desty - ar.oriy) / 10;
+                for (float t = 0; t <= 1; t += 0.001f)
+                {
+                    float m = (1 - t);
+                    float xb = (float)((ar.orix * Math.Pow(m, 3)) + (3 * (ar.orix+x1) * Math.Pow(m, 2) * t) + (2 * (ar.destx+x1) * Math.Pow(t, 2) * m) + (ar.destx * Math.Pow(t, 3)));
+                    float yb = (float)((ar.oriy * Math.Pow(m, 3)) + (3 * (ar.oriy+y1) * Math.Pow(m, 2) * t) + (2 * (ar.desty+y1) * Math.Pow(t, 2) * m) + (ar.desty * Math.Pow(t, 3)));
+                    if ((int)xb + 4 > x && (int)xb - 4 < x && (int)yb + 4 > y && (int)yb - 4 < y)
+                        ListAristas.Remove(ar);
+
+                }
+            }
+        }
+    }
+}
+       
+
+            /*for(int i = 0; i < ListAristas.Count; i++)
             {
                 Arista ar = ListAristas[i];
                 float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix); //calcula pendiente
@@ -92,10 +112,4 @@ namespace grafosv1
                 if((int)ecy < y+3 && (int)ecy > y - 3)
                 {
                     ListAristas.Remove(ar);
-                }
-            }
-
-        }
-
-    }
-}
+                }*/

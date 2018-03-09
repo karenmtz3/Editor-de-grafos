@@ -30,6 +30,9 @@ namespace grafosv1
 
         public int x1, y1;
 
+        public Point p1, c1, p2, c2;
+
+
         //variables para abrir y guardar el grafo
         SaveFileDialog save;
         OpenFileDialog open;
@@ -61,8 +64,10 @@ namespace grafosv1
             {
                 Stream st = File.Open(save.FileName, FileMode.Create);
                 BinaryFormatter bin = new BinaryFormatter();
+                
                 //guardado = true;
                 bin.Serialize(st, ListGrafo);
+                ListGrafo.Clear();
                 st.Close();
                 
             }
@@ -254,9 +259,9 @@ namespace grafosv1
                     label3.Text = "nodo a mover = " + (aux + 1).ToString();
                     for (int i = 0; i < g.ListaVer.Count; i++)
                     {
-                        /*CVertice v = g.ListaVer[i];
-                        for (int j = 0; j < v.ListAristas.Count; j++)
-                            v.ListAristas[j].CambiaCoord(x1,y1);*/
+                       /* CVertice v = g.ListaVer[i];
+                        for (int j = 0; j < v.ListAristas.Count; j++)*/
+                            //v.ListAristas[j].CambiaCoord(xo,yo);
                              g.ListaVer[i].Cambia();
                             //n1.Cambiar();
                     }
@@ -270,8 +275,8 @@ namespace grafosv1
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            xo = e.X;
-            yo = e.Y;
+            //xo = e.X;
+            //yo = e.Y;
             //busca nodo origen y guarda las coordenadas del mousedown
             if (TipoArista)
             {
@@ -288,6 +293,7 @@ namespace grafosv1
                 move = true;
                 moveG = false;
                 forma = false;
+                
             }
 
             //desactiva la bandera de si se esta en la forma 
@@ -312,6 +318,7 @@ namespace grafosv1
                 y1 = e.Y - yo;
                 move = false;
                 Invalidate();
+
             }
             //si esta activa la bandera de mover grafo se masignan las nuevas coordenadas de los nodos y aristas 
             if (moveG)
@@ -443,25 +450,30 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                            int x1 = (arista.destx - arista.orix) / 10;
-                            int y1 = (arista.desty - arista.orix) / 10;
+                            int x1 = (arista.destx - arista.orix) / 8;
+                            int y1 = (arista.desty - arista.orix) / 8;
 
-                            Point p1 = new Point(arista.orix, arista.oriy);
-                            Point c1 = new Point(arista.orix + x1, arista.oriy + y1);
-                            Point c2 = new Point(arista.destx + x1, arista.desty + y1);
-                            Point p2 = new Point(arista.destx, arista.desty);
+                            //dibuja orejas
+                            if (ListGrafo[i].ListaVer.ElementAt(j) == ListGrafo[i].ListaVer[j].ListAristas[k].RegresaDest)
+                            {
+                                int radio = wid / 2;
+                                p1 = new Point(arista.orix, arista.oriy + radio + 15);
+                                c1 = new Point(arista.orix - (int)(radio * 2.5), arista.oriy + (radio / 2));
+                                c2 = new Point(arista.orix - (2 * radio), arista.oriy);
+                                p2 = new Point(arista.orix, arista.oriy - radio + 12);
+                            }
 
-                                e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
+                            //dibuja curvas
+                            else //if(ListGrafo[i].ListaVer.ElementAt(j) != ListGrafo[i].ListaVer[j].ListAristas[k].RegresaDest)
+                            {
+                                p1 = new Point(arista.orix, arista.oriy);
+                                c1 = new Point(arista.orix + x1, arista.oriy + y1);
+                                c2 = new Point(arista.destx + x1, arista.desty + y1);
+                                p2 = new Point(arista.destx, arista.desty);
+                            }
+                            e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
                             //e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
-                           // if (temp1 == destv)
-                            //{
-                               /* int radio = wid/2;
-                                Point p0 = new Point(arista.orix, arista.oriy + radio+15);
-                                Point c11 = new Point(arista.orix -(int)(radio * 3), arista.oriy + (radio / 2));
-                                Point c21 = new Point(arista.orix -(3 * radio), arista.oriy);
-                                Point p3 = new Point(arista.orix, arista.oriy - radio+12);
-                                e.Graphics.DrawBezier(lapiz2, p0, c11, c21, p3);
-                            //}*/
+
                         }
                     }
                 }
