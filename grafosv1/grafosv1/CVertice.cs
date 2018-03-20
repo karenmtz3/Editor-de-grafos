@@ -14,6 +14,7 @@ namespace grafosv1
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
+        Graphics graphics;
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
         {
@@ -80,26 +81,58 @@ namespace grafosv1
             return ListAristas;
         }
 
-        //elimina la arista de la lista de aristas 
         public void EliminaArista(int x, int y)
         {
             //buscar arista 
             for (int i = 0; i < ListAristas.Count; i++)
             {
                 Arista ar = ListAristas[i];
+                Console.WriteLine("x = " + x + ", y = " + y);
+                for (float t = 0; t <= 1; t += 0.01f)
+                {
+                    float m = (1 - t);
+                    float xb = (int)((ar.p2.X * Math.Pow(m, 3)) + (3 * ar.c2.X * Math.Pow(m, 2) * t) + (2 * ar.c1.X * Math.Pow(t, 2) * m) + ar.p1.X * Math.Pow(t, 3));
+                    float yb = (int)((ar.p2.Y * Math.Pow(m, 3)) + (3 * ar.c2.Y * Math.Pow(m, 2) * t) + (2 * ar.c1.Y * Math.Pow(t, 2) * m) + ar.p1.Y * Math.Pow(t, 3));
+                    Console.WriteLine("xb = " + xb + ", yb = " + yb);
+                    if (xb + 4 > x && xb - 4 < x && yb + 4 > y && yb - 4 < y)
+                    {
+                        Console.WriteLine("Arista encontrada");
+                        ListAristas.Remove(ar);
+
+
+                    }
+                }
+
+            }
+        }
+
+        //elimina la arista de la lista de aristas 
+        /*public void EliminaArista(int x, int y)
+        {
+            //buscar arista 
+            for (int i = 0; i < ListAristas.Count; i++)
+            {
+                Arista ar = ListAristas[i];
+               
                 int x1 = (ar.destx - ar.orix) / 10;
                 int y1 = (ar.desty - ar.oriy) / 10;
+                Console.WriteLine("x = " + x + ", y = " + y);
                 for (float t = 0; t <= 1; t += 0.001f)
                 {
                     float m = (1 - t);
                     float xb = (float)((ar.orix * Math.Pow(m, 3)) + (3 * (ar.orix+x1) * Math.Pow(m, 2) * t) + (2 * (ar.destx+x1) * Math.Pow(t, 2) * m) + (ar.destx * Math.Pow(t, 3)));
                     float yb = (float)((ar.oriy * Math.Pow(m, 3)) + (3 * (ar.oriy+y1) * Math.Pow(m, 2) * t) + (2 * (ar.desty+y1) * Math.Pow(t, 2) * m) + (ar.desty * Math.Pow(t, 3)));
+                    Console.WriteLine("xb = " + xb + ", yb = " + yb);
                     if ((int)xb + 4 > x && (int)xb - 4 < x && (int)yb + 4 > y && (int)yb - 4 < y)
+                    {
+                        Console.WriteLine("Arista encontrada");
                         ListAristas.Remove(ar);
+
+                    }
 
                 }
             }
-        }
+        }*/
     }
 }
        
