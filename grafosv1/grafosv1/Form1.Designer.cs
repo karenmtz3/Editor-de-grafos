@@ -52,6 +52,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
+            this.ponderadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noPonderadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -83,7 +85,7 @@
             // nuevoToolStripMenuItem1
             // 
             this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
-            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.nuevoToolStripMenuItem1.Text = "Nuevo";
             this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
             // 
@@ -91,7 +93,7 @@
             // 
             this.guardarToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Save_80_icon_icons_com_57276;
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
@@ -99,7 +101,7 @@
             // 
             this.abrirToolStripMenuItem.Image = global::grafosv1.Properties.Resources.stock_open_36034;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -178,14 +180,17 @@
             this.noDirigidoToolStripMenuItem1});
             this.nuevaAristaToolStripMenuItem.Image = global::grafosv1.Properties.Resources.software_vector_line_39821;
             this.nuevaAristaToolStripMenuItem.Name = "nuevaAristaToolStripMenuItem";
-            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nuevaAristaToolStripMenuItem.Text = "Nueva Arista";
             // 
             // dirigidoToolStripMenuItem1
             // 
+            this.dirigidoToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ponderadoToolStripMenuItem,
+            this.noPonderadoToolStripMenuItem});
             this.dirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.rightarrow1_80967;
             this.dirigidoToolStripMenuItem1.Name = "dirigidoToolStripMenuItem1";
-            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.dirigidoToolStripMenuItem1.Text = "Dirigido";
             this.dirigidoToolStripMenuItem1.Click += new System.EventHandler(this.dirigidoToolStripMenuItem1_Click);
             // 
@@ -193,14 +198,14 @@
             // 
             this.noDirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137;
             this.noDirigidoToolStripMenuItem1.Name = "noDirigidoToolStripMenuItem1";
-            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.noDirigidoToolStripMenuItem1.Text = "No dirigido";
             this.noDirigidoToolStripMenuItem1.Click += new System.EventHandler(this.noDirigidoToolStripMenuItem1_Click);
             // 
             // eliminaAristaToolStripMenuItem
             // 
             this.eliminaAristaToolStripMenuItem.Name = "eliminaAristaToolStripMenuItem";
-            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
             this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
             // 
@@ -263,6 +268,20 @@
             this.NumGrafo.TabIndex = 7;
             this.NumGrafo.ValueChanged += new System.EventHandler(this.NumGrafo_ValueChanged);
             // 
+            // ponderadoToolStripMenuItem
+            // 
+            this.ponderadoToolStripMenuItem.Name = "ponderadoToolStripMenuItem";
+            this.ponderadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ponderadoToolStripMenuItem.Text = "Ponderado";
+            this.ponderadoToolStripMenuItem.Click += new System.EventHandler(this.ponderadoToolStripMenuItem_Click);
+            // 
+            // noPonderadoToolStripMenuItem
+            // 
+            this.noPonderadoToolStripMenuItem.Name = "noPonderadoToolStripMenuItem";
+            this.noPonderadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.noPonderadoToolStripMenuItem.Text = "No Ponderado";
+            this.noPonderadoToolStripMenuItem.Click += new System.EventHandler(this.noPonderadoToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +339,8 @@
         private System.Windows.Forms.ToolStripMenuItem moverGrafoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminaAristaToolStripMenuItem;
         private System.Windows.Forms.NumericUpDown NumGrafo;
+        private System.Windows.Forms.ToolStripMenuItem ponderadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noPonderadoToolStripMenuItem;
     }
 }
 

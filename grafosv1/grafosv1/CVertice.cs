@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Microsoft.VisualBasic;
 
 namespace grafosv1
 {
@@ -37,7 +38,7 @@ namespace grafosv1
         }
 
         //inserta una arista a la lista de aristas
-        public void InsertaArista(int xd, int yd, int xo, int yo, CVertice des)
+        public void InsertaArista(int xd, int yd, int xo, int yo, CVertice des, bool p)
         {
             int r = 8, x1, y1, x2, y2;
             x1 = y1 = x2 = y2 = 0;
@@ -73,7 +74,18 @@ namespace grafosv1
                 x2 = xd - r;
                 y2 = yd;
             }
-            ListAristas.Add(new Arista(x2, y2, x1, y1, des));
+            if (p == true)
+            {
+                string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
+                int pe = Convert.ToInt32(pes);
+                ListAristas.Add(new Arista(x2, y2, x1, y1, des, pe));
+
+            }
+            if (p == false)
+            {
+                ListAristas.Add(new Arista(x2, y2, x1, y1, des));
+            }
+            
         }
 
         //regresa la lista de aristas

@@ -11,11 +11,22 @@ namespace grafosv1
     public class Arista
     {
         public int destx, desty, orix, oriy;
-        public int etiqueta;
+        public int peso;
         public CVertice destino;
         public Point p1, c1, p2, c2;
 
         //constructor de la clase Arista
+        public Arista(int xd, int yd, int xo, int yo, CVertice dest, int p)
+        {
+            destino = dest;
+            orix = xo;
+            oriy = yo;
+            destx = xd;
+            desty = yd;
+            peso = p;
+            puntos();
+        }
+
         public Arista(int xd, int yd, int xo, int yo, CVertice dest)
         {
             destino = dest;

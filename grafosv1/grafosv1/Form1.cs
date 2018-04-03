@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.VisualBasic;
 
 
 namespace grafosv1
@@ -27,7 +28,7 @@ namespace grafosv1
         public int xo, yo, xd, yd; //coordenadas del nodo origen y nodo destino
         public int temp1, destv; //se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
         public int posG; //posición de la lista de grafos
-
+        bool ponderado = false;
         public int x1, y1;
 
         public Point p1, c1, p2, c2;
@@ -128,6 +129,28 @@ namespace grafosv1
             TipoArista = false;
         }
 
+        private void ponderadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ponderado = true;
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
+            noDirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.ArrowAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        private void noPonderadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ponderado = false;
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
+            noDirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.ArrowAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
         private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 3;
@@ -137,12 +160,12 @@ namespace grafosv1
 
         private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            TipoArista = true;
+            /*TipoArista = true;
             menu = 4;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
             noDirigidoToolStripMenuItem1.Enabled = false;
             lapiz2.StartCap = LineCap.ArrowAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;*/
         }
 
         private void noDirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -317,7 +340,7 @@ namespace grafosv1
                 move = false;
                 Invalidate();
             }
-            //si esta activa la bandera de mover grafo se masignan las nuevas coordenadas de los nodos y aristas 
+            //si esta activa la bandera de mover grafo se asignan las nuevas coordenadas de los nodos y aristas 
             if (moveG)
             {
                 Grafo g = ListGrafo[posG];
@@ -333,8 +356,7 @@ namespace grafosv1
                         a.oriy += dy;
                         a.destx += dx;
                         a.desty += dy;
-                        a.puntos();
-                    }
+                                  }
                 }
                 moveG = false;
                 Invalidate();
@@ -352,7 +374,18 @@ namespace grafosv1
                 destv = temp;
                 if (temp >= 0)
                 {
-                    ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp));
+                    if (ponderado == true)
+                    {
+                        /*string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
+                        int p = Convert.ToInt32(pes);*/
+                        //ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), p);
+                        ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), ponderado);
+
+                    }
+                    if (ponderado == false)
+                    {
+                        ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp),ponderado);
+                    }
                    
                 }
                 destv = 0;
@@ -378,7 +411,7 @@ namespace grafosv1
 
             for (int i = 0; i < ListGrafo.Count; i++)
             {
-                if (moveG)
+                if (moveG) //si se mueve el grafo
                 {
                     if (i == posG)
                     {
@@ -388,7 +421,7 @@ namespace grafosv1
                             CVertice ver = ListGrafo[i].ListaVer[j];
                             e.Graphics.DrawEllipse(lapiz, ver.x - (wid / 10) + dx, ver.y - (he / 10) + dy, wid, he);
                             e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
-                              new SolidBrush(Color.Blue), ver.x + wid / 3 + dx, ver.y + he / 4 + dy);
+                            new SolidBrush(Color.Blue), ver.x + wid / 3 + dx, ver.y + he / 4 + dy);
                             //dibuja las líneas 
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
@@ -404,6 +437,9 @@ namespace grafosv1
                                 }
                                 puntos = point.ToArray();
                                 e.Graphics.DrawCurve(lapiz2, puntos);
+                                point.Clear();
+                                arista.puntos();
+
                             }
                         }
                     }
@@ -423,16 +459,18 @@ namespace grafosv1
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
                                 Arista arista = ver.ListAristas[k];
-                                //e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
-                                int x1 = (arista.destx - arista.orix) / 10;
-                                int y1 = (arista.desty - arista.orix) / 10;
-
-                                Point p1 = new Point(arista.orix, arista.oriy);
-                                Point c1 = new Point(arista.orix + x1, arista.oriy + y1);
-                                Point c2 = new Point(arista.destx + x1, arista.desty + y1);
-                                Point p2 = new Point(arista.destx, arista.desty);
-
-                                e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
+                                for (float t = 0; t <= 1; t += 0.01f)
+                                {
+                                    float m = (1 - t);
+                                    float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
+                                    float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
+                                    PointF p = new PointF(xb, yb);
+                                    point.Add(p);
+                                    //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                }
+                                puntos = point.ToArray();
+                                e.Graphics.DrawCurve(lapiz2, puntos);
+                                point.Clear();
                             }
                         }
                     }
@@ -450,6 +488,7 @@ namespace grafosv1
                         e.Graphics.DrawEllipse(lapiz, ver.x, ver.y, wid, he);
                         e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
                           new SolidBrush(Color.Blue), ver.x + wid / 3, ver.y + he / 4);
+                       
                         //dibuja las líneas 
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
@@ -461,10 +500,15 @@ namespace grafosv1
                                 float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
                                 PointF p = new PointF(xb, yb);
                                 point.Add(p);
+                                
                                 //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
                             }
                             puntos = point.ToArray();
                             e.Graphics.DrawCurve(lapiz2, puntos);
+                            if(ponderado == true)
+                                e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
+                                    new SolidBrush(Color.Black), arista.destx, arista.desty);
+                            label1.Text = arista.peso.ToString();
                             point.Clear();
                         }
                     }
