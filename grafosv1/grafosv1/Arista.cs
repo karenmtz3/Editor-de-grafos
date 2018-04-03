@@ -34,37 +34,44 @@ namespace grafosv1
         
         public Point[] puntos()
         {
-            int x1 = (destx - orix) / 10;
-            int y1 = (desty - orix) / 10;
-            //dibuja orejas
-            if (orix == destx && oriy == desty)
-            {
-                int radio = 40 / 2;
-                p1 = new Point(orix, oriy + radio + 15);
-                c1 = new Point(orix - (int)(radio * 2.5), oriy + (radio / 2));
-                c2 = new Point(orix - (2 * radio), oriy);
-                p2 = new Point(orix, oriy - radio + 12);
-            }
-
+            int x1 = (destx - orix)/20;
+            int y1 = (desty - oriy)/10;
             //dibuja curvas
+            p1 = new Point(orix, oriy);
+            p2 = new Point(destx, desty);
+            if (orix == destx)
+            {
+                c1 = new Point(orix + x1*10, oriy);
+                c2 = new Point(destx + x1*10, desty);
+            }
+            else if(oriy == desty)
+            {
+                c1 = new Point(orix, oriy + y1*10);
+                c2 = new Point(destx, desty + y1*10);
+            }
             else
             {
-                p1 = new Point(orix, oriy);
                 c1 = new Point(orix + x1, oriy + y1);
                 c2 = new Point(destx + x1, desty + y1);
-                p2 = new Point(destx, desty);
             }
             return new Point[] { p2, c2, p1, c1 };
         }
-
-
+        
         //cambia las coordenadas del origen de la arista
         public void CambiaCoord(int xo, int yo) //cords de origen de la arista
         {
             int r = 10;
             int x1 = 0, y1 = 0;
-            destx = destino.x + 2*r;
-            desty = destino.y + 2*r;
+            if (destino.x == xo && destino.y == yo)
+            {
+                destx = destino.x + 3 * r;
+                desty = destino.y + 3 * r;
+            }
+            else
+            {
+                destx = destino.x + 2 * r;
+                desty = destino.y + 2 * r;
+            }
             //primer cuadrante
             if (destino.x > xo && destino.y < yo)
             {

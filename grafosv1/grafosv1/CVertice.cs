@@ -14,7 +14,7 @@ namespace grafosv1
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
-        Graphics graphics;
+        //Graphics graphics;
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
         {
@@ -32,6 +32,7 @@ namespace grafosv1
                 int xm = x + 20;
                 int ym = y + 20;
                 ListAristas[i].CambiaCoord(xm, ym);
+               // ListAristas[i].Coordenadas();
             }
         }
 

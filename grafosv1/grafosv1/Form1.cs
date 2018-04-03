@@ -306,8 +306,6 @@ namespace grafosv1
                 moveG = true;
                 forma = false;
             }
-
-            
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -318,7 +316,6 @@ namespace grafosv1
                 y1 = e.Y - yo;
                 move = false;
                 Invalidate();
-
             }
             //si esta activa la bandera de mover grafo se masignan las nuevas coordenadas de los nodos y aristas 
             if (moveG)
@@ -336,6 +333,7 @@ namespace grafosv1
                         a.oriy += dy;
                         a.destx += dx;
                         a.desty += dy;
+                        a.puntos();
                     }
                 }
                 moveG = false;
@@ -371,6 +369,8 @@ namespace grafosv1
      
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            PointF[] puntos;
+            List<PointF> point = new List<PointF>();
             dx = xd - xo;
             dy = yd - yo;
             if (forma)
@@ -393,16 +393,17 @@ namespace grafosv1
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
                                 Arista arista = ver.ListAristas[k];
-                                //e.Graphics.DrawLine(lapiz2, arista.destx+dx, arista.desty+dy, arista.orix+dx, arista.oriy+dy);
-                                int x1 = (arista.destx - arista.orix) / 10;
-                                int y1 = (arista.desty - arista.orix) / 10;
-
-                                Point p1 = new Point(arista.orix + dx, arista.oriy + dy);
-                                Point c1 = new Point(arista.orix + x1 + dx, arista.oriy + y1 + dy);
-                                Point c2 = new Point(arista.destx + x1 + dx, arista.desty + y1 + dy);
-                                Point p2 = new Point(arista.destx + dx, arista.desty + dy);
-
-                                e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);
+                                for (float t = 0; t <= 1; t += 0.01f)
+                                {
+                                    float m = (1 - t);
+                                    float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
+                                    float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
+                                    PointF p = new PointF(xb, yb);
+                                    point.Add(p);
+                                    //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                }
+                                puntos = point.ToArray();
+                                e.Graphics.DrawCurve(lapiz2, puntos);
                             }
                         }
                     }
@@ -453,38 +454,18 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                            /*int x1 = (arista.destx - arista.orix) / 8;
-                            int y1 = (arista.desty - arista.orix) / 8;
-
-                            //dibuja orejas
-                            if (ListGrafo[i].ListaVer.ElementAt(j) == ListGrafo[i].ListaVer[j].ListAristas[k].RegresaDest)
-                            {
-                                int radio = wid / 2;
-                                p1 = new Point(arista.orix, arista.oriy + radio + 15);
-                                c1 = new Point(arista.orix - (int)(radio * 2.5), arista.oriy + (radio / 2));
-                                c2 = new Point(arista.orix - (2 * radio), arista.oriy);
-                                p2 = new Point(arista.orix, arista.oriy - radio + 12);
-                            }
-
-                            //dibuja curvas
-                            else
-                            {
-                                p1 = new Point(arista.orix, arista.oriy);
-                                c1 = new Point(arista.orix + x1, arista.oriy + y1);
-                                c2 = new Point(arista.destx + x1, arista.desty + y1);
-                                p2 = new Point(arista.destx, arista.desty);
-                            }
-                           e.Graphics.DrawBezier(lapiz2, p2, c2, c1, p1);*/
-                            for (float t = 0; t <= 1; t += 0.001f)
+                            for (float t = 0; t <= 1; t += 0.01f)
                             {
                                 float m = (1 - t);
                                 float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
                                 float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
-                               // e.Graphics.DrawEllipse(lapiz2, xb, yb, 2, 2);
-                                //e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+                                PointF p = new PointF(xb, yb);
+                                point.Add(p);
+                                //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
                             }
-                            e.Graphics.DrawBezier(lapiz, arista.p2, arista.c2, arista.c1, arista.p1);
-
+                            puntos = point.ToArray();
+                            e.Graphics.DrawCurve(lapiz2, puntos);
+                            point.Clear();
                         }
                     }
                 }
