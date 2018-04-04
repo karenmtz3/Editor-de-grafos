@@ -81,10 +81,8 @@ namespace grafosv1
                 ListAristas.Add(new Arista(x2, y2, x1, y1, des, pe));
 
             }
-            if (p == false)
-            {
+            else
                 ListAristas.Add(new Arista(x2, y2, x1, y1, des));
-            }
             
         }
 

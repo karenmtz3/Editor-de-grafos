@@ -151,6 +151,17 @@ namespace grafosv1
             lapiz2.EndCap = LineCap.NoAnchor;
         }
 
+        private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 7;
+        }
+
+        private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 8;
+            ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count);
+        }
+
         private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 3;
@@ -320,7 +331,7 @@ namespace grafosv1
             }
 
             //desactiva la bandera de si se esta en la forma 
-            if (menu == 5)
+            if (menu == 5 || menu == 8)
                 forma = false;
 
             //activa la bandera de mover grafo
@@ -356,7 +367,8 @@ namespace grafosv1
                         a.oriy += dy;
                         a.destx += dx;
                         a.desty += dy;
-                                  }
+                        a.puntos();
+                    }
                 }
                 moveG = false;
                 Invalidate();
@@ -374,19 +386,7 @@ namespace grafosv1
                 destv = temp;
                 if (temp >= 0)
                 {
-                    if (ponderado == true)
-                    {
-                        /*string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
-                        int p = Convert.ToInt32(pes);*/
-                        //ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), p);
-                        ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), ponderado);
-
-                    }
-                    if (ponderado == false)
-                    {
-                        ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp),ponderado);
-                    }
-                   
+                    ListGrafo[posG].ListaVer[temp1].InsertaArista(xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), ponderado);
                 }
                 destv = 0;
                 //xo = yo = xd = yd = -1;
@@ -396,6 +396,17 @@ namespace grafosv1
                 forma = false;
                 for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
                     ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
+            }
+            if (menu == 7)
+            {
+                forma = false;
+                int t = ListGrafo[posG].Buscar(e.X, e.Y);
+                if (t >= 0)
+                {
+                    int grade = ListGrafo[posG].ListaVer[t].ListAristas.Count;
+                    label3.Text = "Las aristas del vértice " + (t+1) + " son: " + grade;
+                   // MessageBox.Show("El grado del vértice es: " + grade.ToString(), "Grado de vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             Invalidate();
         }
