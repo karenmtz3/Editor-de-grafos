@@ -12,6 +12,7 @@ namespace grafosv1
         public List<CVertice> ListaVer; //lista de los vertices
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
         public MatrizAdy m;
+        public ListaAd l;
 
         public Grafo()
         {
@@ -24,6 +25,12 @@ namespace grafosv1
             m = new MatrizAdy(i);
             m.CreaMatriz(ListaVer);
 
+        }
+
+        public void LstAd()
+        {
+            l = new ListaAd();
+            l.CreaLista(ListaVer);
         }
 
         //inserta un nuevo vertice a la lista

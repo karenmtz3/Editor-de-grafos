@@ -162,6 +162,12 @@ namespace grafosv1
             ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count);
         }
 
+        private void listaDeAdyacenciasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 9;
+            ListGrafo[posG].LstAd();
+        }
+
         private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 3;
@@ -331,7 +337,7 @@ namespace grafosv1
             }
 
             //desactiva la bandera de si se esta en la forma 
-            if (menu == 5 || menu == 8)
+            if (menu == 5 || menu == 8 || menu == 9)
                 forma = false;
 
             //activa la bandera de mover grafo

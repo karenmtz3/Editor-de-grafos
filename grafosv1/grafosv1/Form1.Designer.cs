@@ -37,10 +37,12 @@
             this.grafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moverGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.matrizAdyacenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vérticeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitarNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moverNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gradoDeNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dirigidoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +56,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
-            this.gradoDeNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.matrizAdyacenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaDeAdyacenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -112,7 +113,8 @@
             this.grafoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nuevoGrafoToolStripMenuItem,
             this.moverGrafoToolStripMenuItem,
-            this.matrizAdyacenciaToolStripMenuItem});
+            this.matrizAdyacenciaToolStripMenuItem,
+            this.listaDeAdyacenciasToolStripMenuItem});
             this.grafoToolStripMenuItem.Name = "grafoToolStripMenuItem";
             this.grafoToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.grafoToolStripMenuItem.Text = "Grafo";
@@ -132,6 +134,13 @@
             this.moverGrafoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.moverGrafoToolStripMenuItem.Text = "Mover Grafo";
             this.moverGrafoToolStripMenuItem.Click += new System.EventHandler(this.moverGrafoToolStripMenuItem_Click);
+            // 
+            // matrizAdyacenciaToolStripMenuItem
+            // 
+            this.matrizAdyacenciaToolStripMenuItem.Name = "matrizAdyacenciaToolStripMenuItem";
+            this.matrizAdyacenciaToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.matrizAdyacenciaToolStripMenuItem.Text = "Matriz Adyacencia";
+            this.matrizAdyacenciaToolStripMenuItem.Click += new System.EventHandler(this.matrizAdyacenciaToolStripMenuItem_Click);
             // 
             // vérticeToolStripMenuItem
             // 
@@ -167,6 +176,13 @@
             this.moverNodoToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.moverNodoToolStripMenuItem.Text = "Mover Nodo";
             this.moverNodoToolStripMenuItem.Click += new System.EventHandler(this.moverNodoToolStripMenuItem_Click);
+            // 
+            // gradoDeNodoToolStripMenuItem
+            // 
+            this.gradoDeNodoToolStripMenuItem.Name = "gradoDeNodoToolStripMenuItem";
+            this.gradoDeNodoToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.gradoDeNodoToolStripMenuItem.Text = "Grado de Nodo";
+            this.gradoDeNodoToolStripMenuItem.Click += new System.EventHandler(this.gradoDeNodoToolStripMenuItem_Click);
             // 
             // aristaToolStripMenuItem
             // 
@@ -286,19 +302,12 @@
             this.NumGrafo.TabIndex = 7;
             this.NumGrafo.ValueChanged += new System.EventHandler(this.NumGrafo_ValueChanged);
             // 
-            // gradoDeNodoToolStripMenuItem
+            // listaDeAdyacenciasToolStripMenuItem
             // 
-            this.gradoDeNodoToolStripMenuItem.Name = "gradoDeNodoToolStripMenuItem";
-            this.gradoDeNodoToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.gradoDeNodoToolStripMenuItem.Text = "Grado de Nodo";
-            this.gradoDeNodoToolStripMenuItem.Click += new System.EventHandler(this.gradoDeNodoToolStripMenuItem_Click);
-            // 
-            // matrizAdyacenciaToolStripMenuItem
-            // 
-            this.matrizAdyacenciaToolStripMenuItem.Name = "matrizAdyacenciaToolStripMenuItem";
-            this.matrizAdyacenciaToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.matrizAdyacenciaToolStripMenuItem.Text = "Matriz Adyacencia";
-            this.matrizAdyacenciaToolStripMenuItem.Click += new System.EventHandler(this.matrizAdyacenciaToolStripMenuItem_Click);
+            this.listaDeAdyacenciasToolStripMenuItem.Name = "listaDeAdyacenciasToolStripMenuItem";
+            this.listaDeAdyacenciasToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.listaDeAdyacenciasToolStripMenuItem.Text = "Lista Adyacencia";
+            this.listaDeAdyacenciasToolStripMenuItem.Click += new System.EventHandler(this.listaDeAdyacenciasToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -361,6 +370,7 @@
         private System.Windows.Forms.ToolStripMenuItem noPonderadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gradoDeNodoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matrizAdyacenciaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listaDeAdyacenciasToolStripMenuItem;
     }
 }
 

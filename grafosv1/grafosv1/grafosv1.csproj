@@ -55,6 +55,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Grafo.cs" />
+    <Compile Include="ListaAd.cs" />
     <Compile Include="MatrizAdy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
