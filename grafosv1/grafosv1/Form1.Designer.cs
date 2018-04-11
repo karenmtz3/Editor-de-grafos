@@ -38,6 +38,7 @@
             this.nuevoGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moverGrafoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matrizAdyacenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listaDeAdyacenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vérticeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitarNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +57,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
-            this.listaDeAdyacenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.matrizIncidenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.isomorfismoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ponderadoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.noPonderadoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +92,7 @@
             // nuevoToolStripMenuItem1
             // 
             this.nuevoToolStripMenuItem1.Name = "nuevoToolStripMenuItem1";
-            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.nuevoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.nuevoToolStripMenuItem1.Text = "Nuevo";
             this.nuevoToolStripMenuItem1.Click += new System.EventHandler(this.nuevoToolStripMenuItem1_Click);
             // 
@@ -96,7 +100,7 @@
             // 
             this.guardarToolStripMenuItem.Image = global::grafosv1.Properties.Resources.Save_80_icon_icons_com_57276;
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
@@ -104,7 +108,7 @@
             // 
             this.abrirToolStripMenuItem.Image = global::grafosv1.Properties.Resources.stock_open_36034;
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -114,7 +118,9 @@
             this.nuevoGrafoToolStripMenuItem,
             this.moverGrafoToolStripMenuItem,
             this.matrizAdyacenciaToolStripMenuItem,
-            this.listaDeAdyacenciasToolStripMenuItem});
+            this.listaDeAdyacenciasToolStripMenuItem,
+            this.matrizIncidenciaToolStripMenuItem,
+            this.isomorfismoToolStripMenuItem});
             this.grafoToolStripMenuItem.Name = "grafoToolStripMenuItem";
             this.grafoToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.grafoToolStripMenuItem.Text = "Grafo";
@@ -141,6 +147,13 @@
             this.matrizAdyacenciaToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.matrizAdyacenciaToolStripMenuItem.Text = "Matriz Adyacencia";
             this.matrizAdyacenciaToolStripMenuItem.Click += new System.EventHandler(this.matrizAdyacenciaToolStripMenuItem_Click);
+            // 
+            // listaDeAdyacenciasToolStripMenuItem
+            // 
+            this.listaDeAdyacenciasToolStripMenuItem.Name = "listaDeAdyacenciasToolStripMenuItem";
+            this.listaDeAdyacenciasToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.listaDeAdyacenciasToolStripMenuItem.Text = "Lista Adyacencia";
+            this.listaDeAdyacenciasToolStripMenuItem.Click += new System.EventHandler(this.listaDeAdyacenciasToolStripMenuItem_Click);
             // 
             // vérticeToolStripMenuItem
             // 
@@ -200,7 +213,7 @@
             this.noDirigidoToolStripMenuItem1});
             this.nuevaAristaToolStripMenuItem.Image = global::grafosv1.Properties.Resources.software_vector_line_39821;
             this.nuevaAristaToolStripMenuItem.Name = "nuevaAristaToolStripMenuItem";
-            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nuevaAristaToolStripMenuItem.Text = "Nueva Arista";
             // 
             // dirigidoToolStripMenuItem1
@@ -210,36 +223,39 @@
             this.noPonderadoToolStripMenuItem});
             this.dirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.rightarrow1_80967;
             this.dirigidoToolStripMenuItem1.Name = "dirigidoToolStripMenuItem1";
-            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.dirigidoToolStripMenuItem1.Text = "Dirigido";
             this.dirigidoToolStripMenuItem1.Click += new System.EventHandler(this.dirigidoToolStripMenuItem1_Click);
             // 
             // ponderadoToolStripMenuItem
             // 
             this.ponderadoToolStripMenuItem.Name = "ponderadoToolStripMenuItem";
-            this.ponderadoToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.ponderadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ponderadoToolStripMenuItem.Text = "Ponderado";
             this.ponderadoToolStripMenuItem.Click += new System.EventHandler(this.ponderadoToolStripMenuItem_Click);
             // 
             // noPonderadoToolStripMenuItem
             // 
             this.noPonderadoToolStripMenuItem.Name = "noPonderadoToolStripMenuItem";
-            this.noPonderadoToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.noPonderadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.noPonderadoToolStripMenuItem.Text = "No Ponderado";
             this.noPonderadoToolStripMenuItem.Click += new System.EventHandler(this.noPonderadoToolStripMenuItem_Click);
             // 
             // noDirigidoToolStripMenuItem1
             // 
+            this.noDirigidoToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ponderadoToolStripMenuItem1,
+            this.noPonderadoToolStripMenuItem1});
             this.noDirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137;
             this.noDirigidoToolStripMenuItem1.Name = "noDirigidoToolStripMenuItem1";
-            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.noDirigidoToolStripMenuItem1.Text = "No dirigido";
             this.noDirigidoToolStripMenuItem1.Click += new System.EventHandler(this.noDirigidoToolStripMenuItem1_Click);
             // 
             // eliminaAristaToolStripMenuItem
             // 
             this.eliminaAristaToolStripMenuItem.Name = "eliminaAristaToolStripMenuItem";
-            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
             this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
             // 
@@ -302,12 +318,33 @@
             this.NumGrafo.TabIndex = 7;
             this.NumGrafo.ValueChanged += new System.EventHandler(this.NumGrafo_ValueChanged);
             // 
-            // listaDeAdyacenciasToolStripMenuItem
+            // matrizIncidenciaToolStripMenuItem
             // 
-            this.listaDeAdyacenciasToolStripMenuItem.Name = "listaDeAdyacenciasToolStripMenuItem";
-            this.listaDeAdyacenciasToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.listaDeAdyacenciasToolStripMenuItem.Text = "Lista Adyacencia";
-            this.listaDeAdyacenciasToolStripMenuItem.Click += new System.EventHandler(this.listaDeAdyacenciasToolStripMenuItem_Click);
+            this.matrizIncidenciaToolStripMenuItem.Name = "matrizIncidenciaToolStripMenuItem";
+            this.matrizIncidenciaToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.matrizIncidenciaToolStripMenuItem.Text = "Matriz Incidencia";
+            this.matrizIncidenciaToolStripMenuItem.Click += new System.EventHandler(this.matrizIncidenciaToolStripMenuItem_Click);
+            // 
+            // isomorfismoToolStripMenuItem
+            // 
+            this.isomorfismoToolStripMenuItem.Name = "isomorfismoToolStripMenuItem";
+            this.isomorfismoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.isomorfismoToolStripMenuItem.Text = "Isomorfismo";
+            this.isomorfismoToolStripMenuItem.Click += new System.EventHandler(this.isomorfismoToolStripMenuItem_Click);
+            // 
+            // ponderadoToolStripMenuItem1
+            // 
+            this.ponderadoToolStripMenuItem1.Name = "ponderadoToolStripMenuItem1";
+            this.ponderadoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.ponderadoToolStripMenuItem1.Text = "Ponderado";
+            this.ponderadoToolStripMenuItem1.Click += new System.EventHandler(this.ponderadoToolStripMenuItem1_Click);
+            // 
+            // noPonderadoToolStripMenuItem1
+            // 
+            this.noPonderadoToolStripMenuItem1.Name = "noPonderadoToolStripMenuItem1";
+            this.noPonderadoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.noPonderadoToolStripMenuItem1.Text = "No ponderado";
+            this.noPonderadoToolStripMenuItem1.Click += new System.EventHandler(this.noPonderadoToolStripMenuItem1_Click);
             // 
             // Form1
             // 
@@ -371,6 +408,10 @@
         private System.Windows.Forms.ToolStripMenuItem gradoDeNodoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem matrizAdyacenciaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaDeAdyacenciasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem matrizIncidenciaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem isomorfismoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ponderadoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem noPonderadoToolStripMenuItem1;
     }
 }
 

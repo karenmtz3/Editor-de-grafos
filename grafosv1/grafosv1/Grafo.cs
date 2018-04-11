@@ -11,8 +11,8 @@ namespace grafosv1
     {
         public List<CVertice> ListaVer; //lista de los vertices
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
-        public MatrizAdy m;
-        public ListaAd l;
+        private MatrizAdy m;
+        private ListaAd l;
 
         public Grafo()
         {

@@ -9,8 +9,8 @@ namespace grafosv1
     [Serializable()]
     public class MatrizAdy
     {
-        public int n;
-        public int[,] matriz;
+        private int n;
+        private int[,] matriz;
 
         public MatrizAdy(int i)
         {

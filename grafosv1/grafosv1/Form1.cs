@@ -57,6 +57,39 @@ namespace grafosv1
             nuevoToolStripMenuItem1.Enabled = false;
         }
 
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+
+        //nuevo documento
+        private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            vérticeToolStripMenuItem.Enabled = false;
+            aristaToolStripMenuItem.Enabled = false;
+            //habilita los botones de dirgido y no dirigido
+            dirigidoToolStripMenuItem1.Enabled = true;
+            noDirigidoToolStripMenuItem1.Enabled = true;
+            DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (b == DialogResult.Yes)
+            {
+                guardarToolStripMenuItem_Click(sender, e);
+                ListGrafo.Clear();
+
+                //posG += 1;
+            }
+            else
+            {
+                ListGrafo.Clear();
+                posG = -1;
+            }
+            //ListGrafo = new List<Grafo>();
+
+            temp1 = 0;
+            Invalidate();
+        }
+
         //guardar el grafo
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -109,102 +142,6 @@ namespace grafosv1
             Invalidate();
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-
-        private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            menu = 1;
-            BVertice = true;
-            temp1 = 0;
-        }
-
-        private void quitarNodoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            menu = 2;
-            TipoArista = false;
-        }
-
-        private void ponderadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ponderado = true;
-            TipoArista = true;
-            menu = 4;
-            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
-            noDirigidoToolStripMenuItem1.Enabled = false;
-            lapiz2.StartCap = LineCap.ArrowAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;
-        }
-
-        private void noPonderadoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ponderado = false;
-            TipoArista = true;
-            menu = 4;
-            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
-            noDirigidoToolStripMenuItem1.Enabled = false;
-            lapiz2.StartCap = LineCap.ArrowAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;
-        }
-
-        private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            menu = 7;
-        }
-
-        private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            menu = 8;
-            ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count);
-        }
-
-        private void listaDeAdyacenciasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            menu = 9;
-            ListGrafo[posG].LstAd();
-        }
-
-        private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            menu = 3;
-            //move = true;
-            //moveG = false;
-        }
-
-        private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            /*TipoArista = true;
-            menu = 4;
-            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
-            noDirigidoToolStripMenuItem1.Enabled = false;
-            lapiz2.StartCap = LineCap.ArrowAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;*/
-        }
-
-        private void noDirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            TipoArista = true;
-            menu = 4;
-            //deshabilita el botón de dirigido y se dibuja la línea
-            dirigidoToolStripMenuItem1.Enabled = false;
-            lapiz2.StartCap = LineCap.NoAnchor;
-            lapiz2.EndCap = LineCap.NoAnchor;
-        }
-
-        private void NumGrafo_ValueChanged(object sender, EventArgs e)
-        {
-            posG = ((int)NumGrafo.Value);
-        }
-
-        private void moverGrafoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            menu = 6;
-        }
-
         //crea un nuevo grafo y lo agrega a la lista de grafos
         private void nuevoGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -220,38 +157,152 @@ namespace grafosv1
             NumGrafo.Value = posG;
             label3.Text = "Posición del grafo en la lista: " + posG.ToString();
             menu = 0;
-           forma = move = moveG = TipoArista = false;
+            forma = move = moveG = TipoArista = false;
         }
 
+        //mover grafo   activa variable para mover el grafo
+        private void moverGrafoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 6;
+        }
+
+        //Crea la matriz de adyacencia  imprime en consola
+        private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 8;
+            ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count);
+        }
+
+        //Crea la lista de adyacencia   imprime en consola
+        private void listaDeAdyacenciasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 9;
+            ListGrafo[posG].LstAd();
+        }
+
+        //Crea matriz de incidencia
+        private void matrizIncidenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //isomorfismo
+        private void isomorfismoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //crea nuevo nodo       activa banderas para dibujar los nodos
+        private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            menu = 1;
+            BVertice = true;
+            temp1 = 0;
+        }
+
+        //elimina nodo      activa bandera para eliminar los nodos
+        private void quitarNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 2;
+            TipoArista = false;
+        }
+
+        //mover nodo        activa bandera para mover el nodo seleccionado
+        private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 3;
+            //move = true;
+            //moveG = false;
+        }
+
+        //grado del vértice     activa bandera la dar el grado del vértice que se de click
+        private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 7;
+        }
+
+
+        //aristas dirigidas
+        private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            /*TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
+            noDirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.ArrowAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;*/
+        }
+
+        //Se usan banderas para poner ponderación en las aristas dirigidas
+        private void ponderadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ponderado = true;
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
+            noDirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.ArrowAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        //Se usan banderas para poner aristas sin ponderación
+        private void noPonderadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ponderado = false;
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de no dirigido y se dibuja la línea con flecha
+            noDirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.ArrowAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        //aristas no dirigidas
+        private void noDirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            /*TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de dirigido y se dibuja la línea
+            dirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.NoAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;*/
+        }
+
+        //Se usan banderas para pner ponderacion a las aristas no dirigidas
+        private void ponderadoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ponderado = true;
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de dirigido y se dibuja la línea
+            dirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.NoAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        //se usan banderas para poner aristas no dirigidas sin ponderación
+        private void noPonderadoToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ponderado = false;
+            TipoArista = true;
+            menu = 4;
+            //deshabilita el botón de dirigido y se dibuja la línea
+            dirigidoToolStripMenuItem1.Enabled = false;
+            lapiz2.StartCap = LineCap.NoAnchor;
+            lapiz2.EndCap = LineCap.NoAnchor;
+        }
+
+        //Se activa bandera para poder eliminar una arista
         private void eliminaAristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 5;
         }
 
-        private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
+        //Se asigna a la variable de posición de grafo el valor de este numericUpDown
+        private void NumGrafo_ValueChanged(object sender, EventArgs e)
         {
-            vérticeToolStripMenuItem.Enabled = false;
-            aristaToolStripMenuItem.Enabled = false;
-            //habilita los botones de dirgido y no dirigido
-            dirigidoToolStripMenuItem1.Enabled = true;
-            noDirigidoToolStripMenuItem1.Enabled = true;
-            DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-            if (b == DialogResult.Yes)
-            {
-                guardarToolStripMenuItem_Click(sender, e);
-                ListGrafo.Clear();
-
-                //posG += 1;
-            }
-            else
-            {
-                ListGrafo.Clear();
-                posG = -1;
-            }
-            //ListGrafo = new List<Grafo>();
-
-            temp1 = 0;
-            Invalidate();
+            posG = ((int)NumGrafo.Value);
         }
 
 
@@ -350,6 +401,7 @@ namespace grafosv1
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            //si esta activa la bandera de mover nodo se cambian las coordenadas el nodo
             if(move)
             {
                 x1 = e.X - xo;
@@ -397,12 +449,14 @@ namespace grafosv1
                 destv = 0;
                 //xo = yo = xd = yd = -1;
             }
-            if (menu == 5) //activa elimina arista
+            //Llama al método que elimina la arista
+            if (menu == 5) 
             {
                 forma = false;
                 for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
                     ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
             }
+            //Da el grado del vértice
             if (menu == 7)
             {
                 forma = false;
@@ -456,7 +510,6 @@ namespace grafosv1
                                 e.Graphics.DrawCurve(lapiz2, puntos);
                                 point.Clear();
                                 arista.puntos();
-
                             }
                         }
                     }
