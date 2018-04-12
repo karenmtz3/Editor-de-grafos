@@ -113,9 +113,29 @@ namespace grafosv1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap New_File_36861 {
+            get {
+                object obj = ResourceManager.GetObject("New_File_36861", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap perfect_circle_icon_icons_com_53928 {
             get {
                 object obj = ResourceManager.GetObject("perfect-circle_icon-icons.com_53928", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Plus_36851 {
+            get {
+                object obj = ResourceManager.GetObject("Plus_36851", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

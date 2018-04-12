@@ -170,7 +170,11 @@ namespace grafosv1
         private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 8;
-            ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count);
+            ListGrafo[posG].MtzAd();//ListGrafo[posG].ListaVer.Count, DatosT);
+            //DatosT.Visible = true;
+            /*Vista v = new Vista();
+            v.muestra(ListGrafo[posG].ListaVer.Count);
+            v.Visible = true;*/
         }
 
         //Crea la lista de adyacencia   imprime en consola

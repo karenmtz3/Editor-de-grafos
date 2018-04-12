@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace grafosv1
 {
@@ -20,10 +21,13 @@ namespace grafosv1
             ListaVer = new List<CVertice>();
         }
 
-        public void MtzAd(int i)
+        public void MtzAd()//int i, RichTextBox t)
         {
-            m = new MatrizAdy(i);
-            m.CreaMatriz(ListaVer);
+            //m = new MatrizAdy(i);
+            Vista v = new Vista();
+            v.muestra(ListaVer);
+            v.Visible = true;
+            //m.CreaMatriz(ListaVer, t);
 
         }
 

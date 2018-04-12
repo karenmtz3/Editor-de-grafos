@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace grafosv1
 {
@@ -18,8 +19,9 @@ namespace grafosv1
             matriz = new int[n,n];
         }
 
-        public void CreaMatriz(List<CVertice> ver)
+        public void CreaMatriz(List<CVertice> ver, RichTextBox t)
         {
+            //t.Text = "holi boli";
             List<string> ListVer = new List<string>();
             for (int i = 0; i < ver.Count; i++)
                 ListVer.Add(ver[i].name);
@@ -46,14 +48,44 @@ namespace grafosv1
             }
 
             //Imprime la matriz
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < ver.Count; i++)
             {
+                t.Text += ver[i].name + " |   ";
                 for (int j = 0; j < n; j++)
+                {
                     Console.Write(string.Format("{0,4:D}", matriz[i, j]));
+                    t.Text += string.Format("{0,4:D}", matriz[i, j].ToString());
+                }
+                t.Text += Environment.NewLine;
                 Console.WriteLine();
             }
 
+
+            /*for (int i = 0; i < n; i++)
+            {
+                m.Items.Add(matriz[i, 0].ToString());
+                for (int j = 1; j < n - 1; j++)
+                    m.Items[i].SubItems.Add(matriz[i, j].ToString());
+            }*/
+
         }
         
+
+        /*public void MuestraMatriz(ListView m)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                m.Name[i] = 
+                m.Items.Add(matriz[i, 0].ToString());
+                for (int j = 1; j < n - 1; j++)
+                    m.Items[i].SubItems.Add(matriz[i,j].ToString());
+            }*/
+        /*m.ColumnCount = n;
+        m.RowCount = n;
+        for (int i = 0; i <= n - 1; i++)
+            for (int j = 0; j <= n - 1; j++)
+                m.Rows[i].Cells[j].Value = matriz[i, j].ToString();*/
+        //}
+
     }
 }
