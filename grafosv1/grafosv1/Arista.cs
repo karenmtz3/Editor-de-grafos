@@ -12,7 +12,7 @@ namespace grafosv1
     {
         public int destx, desty, orix, oriy;
         public int peso;
-        public CVertice destino;
+        public CVertice destino, origen;
         public Point p1, c1, p2, c2;
 
         //constructor de la clase Arista

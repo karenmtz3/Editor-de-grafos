@@ -28,7 +28,7 @@ namespace grafosv1
         public int xo, yo, xd, yd; //coordenadas del nodo origen y nodo destino
         public int temp1, destv; //se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
         public int posG; //posición de la lista de grafos
-        bool ponderado = false;
+        bool ponderado = false, dirigido = false;
         public int x1, y1;
 
         public Point p1, c1, p2, c2;
@@ -40,6 +40,8 @@ namespace grafosv1
         bool forma = false;
 
         int dx, dy;
+
+        int[] arreglo, arreglo2;
 
         public Form1()
         {
@@ -103,7 +105,6 @@ namespace grafosv1
                 bin.Serialize(st, ListGrafo);
                 ListGrafo.Clear();
                 st.Close();
-                
             }
         }
 
@@ -145,6 +146,8 @@ namespace grafosv1
         //crea un nuevo grafo y lo agrega a la lista de grafos
         private void nuevoGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            gradoDeNodoToolStripMenuItem.Enabled = false;
+            gradoInternoToolStripMenuItem.Enabled = false;
             aristaToolStripMenuItem.Enabled = true;
             dirigidoToolStripMenuItem1.Enabled = true;
             noDirigidoToolStripMenuItem1.Enabled = true;
@@ -152,10 +155,10 @@ namespace grafosv1
             nuevoToolStripMenuItem1.Enabled = true;
             Grafo g = new Grafo();
             ListGrafo.Add(g);
-            label5.Text = "grafos en la lista: " + ListGrafo.Count.ToString();
+            //label5.Text = "grafos en la lista: " + ListGrafo.Count.ToString();
             posG++;
             NumGrafo.Value = posG;
-            label3.Text = "Posición del grafo en la lista: " + posG.ToString();
+            //label3.Text = "Posición del grafo en la lista: " + posG.ToString();
             menu = 0;
             forma = move = moveG = TipoArista = false;
         }
@@ -170,8 +173,11 @@ namespace grafosv1
         private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 8;
-            ListGrafo[posG].MtzAd();//ListGrafo[posG].ListaVer.Count, DatosT);
-            //DatosT.Visible = true;
+            //arreglo = new int[ListGrafo[posG].ListaVer.Count];
+            label5.Text = "Matriz de Adyacencia";
+            DatosT.Clear();
+            ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            DatosT.Visible = true;
             /*Vista v = new Vista();
             v.muestra(ListGrafo[posG].ListaVer.Count);
             v.Visible = true;*/
@@ -181,7 +187,10 @@ namespace grafosv1
         private void listaDeAdyacenciasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 9;
-            ListGrafo[posG].LstAd();
+            label5.Text = "Lista de Adyacencia";
+            DatosT.Clear();
+            ListGrafo[posG].LstAd(DatosT, dirigido);
+            DatosT.Visible = true;
         }
 
         //Crea matriz de incidencia
@@ -224,12 +233,29 @@ namespace grafosv1
         private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 7;
+            DatosT.Clear();
+            arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
         }
 
+        private void gradoInternoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 10;
+            DatosT.Clear();
+            //arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            arreglo2 =ListGrafo[posG].mtzad(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+        }
+
+        private void vérticeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
 
         //aristas dirigidas
         private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
+            gradoDeNodoToolStripMenuItem.Enabled = false;
+            gradoInternoToolStripMenuItem.Enabled = true;
+            dirigido = true;
             /*TipoArista = true;
             menu = 4;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
@@ -265,6 +291,10 @@ namespace grafosv1
         //aristas no dirigidas
         private void noDirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
+            gradoDeNodoToolStripMenuItem.Enabled = true;
+            gradoInternoToolStripMenuItem.Enabled = false;
+            dirigido = false;
             /*TipoArista = true;
             menu = 4;
             //deshabilita el botón de dirigido y se dibuja la línea
@@ -343,7 +373,7 @@ namespace grafosv1
             {
                 forma = false;
                 moveG = false;
-                label4.Text = "moviendo";
+                //label4.Text = "moviendo";
                 int aux = ListGrafo[posG].Buscar(e.X, e.Y);
                 if (aux >= 0)
                 {
@@ -351,7 +381,7 @@ namespace grafosv1
                     CVertice n = ListGrafo[posG].ListaVer[aux];
                     n.x = e.X - wid / 2;
                     n.y = e.Y - he / 2;
-                    label3.Text = "nodo a mover = " + (aux + 1).ToString();
+                    //label3.Text = "nodo a mover = " + (aux + 1).ToString();
                     for (int i = 0; i < g.ListaVer.Count; i++)
                     {
                        /* CVertice v = g.ListaVer[i];
@@ -363,8 +393,8 @@ namespace grafosv1
                 }
                 //Invalidate();
             }
-            else
-                label4.Text = "No se mueve nada";
+           // else
+             //   label4.Text = "No se mueve nada";
             Invalidate();
         }
 
@@ -379,7 +409,7 @@ namespace grafosv1
                temp1 = ListGrafo[posG].Buscar(e.X, e.Y);
                xo = e.X;
                yo = e.Y;
-               label1.Text = "origen = "+ (temp1+1).ToString();
+               //label1.Text = "origen = "+ (temp1+1).ToString();
             }
 
             //activa bandera para mover nodos y aristas
@@ -392,7 +422,7 @@ namespace grafosv1
             }
 
             //desactiva la bandera de si se esta en la forma 
-            if (menu == 5 || menu == 8 || menu == 9)
+            if (menu == 5 || menu == 8 || menu == 9 || menu == 10)
                 forma = false;
 
             //activa la bandera de mover grafo
@@ -444,7 +474,7 @@ namespace grafosv1
                 int temp = ListGrafo[posG].Buscar(e.X, e.Y);
                 xd = e.X;
                 yd = e.Y;
-                label2.Text = "destino= " + (temp+1).ToString();
+                //label2.Text = "destino= " + (temp+1).ToString();
                 destv = temp;
                 if (temp >= 0)
                 {
@@ -467,9 +497,43 @@ namespace grafosv1
                 int t = ListGrafo[posG].Buscar(e.X, e.Y);
                 if (t >= 0)
                 {
-                    int grade = ListGrafo[posG].ListaVer[t].ListAristas.Count;
+                    for (int i = 0; i < arreglo.Length; i++)
+                    {
+                        if(t == i)
+                        MessageBox.Show("El grado del vértie es: " + arreglo[i], "Grado del vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    /*int grade = ListGrafo[posG].ListaVer[t].ListAristas.Count;
                     label3.Text = "Las aristas del vértice " + (t+1) + " son: " + grade;
-                   // MessageBox.Show("El grado del vértice es: " + grade.ToString(), "Grado de vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("El grado del vértice es: " + grade.ToString(), "Grado de vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
+                }
+            }
+
+            //Da el grado interno y externo del vértice
+            if (menu == 10)
+            {
+                forma = false;
+                int t = ListGrafo[posG].Buscar(e.X, e.Y);
+                if (t >= 0)
+                {
+                    for (int i = 0; i < arreglo2.Length; i++)
+                    {
+                        if (t == i)
+                        {
+                            int grade = ListGrafo[posG].ListaVer[t].ListAristas.Count; //externo
+                                                                                       //g = arreglo[i] - grade; //interno
+                            if (dirigido == true)
+                            {
+
+                                int g = arreglo2[i]; //interno
+                                label1.Text = g.ToString();
+                                MessageBox.Show("El grado interno del vértice es: " + g.ToString()
+                                + Environment.NewLine + "El grado externo del vertice es: " +
+                                grade.ToString(), "Grado de vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            }
+                            //g = arreglo[i] + grade;
+                        }
+                    }
                 }
             }
             Invalidate();

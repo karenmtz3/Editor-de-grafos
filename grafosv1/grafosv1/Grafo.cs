@@ -14,27 +14,46 @@ namespace grafosv1
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
         private MatrizAdy m;
         private ListaAd l;
+        public int[] TGrados, TGrados2;
 
         public Grafo()
         {
             auxi = -1;
             ListaVer = new List<CVertice>();
+            
         }
 
-        public void MtzAd()//int i, RichTextBox t)
+        public int[] MtzAd(int i, RichTextBox t, bool dir)
         {
-            //m = new MatrizAdy(i);
-            Vista v = new Vista();
+            m = new MatrizAdy(i);
+            TGrados = new int[i];
+            //string s = "Matriz de Adyacencia";
+            /*v = new Vista(s);
             v.muestra(ListaVer);
-            v.Visible = true;
-            //m.CreaMatriz(ListaVer, t);
+            v.Visible = true;*/
+            m.CreaMatriz(ListaVer, t, dir);
+            TGrados = m.GetList.ToArray();
+            return TGrados; 
+        }
+
+        public int[] mtzad(int i, RichTextBox t, bool dir)
+        {
+            m = new MatrizAdy(i);
+            TGrados2 = new int[i];
+            m.CreaMatriz(ListaVer, t, dir);
+            TGrados2 = m.GetList2.ToArray();
+            return TGrados2;
 
         }
 
-        public void LstAd()
+        public void LstAd(RichTextBox t, bool dir)
         {
             l = new ListaAd();
-            l.CreaLista(ListaVer);
+            /*string s = "Lista de Adyacencia";
+            v = new Vista(s);
+            v.MuestraLis(ListaVer);
+            v.Visible = true;*/
+            l.CreaLista(ListaVer, t, dir);
         }
 
         //inserta un nuevo vertice a la lista
