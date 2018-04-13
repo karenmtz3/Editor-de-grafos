@@ -38,7 +38,7 @@ namespace grafosv1
         }
 
         //inserta una arista a la lista de aristas
-        public void InsertaArista(string n, int xd, int yd, int xo, int yo, CVertice des, bool p)
+        public void InsertaArista(string n, int xd, int yd, int xo, int yo, CVertice des, bool p, bool dirgido)
         {
             int r = 8, x1, y1, x2, y2;
             x1 = y1 = x2 = y2 = 0;

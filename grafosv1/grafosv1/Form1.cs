@@ -18,8 +18,8 @@ namespace grafosv1
     public partial class Form1 : Form
     {
         public int x, y, wid, he; //posiciones del nodo, altura y ancho
-        Pen lapiz = new Pen(Color.Blue,3); //color del contorno del nodo
-        Pen lapiz2 = new Pen(Color.BlueViolet,3); //color de la arista
+        Pen lapiz = new Pen(Color.Blue, 3); //color del contorno del nodo
+        Pen lapiz2 = new Pen(Color.BlueViolet, 3); //color de la arista
         public List<Grafo> ListGrafo; //lista de grafos
         public bool BVertice; //bandera cuando se da click en el boton nodo
         public bool TipoArista; //bandera que se activa si se selecciono arista dirigida o no dirigida, checa el mouseup y mousedown
@@ -103,7 +103,7 @@ namespace grafosv1
             {
                 Stream st = File.Open(save.FileName, FileMode.Create);
                 BinaryFormatter bin = new BinaryFormatter();
-                
+
                 //guardado = true;
                 bin.Serialize(st, ListGrafo);
                 ListGrafo.Clear();
@@ -180,7 +180,7 @@ namespace grafosv1
             label5.Text = "Matriz de Adyacencia";
             DatosT.Clear();
             ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
-            DatosT.Visible = true;
+            //DatosT.Visible = true;
             /*Vista v = new Vista();
             v.muestra(ListGrafo[posG].ListaVer.Count);
             v.Visible = true;*/
@@ -193,7 +193,7 @@ namespace grafosv1
             label5.Text = "Lista de Adyacencia";
             DatosT.Clear();
             ListGrafo[posG].LstAd(DatosT, dirigido);
-            DatosT.Visible = true;
+            //DatosT.Visible = true;
         }
 
         //Crea matriz de incidencia
@@ -201,35 +201,40 @@ namespace grafosv1
         {
             menu = 11;
             nombrear = true;
-            ListGrafo[posG].MtzIncd(ListGrafo[posG].ListaVer.Count,TotalAris);
+            label5.Text = "Matriz de Incidencia";
+            DatosT.Clear();
+            ListGrafo[posG].MtzIncd(ListGrafo[posG].ListaVer.Count, TotalAris, DatosT);
         }
 
         //isomorfismo
         private void isomorfismoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 12;
+            int n = posG--;
             ListGrafo[posG].setAris = TotalAris.Count;
-            //ListGrafo[posG--].setAris = TotalAris.Count;
+            ListGrafo[n].setAris = TotalAris.Count;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
-            //int[] arreglo2 = ListGrafo[posG++].MtzAd(ListGrafo[posG++].ListaVer.Count, DatosT, dirigido);
-            //Console.WriteLine(ListGrafo[posG--]);
+            int[] arreglo2 = ListGrafo[n].MtzAd(ListGrafo[n].ListaVer.Count, DatosT, dirigido);
+            DatosT.Clear();
             ListGrafo[posG].setGrados = arreglo;
-            //ListGrafo[posG++].setGrados = arreglo2;
+            ListGrafo[n].setGrados = arreglo2;
+
 
             if (ListGrafo.Count > 1)
             {
-                if (!ListGrafo[posG].Iso(ListGrafo[posG], ListGrafo[posG]))
+                if (ListGrafo[posG].Dir == ListGrafo[n].Dir)
                 {
-                    MessageBox.Show("No son Isomorfos");
+                    if (ListGrafo[posG].Iso(ListGrafo[posG], ListGrafo[n]))
+                        MessageBox.Show("Son Isomorfos");
+                    else
+                        MessageBox.Show("No Son Isomorfos");
                 }
                 else
-                    MessageBox.Show("Son Isomorfos");
-                Console.WriteLine("grafo " + posG);
-                
+                    MessageBox.Show("No son del mismo tipo de grafos");
             }
             else
                 MessageBox.Show("Solo hay un grafo");
-        }
+        } 
 
         //crea nuevo nodo       activa banderas para dibujar los nodos
         private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -258,6 +263,35 @@ namespace grafosv1
         private void nuevaAristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             total = 0;
+            TotalAris.Clear();
+        }
+
+        private void medioKuratowskyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //a partir del grafo determinar si contiene un subgrafo homeomórfico a k3,3 o k5
+            Grafo g = ListGrafo[posG];
+            int NV = g.ListaVer.Count;
+            int[] arr = g.MtzAd(NV, DatosT, dirigido);
+            g.setGrados = arr;
+            List<int> list = new List<int>();
+            List<int> list2 = new List<int>();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                //para k5
+                if (arr[i] == 4)
+                    list.Add(i);
+                //para k3,3
+                else if (arr[i] == 3)
+                    list2.Add(i);
+            }
+            if (list.Count >= 5)
+                MessageBox.Show("El grafo contiene a k5");
+            else if (list2.Count >= 6)
+                MessageBox.Show("El grafo contien a k3,3");
+            else if (list.Count >= 5 && list2.Count >= 6)
+                MessageBox.Show("Contiene a k5 y k3,3");
+            else
+                MessageBox.Show("No contiene ninguno de estos grafos");
         }
 
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
@@ -284,9 +318,10 @@ namespace grafosv1
         private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
-            gradoDeNodoToolStripMenuItem.Enabled = false;
+            gradoDeNodoToolStripMenuItem.Enabled = true;
             gradoInternoToolStripMenuItem.Enabled = true;
             dirigido = true;
+            ListGrafo[posG].Dir = true;
             /*TipoArista = true;
             menu = 4;
             //deshabilita el botón de no dirigido y se dibuja la línea con flecha
@@ -324,8 +359,9 @@ namespace grafosv1
         {
 
             gradoDeNodoToolStripMenuItem.Enabled = true;
-            gradoInternoToolStripMenuItem.Enabled = false;
+            gradoInternoToolStripMenuItem.Enabled = true;
             dirigido = false;
+            ListGrafo[posG].Dir = false;
             /*TipoArista = true;
             menu = 4;
             //deshabilita el botón de dirigido y se dibuja la línea
@@ -368,6 +404,7 @@ namespace grafosv1
         private void NumGrafo_ValueChanged(object sender, EventArgs e)
         {
             posG = ((int)NumGrafo.Value);
+
         }
 
 
@@ -512,7 +549,7 @@ namespace grafosv1
                 destv = temp;
                 if (temp >= 0)
                 {
-                    ListGrafo[posG].ListaVer[temp1].InsertaArista(total.ToString(),xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), ponderado);
+                    ListGrafo[posG].ListaVer[temp1].InsertaArista(total.ToString(),xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), ponderado, dirigido);
                     TotalAris.Add(total);
                 }
                 Console.WriteLine("aristas = " + total.ToString());

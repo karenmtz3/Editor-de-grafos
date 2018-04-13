@@ -64,6 +64,7 @@
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.medioKuratowskyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -124,7 +125,8 @@
             this.matrizAdyacenciaToolStripMenuItem,
             this.listaDeAdyacenciasToolStripMenuItem,
             this.matrizIncidenciaToolStripMenuItem,
-            this.isomorfismoToolStripMenuItem});
+            this.isomorfismoToolStripMenuItem,
+            this.medioKuratowskyToolStripMenuItem});
             this.grafoToolStripMenuItem.Name = "grafoToolStripMenuItem";
             this.grafoToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.grafoToolStripMenuItem.Text = "Grafo";
@@ -241,7 +243,7 @@
             this.noDirigidoToolStripMenuItem1});
             this.nuevaAristaToolStripMenuItem.Image = global::grafosv1.Properties.Resources.software_vector_line_39821;
             this.nuevaAristaToolStripMenuItem.Name = "nuevaAristaToolStripMenuItem";
-            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.nuevaAristaToolStripMenuItem.Text = "Nueva Arista";
             this.nuevaAristaToolStripMenuItem.Click += new System.EventHandler(this.nuevaAristaToolStripMenuItem_Click);
             // 
@@ -252,7 +254,7 @@
             this.noPonderadoToolStripMenuItem});
             this.dirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.rightarrow1_80967;
             this.dirigidoToolStripMenuItem1.Name = "dirigidoToolStripMenuItem1";
-            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
             this.dirigidoToolStripMenuItem1.Text = "Dirigido";
             this.dirigidoToolStripMenuItem1.Click += new System.EventHandler(this.dirigidoToolStripMenuItem1_Click);
             // 
@@ -277,7 +279,7 @@
             this.noPonderadoToolStripMenuItem1});
             this.noDirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137;
             this.noDirigidoToolStripMenuItem1.Name = "noDirigidoToolStripMenuItem1";
-            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
             this.noDirigidoToolStripMenuItem1.Text = "No dirigido";
             this.noDirigidoToolStripMenuItem1.Click += new System.EventHandler(this.noDirigidoToolStripMenuItem1_Click);
             // 
@@ -298,7 +300,7 @@
             // eliminaAristaToolStripMenuItem
             // 
             this.eliminaAristaToolStripMenuItem.Name = "eliminaAristaToolStripMenuItem";
-            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
             this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
             // 
@@ -364,7 +366,6 @@
             this.DatosT.Size = new System.Drawing.Size(120, 74);
             this.DatosT.TabIndex = 8;
             this.DatosT.Text = "";
-            this.DatosT.Visible = false;
             // 
             // label6
             // 
@@ -375,6 +376,13 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 9;
+            // 
+            // medioKuratowskyToolStripMenuItem
+            // 
+            this.medioKuratowskyToolStripMenuItem.Name = "medioKuratowskyToolStripMenuItem";
+            this.medioKuratowskyToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.medioKuratowskyToolStripMenuItem.Text = "medio kuratowsky";
+            this.medioKuratowskyToolStripMenuItem.Click += new System.EventHandler(this.medioKuratowskyToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -447,6 +455,7 @@
         private System.Windows.Forms.RichTextBox DatosT;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripMenuItem gradoInternoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem medioKuratowskyToolStripMenuItem;
     }
 }
 

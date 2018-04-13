@@ -13,6 +13,7 @@ namespace grafosv1
         public List<CVertice> ListaVer; //lista de los vertices
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
         private int totalArist;
+        private bool dirigido;
         private MatrizAdy m;
         private MatrizIncid mi;
         private ListaAd l;
@@ -24,6 +25,12 @@ namespace grafosv1
             auxi = -1;
             ListaVer = new List<CVertice>();
             
+        }
+
+        public bool Dir
+        {
+            get => dirigido;
+            set => dirigido = value;
         }
 
         public int setAris
@@ -72,10 +79,10 @@ namespace grafosv1
             l.CreaLista(ListaVer, t, dir);
         }
 
-        public void MtzIncd(int n, List<int> TAristas)
+        public void MtzIncd(int n, List<int> TAristas, RichTextBox t)
         {
             mi = new MatrizIncid(n,TAristas);
-            mi.CreaMatrizI(ListaVer);
+            mi.CreaMatrizI(ListaVer, t);
         }
 
         public bool Iso(Grafo g1, Grafo g2)

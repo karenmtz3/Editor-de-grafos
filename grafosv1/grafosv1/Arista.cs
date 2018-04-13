@@ -15,6 +15,7 @@ namespace grafosv1
         public CVertice destino;
         public string NombreAr;
         public Point p1, c1, p2, c2;
+        public bool dirigido;
 
         //constructor de la clase Arista
         public Arista(string n, int xd, int yd, int xo, int yo, CVertice dest, int p)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace grafosv1
 {
@@ -21,7 +22,7 @@ namespace grafosv1
             matrizI = new int[n,m];
         }
 
-        public void CreaMatrizI(List<CVertice> vertice)
+        public void CreaMatrizI(List<CVertice> vertice, RichTextBox t)
         {
             List<string> listv = new List<string>();
             List<string> lista = new List<string>();
@@ -64,7 +65,10 @@ namespace grafosv1
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
+                {
                     Console.Write(string.Format("{0,4:D}", matrizI[i, j]));
+                    t.Text += string.Format("{0,4:D}", matrizI[i, j].ToString());
+                }
                 Console.WriteLine();
             }
         }
