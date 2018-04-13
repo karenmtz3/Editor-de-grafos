@@ -271,17 +271,19 @@ namespace grafosv1
             //a partir del grafo determinar si contiene un subgrafo homeomórfico a k3,3 o k5
             Grafo g = ListGrafo[posG];
             int NV = g.ListaVer.Count;
+            DatosT.Clear();
             int[] arr = g.MtzAd(NV, DatosT, dirigido);
+            int[] arr2 = arr;
             g.setGrados = arr;
             List<int> list = new List<int>();
             List<int> list2 = new List<int>();
             for (int i = 0; i < arr.Length; i++)
             {
                 //para k5
-                if (arr[i] == 4)
+                if (arr[i] >= 4)
                     list.Add(i);
                 //para k3,3
-                else if (arr[i] == 3)
+                else if (arr2[i] >= 3)
                     list2.Add(i);
             }
             if (list.Count >= 5)
@@ -291,7 +293,7 @@ namespace grafosv1
             else if (list.Count >= 5 && list2.Count >= 6)
                 MessageBox.Show("Contiene a k5 y k3,3");
             else
-                MessageBox.Show("No contiene ninguno de estos grafos");
+                MessageBox.Show("No contiene k5 ni k3,3");
         }
 
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
