@@ -12,8 +12,11 @@ namespace grafosv1
     {
         public List<CVertice> ListaVer; //lista de los vertices
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
+        private int totalArist;
         private MatrizAdy m;
+        private MatrizIncid mi;
         private ListaAd l;
+        private Isomorfismo GIsomor;
         public int[] TGrados, TGrados2;
 
         public Grafo()
@@ -22,6 +25,19 @@ namespace grafosv1
             ListaVer = new List<CVertice>();
             
         }
+
+        public int setAris
+        {
+            get => totalArist;
+            set => totalArist = value;
+        }
+
+        public int[] setGrados
+        {
+            set => TGrados = value;
+            get => TGrados;
+        }
+
 
         public int[] MtzAd(int i, RichTextBox t, bool dir)
         {
@@ -54,6 +70,18 @@ namespace grafosv1
             v.MuestraLis(ListaVer);
             v.Visible = true;*/
             l.CreaLista(ListaVer, t, dir);
+        }
+
+        public void MtzIncd(int n, List<int> TAristas)
+        {
+            mi = new MatrizIncid(n,TAristas);
+            mi.CreaMatrizI(ListaVer);
+        }
+
+        public bool Iso(Grafo g1, Grafo g2)
+        {
+            GIsomor = new Isomorfismo(g1,g2);
+            return GIsomor.SonIsomosfos();
         }
 
         //inserta un nuevo vertice a la lista

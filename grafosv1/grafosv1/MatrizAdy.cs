@@ -32,8 +32,8 @@ namespace grafosv1
 
             //Inicializa la matriz en 0
             for (int i = 0; i < n; i++)
-                    for (int j = 0; j < n; j++)
-                        matriz[i, j] = 0;
+                for (int j = 0; j < n; j++)
+                    matriz[i, j] = 0;
 
             //Suma 1 a la matriz en donde hay relación
             for (int i = 0; i < ver.Count; i++)

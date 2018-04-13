@@ -38,7 +38,7 @@ namespace grafosv1
         }
 
         //inserta una arista a la lista de aristas
-        public void InsertaArista(int xd, int yd, int xo, int yo, CVertice des, bool p)
+        public void InsertaArista(string n, int xd, int yd, int xo, int yo, CVertice des, bool p)
         {
             int r = 8, x1, y1, x2, y2;
             x1 = y1 = x2 = y2 = 0;
@@ -78,11 +78,11 @@ namespace grafosv1
             {
                 string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
                 int pe = Convert.ToInt32(pes);
-                ListAristas.Add(new Arista(x2, y2, x1, y1, des, pe));
+                ListAristas.Add(new Arista(n,x2, y2, x1, y1, des, pe));
 
             }
             else
-                ListAristas.Add(new Arista(x2, y2, x1, y1, des));
+                ListAristas.Add(new Arista(n,x2, y2, x1, y1, des));
             
         }
 

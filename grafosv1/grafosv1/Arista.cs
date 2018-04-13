@@ -12,12 +12,14 @@ namespace grafosv1
     {
         public int destx, desty, orix, oriy;
         public int peso;
-        public CVertice destino, origen;
+        public CVertice destino;
+        public string NombreAr;
         public Point p1, c1, p2, c2;
 
         //constructor de la clase Arista
-        public Arista(int xd, int yd, int xo, int yo, CVertice dest, int p)
+        public Arista(string n, int xd, int yd, int xo, int yo, CVertice dest, int p)
         {
+            NombreAr = n;
             destino = dest;
             orix = xo;
             oriy = yo;
@@ -27,8 +29,9 @@ namespace grafosv1
             puntos();
         }
 
-        public Arista(int xd, int yd, int xo, int yo, CVertice dest)
+        public Arista(string n,int xd, int yd, int xo, int yo, CVertice dest)
         {
+            NombreAr = n;
             destino = dest;
             orix = xo;
             oriy = yo;

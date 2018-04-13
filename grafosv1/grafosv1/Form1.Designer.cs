@@ -46,6 +46,7 @@
             this.quitarNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moverNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gradoDeNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gradoInternoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dirigidoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,6 @@
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.gradoInternoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -218,6 +218,13 @@
             this.gradoDeNodoToolStripMenuItem.Text = "Grado de Nodo";
             this.gradoDeNodoToolStripMenuItem.Click += new System.EventHandler(this.gradoDeNodoToolStripMenuItem_Click);
             // 
+            // gradoInternoToolStripMenuItem
+            // 
+            this.gradoInternoToolStripMenuItem.Name = "gradoInternoToolStripMenuItem";
+            this.gradoInternoToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.gradoInternoToolStripMenuItem.Text = "Grado Interno y Externo";
+            this.gradoInternoToolStripMenuItem.Click += new System.EventHandler(this.gradoInternoToolStripMenuItem_Click);
+            // 
             // aristaToolStripMenuItem
             // 
             this.aristaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -234,8 +241,9 @@
             this.noDirigidoToolStripMenuItem1});
             this.nuevaAristaToolStripMenuItem.Image = global::grafosv1.Properties.Resources.software_vector_line_39821;
             this.nuevaAristaToolStripMenuItem.Name = "nuevaAristaToolStripMenuItem";
-            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.nuevaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.nuevaAristaToolStripMenuItem.Text = "Nueva Arista";
+            this.nuevaAristaToolStripMenuItem.Click += new System.EventHandler(this.nuevaAristaToolStripMenuItem_Click);
             // 
             // dirigidoToolStripMenuItem1
             // 
@@ -244,7 +252,7 @@
             this.noPonderadoToolStripMenuItem});
             this.dirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.rightarrow1_80967;
             this.dirigidoToolStripMenuItem1.Name = "dirigidoToolStripMenuItem1";
-            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.dirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.dirigidoToolStripMenuItem1.Text = "Dirigido";
             this.dirigidoToolStripMenuItem1.Click += new System.EventHandler(this.dirigidoToolStripMenuItem1_Click);
             // 
@@ -269,7 +277,7 @@
             this.noPonderadoToolStripMenuItem1});
             this.noDirigidoToolStripMenuItem1.Image = global::grafosv1.Properties.Resources.minus_gross_horizontal_straight_line_symbol_icon_icons_com_74137;
             this.noDirigidoToolStripMenuItem1.Name = "noDirigidoToolStripMenuItem1";
-            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.noDirigidoToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.noDirigidoToolStripMenuItem1.Text = "No dirigido";
             this.noDirigidoToolStripMenuItem1.Click += new System.EventHandler(this.noDirigidoToolStripMenuItem1_Click);
             // 
@@ -290,7 +298,7 @@
             // eliminaAristaToolStripMenuItem
             // 
             this.eliminaAristaToolStripMenuItem.Name = "eliminaAristaToolStripMenuItem";
-            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.eliminaAristaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
             this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
             // 
@@ -367,13 +375,6 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 9;
-            // 
-            // gradoInternoToolStripMenuItem
-            // 
-            this.gradoInternoToolStripMenuItem.Name = "gradoInternoToolStripMenuItem";
-            this.gradoInternoToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.gradoInternoToolStripMenuItem.Text = "Grado Interno y Externo";
-            this.gradoInternoToolStripMenuItem.Click += new System.EventHandler(this.gradoInternoToolStripMenuItem_Click);
             // 
             // Form1
             // 
