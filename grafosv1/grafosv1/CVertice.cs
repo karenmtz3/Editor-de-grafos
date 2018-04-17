@@ -98,19 +98,32 @@ namespace grafosv1
             for (int i = 0; i < ListAristas.Count; i++)
             {
                 Arista ar = ListAristas[i];
-                Console.WriteLine("x = " + x + ", y = " + y);
-                for (float t = 0; t <= 1; t += 0.01f)
+                //Console.WriteLine("x = " + x + ", y = " + y);
+                if (i <= 3)
                 {
-                    float m = (1 - t);
-                    float xb = (int)((ar.p2.X * Math.Pow(m, 3)) + (3 * ar.c2.X * Math.Pow(m, 2) * t) + (2 * ar.c1.X * Math.Pow(t, 2) * m) + ar.p1.X * Math.Pow(t, 3));
-                    float yb = (int)((ar.p2.Y * Math.Pow(m, 3)) + (3 * ar.c2.Y * Math.Pow(m, 2) * t) + (2 * ar.c1.Y * Math.Pow(t, 2) * m) + ar.p1.Y * Math.Pow(t, 3));
-                    Console.WriteLine("xb = " + xb + ", yb = " + yb);
-                    if (xb + 4 > x && xb - 4 < x && yb + 4 > y && yb - 4 < y)
+                    float m = (ar.desty - ar.oriy) / (ar.destx - ar.orix);
+                    float ecy = (m * (x - ar.orix) + ar.oriy);
+                    if ((int)ecy < y + 4 && (int)ecy > y - 4)
                     {
-                        Console.WriteLine("Arista encontrada");
+                        Console.WriteLine("arista encontrada");
                         ListAristas.Remove(ar);
+                    }
+                }
+                else
+                {
+                    for (float t = 0; t <= 1; t += 0.01f)
+                    {
+                        float m = (1 - t);
+                        float xb = (int)((ar.p2.X * Math.Pow(m, 3)) + (3 * ar.c2.X * Math.Pow(m, 2) * t) + (2 * ar.c1.X * Math.Pow(t, 2) * m) + ar.p1.X * Math.Pow(t, 3));
+                        float yb = (int)((ar.p2.Y * Math.Pow(m, 3)) + (3 * ar.c2.Y * Math.Pow(m, 2) * t) + (2 * ar.c1.Y * Math.Pow(t, 2) * m) + ar.p1.Y * Math.Pow(t, 3));
+                        //Console.WriteLine("xb = " + xb + ", yb = " + yb);
+                        if (xb + 4 > x && xb - 4 < x && yb + 4 > y && yb - 4 < y)
+                        {
+                            Console.WriteLine("curva encontrada");
+                            ListAristas.Remove(ar);
 
 
+                        }
                     }
                 }
 

@@ -279,13 +279,29 @@ namespace grafosv1
             List<int> list2 = new List<int>();
             for (int i = 0; i < arr.Length; i++)
             {
-                //para k5
+                //grados del vértice para para k5
                 if (arr[i] >= 4)
                     list.Add(i);
-                //para k3,3
-                else if (arr2[i] >= 3)
+
+            }
+            for (int i = 0; i < arr2.Length; i++)
+            {
+                //grados del vértice para k3,3
+                if (arr2[i] >= 3)
                     list2.Add(i);
             }
+            for (int i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine("Lista de k5"); 
+                Console.WriteLine("Elemento " + i + " " + list[i]);
+            }
+            for (int i = 0; i < list2.Count; i++)
+            {
+                Console.WriteLine("Lista de k3,3");
+                Console.WriteLine("Elemento " + i + " " + list2[i]);
+            }
+
+
             if (list.Count >= 5)
                 MessageBox.Show("El grafo contiene a k5");
             else if (list2.Count >= 6)
@@ -711,6 +727,7 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
+                           
                             for (float t = 0; t <= 1; t += 0.01f)
                             {
                                 float m = (1 - t);
@@ -722,7 +739,10 @@ namespace grafosv1
                                 //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
                             }
                             puntos = point.ToArray();
-                            e.Graphics.DrawCurve(lapiz2, puntos);
+                            if (k <= 3)
+                                e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+                            else
+                                e.Graphics.DrawCurve(lapiz2, puntos);
                             //Console.WriteLine("nombre arista = " + arista.NombreAr);
                             int xm = (arista.destino.x + arista.orix) / 2;
                             int ym = (arista.destino.y + arista.oriy) / 2;
