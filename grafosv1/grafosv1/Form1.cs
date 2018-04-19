@@ -114,6 +114,13 @@ namespace grafosv1
         //abrir un grafo
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            gradoDeNodoToolStripMenuItem.Enabled = true;
+            gradoInternoToolStripMenuItem.Enabled = true;
+            aristaToolStripMenuItem.Enabled = true;
+            dirigidoToolStripMenuItem1.Enabled = true;
+            noDirigidoToolStripMenuItem1.Enabled = true;
+            vérticeToolStripMenuItem.Enabled = true;
+            nuevoToolStripMenuItem1.Enabled = true;
             DialogResult b = MessageBox.Show("¿Desea guardar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (b == DialogResult.Yes)
             {
@@ -241,6 +248,7 @@ namespace grafosv1
         {
 
             menu = 1;
+            forma = false;
             BVertice = true;
             temp1 = 0;
         }
@@ -435,6 +443,7 @@ namespace grafosv1
                 switch (menu)
                 {
                     case 1: //inserta el nodo en la lista grafos
+                        
                         ListGrafo[posG].InsertaVertice((ListGrafo[posG].ListaVer.Count + 1).ToString(), x, y);
                         
                         break;
@@ -727,22 +736,27 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                           
-                            for (float t = 0; t <= 1; t += 0.01f)
+                            if (k <= 2)
                             {
-                                float m = (1 - t);
-                                float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
-                                float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
-                                PointF p = new PointF(xb, yb);
-                                point.Add(p);
-
-                                //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
-                            }
-                            puntos = point.ToArray();
-                            if (k <= 3)
+                                arista.Recta = true;
                                 e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+                            }
                             else
+                            {
+                                arista.Recta = false;
+                                for (float t = 0; t <= 1; t += 0.01f)
+                                {
+                                    float m = (1 - t);
+                                    float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
+                                    float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
+                                    PointF p = new PointF(xb, yb);
+                                    point.Add(p);
+
+                                    e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                }
+                                puntos = point.ToArray();
                                 e.Graphics.DrawCurve(lapiz2, puntos);
+                            }
                             //Console.WriteLine("nombre arista = " + arista.NombreAr);
                             int xm = (arista.destino.x + arista.orix) / 2;
                             int ym = (arista.destino.y + arista.oriy) / 2;

@@ -99,15 +99,16 @@ namespace grafosv1
             {
                 Arista ar = ListAristas[i];
                 //Console.WriteLine("x = " + x + ", y = " + y);
-                if (i <= 3)
+                if (ar.Recta == true)
                 {
-                    float m = (ar.desty - ar.oriy) / (ar.destx - ar.orix);
-                    float ecy = (m * (x - ar.orix) + ar.oriy);
-                    if ((int)ecy < y + 4 && (int)ecy > y - 4)
+                    float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix);
+                    float ecy = (m * (x - ar.orix)+ ar.oriy);
+                    if ((int) ecy < y+4 && (int)ecy > y-4)
                     {
                         Console.WriteLine("arista encontrada");
                         ListAristas.Remove(ar);
                     }
+
                 }
                 else
                 {
@@ -121,52 +122,10 @@ namespace grafosv1
                         {
                             Console.WriteLine("curva encontrada");
                             ListAristas.Remove(ar);
-
-
                         }
                     }
                 }
-
             }
         }
-
-        //elimina la arista de la lista de aristas 
-        /*public void EliminaArista(int x, int y)
-        {
-            //buscar arista 
-            for (int i = 0; i < ListAristas.Count; i++)
-            {
-                Arista ar = ListAristas[i];
-               
-                int x1 = (ar.destx - ar.orix) / 10;
-                int y1 = (ar.desty - ar.oriy) / 10;
-                Console.WriteLine("x = " + x + ", y = " + y);
-                for (float t = 0; t <= 1; t += 0.001f)
-                {
-                    float m = (1 - t);
-                    float xb = (float)((ar.orix * Math.Pow(m, 3)) + (3 * (ar.orix+x1) * Math.Pow(m, 2) * t) + (2 * (ar.destx+x1) * Math.Pow(t, 2) * m) + (ar.destx * Math.Pow(t, 3)));
-                    float yb = (float)((ar.oriy * Math.Pow(m, 3)) + (3 * (ar.oriy+y1) * Math.Pow(m, 2) * t) + (2 * (ar.desty+y1) * Math.Pow(t, 2) * m) + (ar.desty * Math.Pow(t, 3)));
-                    Console.WriteLine("xb = " + xb + ", yb = " + yb);
-                    if ((int)xb + 4 > x && (int)xb - 4 < x && (int)yb + 4 > y && (int)yb - 4 < y)
-                    {
-                        Console.WriteLine("Arista encontrada");
-                        ListAristas.Remove(ar);
-
-                    }
-
-                }
-            }
-        }*/
     }
 }
-       
-
-            /*for(int i = 0; i < ListAristas.Count; i++)
-            {
-                Arista ar = ListAristas[i];
-                float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix); //calcula pendiente
-                float ecy = (m * (x - ar.orix) + ar.oriy); // calcula la ecuacion de la recta
-                if((int)ecy < y+3 && (int)ecy > y - 3)
-                {
-                    ListAristas.Remove(ar);
-                }*/
