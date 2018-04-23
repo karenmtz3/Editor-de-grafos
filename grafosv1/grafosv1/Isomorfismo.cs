@@ -24,10 +24,7 @@ namespace grafosv1
             if (grafo1.ListaVer.Count == grafo2.ListaVer.Count)
                 return true;
             else
-            {
-                //MessageBox.Show("Los grafos no son isomorficos");
                 return false;
-            }
         }
 
         public bool CantAristas()
@@ -57,9 +54,30 @@ namespace grafosv1
             return false;
         }
 
+        public bool GradosCoinc()
+        {
+            //List<int> v1 = grafo1.setGrados.ToList();
+            //List<int> v2 = grafo1.setGrados.ToList();
+            //v1.Sort();
+            //v2.Sort();
+
+            int[] v1 = grafo1.setGrados;
+            int[] v2 = grafo2.setGrados;
+            if (grafo1.ListaVer.Count != grafo2.ListaVer.Count)
+                return false;
+            //if (v1.SequenceEqual(v2))
+              //  return true;
+            for(int i = 0; i < v1.Length; i++)
+            {
+                if(v1[i] != v2[i])
+                    return false;
+            }
+            return true;
+        }
+
         public bool SonIsomosfos()
         {
-            if (MismosVertices() && MismosGrados() && CantAristas())
+            if (MismosVertices() && MismosGrados() && CantAristas() && GradosCoinc())
                 return true;
             else
                 return false;

@@ -183,14 +183,9 @@ namespace grafosv1
         private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 8;
-            //arreglo = new int[ListGrafo[posG].ListaVer.Count];
             label5.Text = "Matriz de Adyacencia";
             DatosT.Clear();
             ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
-            //DatosT.Visible = true;
-            /*Vista v = new Vista();
-            v.muestra(ListGrafo[posG].ListaVer.Count);
-            v.Visible = true;*/
         }
 
         //Crea la lista de adyacencia   imprime en consola
@@ -200,7 +195,6 @@ namespace grafosv1
             label5.Text = "Lista de Adyacencia";
             DatosT.Clear();
             ListGrafo[posG].LstAd(DatosT, dirigido);
-            //DatosT.Visible = true;
         }
 
         //Crea matriz de incidencia
@@ -217,7 +211,8 @@ namespace grafosv1
         private void isomorfismoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             menu = 12;
-            int n = posG--;
+            //posG -= 1;
+            int n =posG-1;
             ListGrafo[posG].setAris = TotalAris.Count;
             ListGrafo[n].setAris = TotalAris.Count;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
@@ -226,15 +221,14 @@ namespace grafosv1
             ListGrafo[posG].setGrados = arreglo;
             ListGrafo[n].setGrados = arreglo2;
 
-
             if (ListGrafo.Count > 1)
             {
                 if (ListGrafo[posG].Dir == ListGrafo[n].Dir)
                 {
                     if (ListGrafo[posG].Iso(ListGrafo[posG], ListGrafo[n]))
-                        MessageBox.Show("Son Isomorfos");
+                        MessageBox.Show("Son Isomorficos");
                     else
-                        MessageBox.Show("No Son Isomorfos");
+                        MessageBox.Show("No Son Isomorficos");
                 }
                 else
                     MessageBox.Show("No son del mismo tipo de grafos");
@@ -248,7 +242,8 @@ namespace grafosv1
         {
 
             menu = 1;
-            forma = false;
+            //forma = false;
+            TipoArista = false;
             BVertice = true;
             temp1 = 0;
         }
@@ -318,6 +313,40 @@ namespace grafosv1
                 MessageBox.Show("Contiene a k5 y k3,3");
             else
                 MessageBox.Show("No contiene k5 ni k3,3");
+        }
+
+        private void caminoEulerianoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            bool resp = false;
+            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].setGrados = arreglo;
+            DatosT.Clear();
+            for(int i = 0; i< ListGrafo[posG].setGrados.Length; i++)
+                if (ListGrafo[posG].setGrados[i] % 2 != 0)
+                    cont++;
+            if (cont == 2)
+                resp = true;
+            if (resp)
+                MessageBox.Show("El grafo tiene un camino Euleriano");
+            else
+                MessageBox.Show("El grafo no tiene un camino Euleriano");
+        }
+
+        private void ciruitoEulerianoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool resp = true;
+            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].setGrados = arreglo;
+            DatosT.Clear();
+            for (int i = 0; i < ListGrafo[posG].setGrados.Length; i++)
+                if (ListGrafo[posG].setGrados[i] % 2 != 0)
+                    resp = false;
+            if (resp)
+                MessageBox.Show("El grafo tiene un Circuito Euleriano");
+            else
+                MessageBox.Show("El grafo no tiene un Circuito Euleriano");
+
         }
 
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
@@ -462,7 +491,17 @@ namespace grafosv1
                 xd = e.X;
                 yd = e.Y;
             }
-            
+
+           /* if (moveG)
+            {
+                Grafo g = ListGrafo[posG];
+                foreach (CVertice v in g.ListaVer)
+                    foreach (Arista a in v.ListAristas)
+                    {
+                        a.puntos();
+                    }
+            }*/
+
             //mueve un nodo del grafo
             if (move)
             {
@@ -517,8 +556,10 @@ namespace grafosv1
             }
 
             //desactiva la bandera de si se esta en la forma 
-            if (menu == 5 || menu == 8 || menu == 9 || menu == 10)
+            if (menu == 1 || menu == 5 || menu == 8 || menu == 9 || menu == 10)
+            {
                 forma = false;
+            }
 
             //activa la bandera de mover grafo
             if (menu == 6)
@@ -554,11 +595,13 @@ namespace grafosv1
                         a.oriy += dy;
                         a.destx += dx;
                         a.desty += dy;
-                        a.puntos();
+                        //a.puntos();
+                        Invalidate();
                     }
                 }
-                moveG = false;
                 Invalidate();
+                moveG = false;
+                
             }
 
             //busca nodo destino, guarda las coorenadas del mouseup e inserta las aristas
@@ -604,9 +647,6 @@ namespace grafosv1
                         if(t == i)
                         MessageBox.Show("El grado del vértie es: " + arreglo[i], "Grado del vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    /*int grade = ListGrafo[posG].ListaVer[t].ListAristas.Count;
-                    label3.Text = "Las aristas del vértice " + (t+1) + " son: " + grade;
-                    MessageBox.Show("El grado del vértice es: " + grade.ToString(), "Grado de vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
                 }
             }
 
@@ -622,7 +662,6 @@ namespace grafosv1
                         if (t == i)
                         {
                             int grade = ListGrafo[posG].ListaVer[t].ListAristas.Count; //externo
-                                                                                       //g = arreglo[i] - grade; //interno
                             if (dirigido == true)
                             {
 
@@ -667,19 +706,38 @@ namespace grafosv1
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
                                 Arista arista = ver.ListAristas[k];
-                                for (float t = 0; t <= 1; t += 0.01f)
+                                if (k <= 3)
                                 {
-                                    float m = (1 - t);
-                                    float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
-                                    float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
-                                    PointF p = new PointF(xb, yb);
-                                    point.Add(p);
-                                    //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                    arista.Recta = true;
+                                    e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
                                 }
-                                puntos = point.ToArray();
-                                e.Graphics.DrawCurve(lapiz2, puntos);
-                                point.Clear();
+                                else
+                                {
+                                    arista.Recta = false;
+                                    for (float t = 0; t <= 1; t += 0.01f)
+                                    {
+                                        float m = (1 - t);
+                                        float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
+                                        float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
+                                        PointF p = new PointF(xb, yb);
+                                        point.Add(p);
+                                        //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                    }
+                                    puntos = point.ToArray();
+                                    e.Graphics.DrawCurve(lapiz2, puntos);
+                                }
                                 arista.puntos();
+                                int xm = (arista.destino.x + arista.orix) / 2;
+                                int ym = (arista.destino.y + arista.oriy) / 2;
+                                if (nombrear == true)
+                                    e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 10),
+                                        new SolidBrush(Color.Black), xm, ym);
+                                if (ponderado == true)
+                                    e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
+                                        new SolidBrush(Color.Black), arista.destx, arista.desty);
+                                label1.Text = arista.peso.ToString();
+                                point.Clear();
+                                
                             }
                         }
                     }
@@ -699,21 +757,37 @@ namespace grafosv1
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
                                 Arista arista = ver.ListAristas[k];
-                                for (float t = 0; t <= 1; t += 0.01f)
+                                if (k <= 3)
                                 {
-                                    float m = (1 - t);
-                                    float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
-                                    float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
-                                    PointF p = new PointF(xb, yb);
-                                    point.Add(p);
-                                    //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                    arista.Recta = true;
+                                    e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
                                 }
-                                puntos = point.ToArray();
-                                e.Graphics.DrawCurve(lapiz2, puntos);
-                                Console.WriteLine("nombre arista = " + arista.NombreAr);
-                                e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 12),
-                                    new SolidBrush(Color.Blue),100,250);
+                                else
+                                {
+                                    arista.Recta = false;
+                                    for (float t = 0; t <= 1; t += 0.01f)
+                                    {
+                                        float m = (1 - t);
+                                        float xb = (int)((arista.p2.X * Math.Pow(m, 3)) + (3 * arista.c2.X * Math.Pow(m, 2) * t) + (2 * arista.c1.X * Math.Pow(t, 2) * m) + arista.p1.X * Math.Pow(t, 3));
+                                        float yb = (int)((arista.p2.Y * Math.Pow(m, 3)) + (3 * arista.c2.Y * Math.Pow(m, 2) * t) + (2 * arista.c1.Y * Math.Pow(t, 2) * m) + arista.p1.Y * Math.Pow(t, 3));
+                                        PointF p = new PointF(xb, yb);
+                                        point.Add(p);
+                                        //e.Graphics.DrawEllipse(lapiz, xb, yb, 2, 2);
+                                    }
+                                    puntos = point.ToArray();
+                                    e.Graphics.DrawCurve(lapiz2, puntos);
+                                }
+                                int xm = (arista.destino.x + arista.orix) / 2;
+                                int ym = (arista.destino.y + arista.oriy) / 2;
+                                if (nombrear == true)
+                                    e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 10),
+                                        new SolidBrush(Color.Black), xm, ym);
+                                if (ponderado == true)
+                                    e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
+                                        new SolidBrush(Color.Black), arista.destx, arista.desty);
+                                label1.Text = arista.peso.ToString();
                                 point.Clear();
+                                
                             }
                         }
                     }
@@ -736,7 +810,7 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                            if (k <= 2)
+                            if (k <= 3)
                             {
                                 arista.Recta = true;
                                 e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);

@@ -38,10 +38,11 @@ namespace grafosv1
             for(int i = 0; i < vertice.Count; i++)
             {
                 string vo = vertice[i].name; //vertice origen
-                foreach(Arista a in vertice[i].ListAristas)
+                
+                foreach (Arista a in vertice[i].ListAristas)
                 {
+                    string vd = a.destino.name;
                     string nomar = a.NombreAr; //nombre arista
-                    //Console.WriteLine("nombre ar = " + nomar);
                     for(int j=0; j < total.Count; j++)
                     {
                         int n = Convert.ToInt32(nomar);
@@ -49,6 +50,7 @@ namespace grafosv1
                         {
                             Console.WriteLine("hay relacion entre vertice " + vo + " y arista " + nomar);
                             matrizI[listv.IndexOf(vo), n-1] += 1;
+                            matrizI[listv.IndexOf(vd), n-1] += 1;
                         }
 
                     }

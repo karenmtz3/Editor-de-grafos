@@ -50,10 +50,6 @@ namespace grafosv1
         {
             m = new MatrizAdy(i);
             TGrados = new int[i];
-            //string s = "Matriz de Adyacencia";
-            /*v = new Vista(s);
-            v.muestra(ListaVer);
-            v.Visible = true;*/
             m.CreaMatriz(ListaVer, t, dir);
             TGrados = m.GetList.ToArray();
             return TGrados; 
@@ -72,10 +68,6 @@ namespace grafosv1
         public void LstAd(RichTextBox t, bool dir)
         {
             l = new ListaAd();
-            /*string s = "Lista de Adyacencia";
-            v = new Vista(s);
-            v.MuestraLis(ListaVer);
-            v.Visible = true;*/
             l.CreaLista(ListaVer, t, dir);
         }
 

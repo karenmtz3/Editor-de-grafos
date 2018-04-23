@@ -41,6 +41,7 @@
             this.listaDeAdyacenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matrizIncidenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.isomorfismoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.medioKuratowskyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vérticeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitarNodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +65,9 @@
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.medioKuratowskyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algoritmosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.caminoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ciruitoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -75,7 +78,8 @@
             this.nuevoToolStripMenuItem,
             this.grafoToolStripMenuItem,
             this.vérticeToolStripMenuItem,
-            this.aristaToolStripMenuItem});
+            this.aristaToolStripMenuItem,
+            this.algoritmosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(792, 24);
@@ -174,6 +178,13 @@
             this.isomorfismoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.isomorfismoToolStripMenuItem.Text = "Isomorfismo";
             this.isomorfismoToolStripMenuItem.Click += new System.EventHandler(this.isomorfismoToolStripMenuItem_Click);
+            // 
+            // medioKuratowskyToolStripMenuItem
+            // 
+            this.medioKuratowskyToolStripMenuItem.Name = "medioKuratowskyToolStripMenuItem";
+            this.medioKuratowskyToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.medioKuratowskyToolStripMenuItem.Text = "medio kuratowsky";
+            this.medioKuratowskyToolStripMenuItem.Click += new System.EventHandler(this.medioKuratowskyToolStripMenuItem_Click);
             // 
             // vérticeToolStripMenuItem
             // 
@@ -353,7 +364,7 @@
             // 
             // NumGrafo
             // 
-            this.NumGrafo.Location = new System.Drawing.Point(223, 3);
+            this.NumGrafo.Location = new System.Drawing.Point(339, 0);
             this.NumGrafo.Name = "NumGrafo";
             this.NumGrafo.Size = new System.Drawing.Size(33, 20);
             this.NumGrafo.TabIndex = 7;
@@ -377,12 +388,28 @@
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 9;
             // 
-            // medioKuratowskyToolStripMenuItem
+            // algoritmosToolStripMenuItem
             // 
-            this.medioKuratowskyToolStripMenuItem.Name = "medioKuratowskyToolStripMenuItem";
-            this.medioKuratowskyToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.medioKuratowskyToolStripMenuItem.Text = "medio kuratowsky";
-            this.medioKuratowskyToolStripMenuItem.Click += new System.EventHandler(this.medioKuratowskyToolStripMenuItem_Click);
+            this.algoritmosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.caminoEulerianoToolStripMenuItem,
+            this.ciruitoEulerianoToolStripMenuItem});
+            this.algoritmosToolStripMenuItem.Name = "algoritmosToolStripMenuItem";
+            this.algoritmosToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.algoritmosToolStripMenuItem.Text = "Algoritmos";
+            // 
+            // caminoEulerianoToolStripMenuItem
+            // 
+            this.caminoEulerianoToolStripMenuItem.Name = "caminoEulerianoToolStripMenuItem";
+            this.caminoEulerianoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.caminoEulerianoToolStripMenuItem.Text = "Camino Euleriano";
+            this.caminoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.caminoEulerianoToolStripMenuItem_Click);
+            // 
+            // ciruitoEulerianoToolStripMenuItem
+            // 
+            this.ciruitoEulerianoToolStripMenuItem.Name = "ciruitoEulerianoToolStripMenuItem";
+            this.ciruitoEulerianoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.ciruitoEulerianoToolStripMenuItem.Text = "Ciruito Euleriano";
+            this.ciruitoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.ciruitoEulerianoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -456,6 +483,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripMenuItem gradoInternoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem medioKuratowskyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem algoritmosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem caminoEulerianoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ciruitoEulerianoToolStripMenuItem;
     }
 }
 
