@@ -83,6 +83,7 @@ namespace grafosv1
 
         }
 
+        //grados de los nodos 
         public List<int> GetList
         {
             get { return arr; }

@@ -15,7 +15,8 @@ namespace grafosv1
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
-        //Graphics graphics;
+        private int grado;
+
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
         {
@@ -23,6 +24,12 @@ namespace grafosv1
             x = dx;
             y = dy;
             ListAristas = new List<Arista>();
+        }
+
+        public int GetGrado
+        {
+            set => grado = value;
+            get => grado;
         }
 
         //recorre la lista de aristas de cada nodo y les cambia las coordenadas

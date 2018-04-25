@@ -14,6 +14,8 @@ namespace grafosv1
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
         private int totalArist;
         private bool dirigido;
+        public List<string> ListGradosAd;
+
         private MatrizAdy m;
         private MatrizIncid mi;
         private ListaAd l;
@@ -27,6 +29,12 @@ namespace grafosv1
             
         }
 
+        /*public List<int> getList
+        {
+            get => ListGradosAd;
+            set => ListGradosAd = value;
+        }*/
+        
         public bool Dir
         {
             get => dirigido;
@@ -45,7 +53,7 @@ namespace grafosv1
             get => TGrados;
         }
 
-
+        //devuelve los grados totales del nodo / externos del nodo
         public int[] MtzAd(int i, RichTextBox t, bool dir)
         {
             m = new MatrizAdy(i);
@@ -55,6 +63,16 @@ namespace grafosv1
             return TGrados; 
         }
 
+        public void guarda()
+        {
+            for (int i = 0; i < TGrados.Length; i++)
+            {
+                ListaVer[i].GetGrado = TGrados[i];
+                //Console.WriteLine("vértice = " + ListaVer[i].name + " grado = " + ListaVer[i].GetGrado);
+            }
+        }
+
+        //devuelve los grados internos 
         public int[] mtzad(int i, RichTextBox t, bool dir)
         {
             m = new MatrizAdy(i);
@@ -69,12 +87,18 @@ namespace grafosv1
         {
             l = new ListaAd();
             l.CreaLista(ListaVer, t, dir);
+            ListGradosAd = l.GradosAd();
+            /*Console.WriteLine("Lista de los grados de vértices adyacentes");
+            for (int i = 0; i < ListGradosAd.Count; i++)
+                Console.WriteLine("vértice " + ListaVer[i].name + " ,grados de los ady:  " + ListGradosAd[i]);*/
+            //l.GradosAdy();
         }
 
         public void MtzIncd(int n, List<int> TAristas, RichTextBox t)
         {
             mi = new MatrizIncid(n,TAristas);
             mi.CreaMatrizI(ListaVer, t);
+            
         }
 
         public bool Iso(Grafo g1, Grafo g2)

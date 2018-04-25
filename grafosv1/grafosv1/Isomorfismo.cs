@@ -12,6 +12,7 @@ namespace grafosv1
     {
         private Grafo grafo1;
         private Grafo grafo2;
+        
 
         public Isomorfismo(Grafo g1, Grafo g2)
         {
@@ -56,23 +57,50 @@ namespace grafosv1
 
         public bool GradosCoinc()
         {
-            //List<int> v1 = grafo1.setGrados.ToList();
-            //List<int> v2 = grafo1.setGrados.ToList();
-            //v1.Sort();
-            //v2.Sort();
-
-            int[] v1 = grafo1.setGrados;
-            int[] v2 = grafo2.setGrados;
-            if (grafo1.ListaVer.Count != grafo2.ListaVer.Count)
-                return false;
-            //if (v1.SequenceEqual(v2))
-              //  return true;
-            for(int i = 0; i < v1.Length; i++)
+            //Console.WriteLine("grafo 2 / posición 0 / Lista de los grados adyacentes ");
+            for(int i = 0; i < grafo2.ListGradosAd.Count; i++)
             {
-                if(v1[i] != v2[i])
-                    return false;
+                string m = grafo2.ListGradosAd[i];
+                char[] AdyOrdenados = m.ToCharArray();
+                Array.Sort(AdyOrdenados);
+                m = new string(AdyOrdenados);
+                grafo2.ListGradosAd[i] = m;
             }
-            return true;
+
+            //Console.WriteLine("grafo 1 / posición 1 / Lista de los grados adyacentes ");
+            for (int i = 0; i < grafo1.ListGradosAd.Count; i++)
+            {
+                string m = grafo1.ListGradosAd[i];
+                char[] AdyOrdenados = m.ToCharArray();
+                Array.Sort(AdyOrdenados);
+                m = new string(AdyOrdenados);
+                grafo1.ListGradosAd[i] = m;
+            }
+
+            for(int i = 0; i < grafo1.ListGradosAd.Count; i++)
+            {
+                bool esta = false;
+                string ady = grafo1.ListGradosAd[i];
+                int k = 0;
+                for(int j = 0; j < grafo2.ListGradosAd.Count; j++)
+                {
+                    k = j;
+                    string ady2 = grafo2.ListGradosAd[j];
+                    if (ady2.Equals(ady))
+                    {
+                        esta = true;
+                        break;
+                    }
+                }
+                if(esta)
+                {
+                    grafo2.ListGradosAd.RemoveAt(k);
+                }
+            }
+            if (grafo2.ListGradosAd.Count == 0)
+                return true;
+            else
+                return false;
         }
 
         public bool SonIsomosfos()

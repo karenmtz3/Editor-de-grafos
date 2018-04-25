@@ -194,7 +194,12 @@ namespace grafosv1
             menu = 9;
             label5.Text = "Lista de Adyacencia";
             DatosT.Clear();
+            ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].guarda();
+            DatosT.Clear();
             ListGrafo[posG].LstAd(DatosT, dirigido);
+
+            
         }
 
         //Crea matriz de incidencia
@@ -215,9 +220,21 @@ namespace grafosv1
             int n =posG-1;
             ListGrafo[posG].setAris = TotalAris.Count;
             ListGrafo[n].setAris = TotalAris.Count;
+            //grafo1
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
-            int[] arreglo2 = ListGrafo[n].MtzAd(ListGrafo[n].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].guarda();
             DatosT.Clear();
+            ListGrafo[posG].LstAd(DatosT, dirigido);
+            DatosT.Clear();
+
+            //grafo2
+            int[] arreglo2 = ListGrafo[n].MtzAd(ListGrafo[n].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[n].guarda();
+            DatosT.Clear();
+            ListGrafo[n].LstAd(DatosT, dirigido);
+            DatosT.Clear();
+
+
             ListGrafo[posG].setGrados = arreglo;
             ListGrafo[n].setGrados = arreglo2;
 
@@ -492,15 +509,30 @@ namespace grafosv1
                 yd = e.Y;
             }
 
-           /* if (moveG)
+            //si esta activa la bandera de mover grafo se asignan las nuevas coordenadas de los nodos y aristas 
+            if (moveG)
             {
                 Grafo g = ListGrafo[posG];
+                int dx = e.X - xo;
+                int dy = e.Y - yo;
+                xo = e.X;
+                yo = e.Y;
                 foreach (CVertice v in g.ListaVer)
+                {
+                    v.x += dx;
+                    v.y += dy;
                     foreach (Arista a in v.ListAristas)
                     {
+                        a.orix += dx;
+                        a.oriy += dy;
+                        a.destx += dx;
+                        a.desty += dy;
                         a.puntos();
+                        //Invalidate();
                     }
-            }*/
+                }
+                Invalidate();
+            }
 
             //mueve un nodo del grafo
             if (move)
@@ -520,8 +552,8 @@ namespace grafosv1
                     {
                        /* CVertice v = g.ListaVer[i];
                         for (int j = 0; j < v.ListAristas.Count; j++)*/
-                            //v.ListAristas[j].CambiaCoord(xo,yo);
-                             g.ListaVer[i].Cambia();
+                    //v.ListAristas[j].CambiaCoord(xo,yo);
+                    g.ListaVer[i].Cambia();
                             //n1.Cambiar();
                     }
                 }
@@ -571,38 +603,17 @@ namespace grafosv1
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+
+            moveG = false;
             //si esta activa la bandera de mover nodo se cambian las coordenadas el nodo
-            if(move)
+            if (move)
             {
                 x1 = e.X - xo;
                 y1 = e.Y - yo;
                 move = false;
                 Invalidate();
             }
-            //si esta activa la bandera de mover grafo se asignan las nuevas coordenadas de los nodos y aristas 
-            if (moveG)
-            {
-                Grafo g = ListGrafo[posG];
-                int dx = e.X - xo;
-                int dy= e.Y - yo;
-                foreach (CVertice v in g.ListaVer)
-                {
-                    v.x +=dx;
-                    v.y +=dy;
-                    foreach (Arista a in v.ListAristas)
-                    {
-                        a.orix += dx;
-                        a.oriy += dy;
-                        a.destx += dx;
-                        a.desty += dy;
-                        //a.puntos();
-                        Invalidate();
-                    }
-                }
-                Invalidate();
-                moveG = false;
-                
-            }
+            
 
             //busca nodo destino, guarda las coorenadas del mouseup e inserta las aristas
             //TotalAris = 0;
@@ -726,7 +737,7 @@ namespace grafosv1
                                     puntos = point.ToArray();
                                     e.Graphics.DrawCurve(lapiz2, puntos);
                                 }
-                                arista.puntos();
+                                //arista.puntos();
                                 int xm = (arista.destino.x + arista.orix) / 2;
                                 int ym = (arista.destino.y + arista.oriy) / 2;
                                 if (nombrear == true)
@@ -757,7 +768,7 @@ namespace grafosv1
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
                                 Arista arista = ver.ListAristas[k];
-                                if (k <= 3)
+                                if (k < 1)
                                 {
                                     arista.Recta = true;
                                     e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
@@ -777,11 +788,14 @@ namespace grafosv1
                                     puntos = point.ToArray();
                                     e.Graphics.DrawCurve(lapiz2, puntos);
                                 }
+                                //posiciones para el nombre de la arista 
                                 int xm = (arista.destino.x + arista.orix) / 2;
                                 int ym = (arista.destino.y + arista.oriy) / 2;
+                                //bandera para que se visualicen los nombres de las aristas
                                 if (nombrear == true)
                                     e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 10),
                                         new SolidBrush(Color.Black), xm, ym);
+                                //bandera para que se visualicen las ponderaciones 
                                 if (ponderado == true)
                                     e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
                                         new SolidBrush(Color.Black), arista.destx, arista.desty);
