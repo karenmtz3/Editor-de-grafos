@@ -366,6 +366,139 @@ namespace grafosv1
 
         }
 
+        private void corolario1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListGrafo[posG].setAris = TotalAris.Count;
+            int valor = (3 * ListGrafo[posG].ListaVer.Count) - 6;
+            if (ListGrafo[posG].ListaVer.Count >= 3 && ListGrafo[posG].setAris <= valor)
+                MessageBox.Show("El grafo es plano");
+            else
+                MessageBox.Show("El grafo no es plano");
+        }
+
+        private void cotolario2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListGrafo[posG].setAris = TotalAris.Count;
+            int valor = (2 * ListGrafo[posG].ListaVer.Count) - 4;
+            if (ListGrafo[posG].ListaVer.Count >= 3 && ListGrafo[posG].setAris <= valor)
+                MessageBox.Show("El grafo es plano");
+            else
+                MessageBox.Show("El grafo no es plano");
+
+        }
+
+        private void númeroCromáticoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].guarda();
+            DatosT.Clear();
+            ListGrafo[posG].LstAd(DatosT, dirigido);
+
+            //Asegura que en un principio en número cromático de los vértices es 0
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+                ListGrafo[posG].ListaVer[i].NumCrom = 0;
+
+
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            {
+                CVertice ver = ListGrafo[posG].ListaVer[i];
+                if (ver.NumCrom == 0)
+                {
+                    cont++;
+                    ver.NumCrom = cont;
+                }
+                Console.WriteLine("Vértice: " + ver.name + " Número cromático: " + ver.NumCrom);
+                string ady = ListGrafo[posG].ListVAdy[i];
+                foreach (char n in ady)
+                {
+                    int p = Int32.Parse(n.ToString());
+                    CVertice vertice = ListGrafo[posG].ListaVer[p - 1];
+                    if (vertice.NumCrom == 0)
+                    {
+                        if (i == 0)
+                        {
+                            cont++;
+                            vertice.NumCrom = cont;
+                            Console.WriteLine("Vértice: " + vertice.name + " Número cromático: " + vertice.NumCrom);
+                        }
+                        else if (!ListGrafo[posG].ListVAdy[i - 1].Contains(n))
+                        {
+                            
+                            vertice.NumCrom = ListGrafo[posG].ListaVer[i - 1].NumCrom;
+                            if (vertice.NumCrom == ListGrafo[posG].ListaVer[p - 2].NumCrom)
+                                vertice.NumCrom = ListGrafo[posG].ListaVer[p - 3].NumCrom;
+                            Console.WriteLine("Vértice: " + vertice.name + " Número cromático: " + vertice.NumCrom);
+                        }
+                        else
+                        {
+                            cont++;
+                            vertice.NumCrom = cont;
+                            Console.WriteLine("Vértice: " + vertice.name + " Número cromático: " + vertice.NumCrom);
+                        }
+                     }
+                }
+            }
+            int mayor = ListGrafo[posG].ListaVer[0].NumCrom;
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            {
+                CVertice v = ListGrafo[posG].ListaVer[i];
+                if (v.NumCrom > mayor)
+                    mayor = v.NumCrom;
+                Console.WriteLine("Vértice " + ListGrafo[posG].ListaVer[i].name + " número cromático " + ListGrafo[posG].ListaVer[i].NumCrom);
+            }
+            MessageBox.Show("El número cromático es " + mayor);
+        }
+
+        private void recorridoEnAmplitudToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].guarda();
+            DatosT.Clear();
+            ListGrafo[posG].LstAd(DatosT, dirigido);
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            {
+                CVertice ver = ListGrafo[posG].ListaVer[i];
+                ListGrafo[posG].bea(ver);
+            }
+            MessageBox.Show("Recorrido en amplitud: " + ListGrafo[posG].Recorridos);
+            /*List <string> recorridos = new List<string>();
+            List<string> Cola = new List<string>();
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            {
+                CVertice ver = ListGrafo[posG].ListaVer[i];
+                ver.VerVisitado = true;
+                recorridos.Add(ver.name);
+                string ady = ListGrafo[posG].ListVAdy[i];
+                char[] AdyOrdenados = ady.ToCharArray();
+                foreach(char c in ady)
+                    Cola.Add(c.ToString());
+                while (!Cola.Any())
+                {
+                    string n = Cola[0];
+                    Cola.RemoveAt(0);
+                    for (int j = 0; j < ListGrafo[posG].ListaVer.Count; j++)
+                    {
+                        CVertice v = ListGrafo[posG].ListaVer[j];
+                        if (n == v.name && v.VerVisitado == false)
+                        {
+                            v.VerVisitado = true;
+                            string a = ListGrafo[posG].ListVAdy[j];
+                            char[] AdyOr = ady.ToCharArray();
+                            foreach (char c in a)
+                                Cola.Add(c.ToString());
+                            recorridos.Add(v.name);
+                        }
+
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < recorridos.Count; i++)
+                Console.Write(" " + recorridos[i]);*/
+        }
+
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
         private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -644,7 +777,11 @@ namespace grafosv1
             {
                 forma = false;
                 for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+                {
                     ListGrafo[posG].ListaVer[i].EliminaArista(e.X, e.Y);
+                    
+                    total -= 1;
+                }
             }
             //Da el grado del vértice
             if (menu == 7)

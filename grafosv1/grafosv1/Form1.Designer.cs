@@ -57,6 +57,9 @@
             this.ponderadoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.noPonderadoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminaAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algoritmosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.caminoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ciruitoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -65,9 +68,17 @@
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.algoritmosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.caminoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ciruitoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.corolario1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cotolario2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.númeroCromáticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algoritmosDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algoritmosNoDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.floydToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.impresiónDeCaminosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acíclicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kruskalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recorridoEnAmplitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +90,9 @@
             this.grafoToolStripMenuItem,
             this.vérticeToolStripMenuItem,
             this.aristaToolStripMenuItem,
-            this.algoritmosToolStripMenuItem});
+            this.algoritmosToolStripMenuItem,
+            this.algoritmosDirigidosToolStripMenuItem,
+            this.algoritmosNoDirigidosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(792, 24);
@@ -315,6 +328,32 @@
             this.eliminaAristaToolStripMenuItem.Text = "Elimina Arista";
             this.eliminaAristaToolStripMenuItem.Click += new System.EventHandler(this.eliminaAristaToolStripMenuItem_Click);
             // 
+            // algoritmosToolStripMenuItem
+            // 
+            this.algoritmosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.caminoEulerianoToolStripMenuItem,
+            this.ciruitoEulerianoToolStripMenuItem,
+            this.corolario1ToolStripMenuItem,
+            this.cotolario2ToolStripMenuItem,
+            this.númeroCromáticoToolStripMenuItem});
+            this.algoritmosToolStripMenuItem.Name = "algoritmosToolStripMenuItem";
+            this.algoritmosToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.algoritmosToolStripMenuItem.Text = "Algoritmos";
+            // 
+            // caminoEulerianoToolStripMenuItem
+            // 
+            this.caminoEulerianoToolStripMenuItem.Name = "caminoEulerianoToolStripMenuItem";
+            this.caminoEulerianoToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.caminoEulerianoToolStripMenuItem.Text = "Camino Euleriano";
+            this.caminoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.caminoEulerianoToolStripMenuItem_Click);
+            // 
+            // ciruitoEulerianoToolStripMenuItem
+            // 
+            this.ciruitoEulerianoToolStripMenuItem.Name = "ciruitoEulerianoToolStripMenuItem";
+            this.ciruitoEulerianoToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.ciruitoEulerianoToolStripMenuItem.Text = "Ciruito Euleriano";
+            this.ciruitoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.ciruitoEulerianoToolStripMenuItem_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -364,7 +403,7 @@
             // 
             // NumGrafo
             // 
-            this.NumGrafo.Location = new System.Drawing.Point(339, 0);
+            this.NumGrafo.Location = new System.Drawing.Point(583, 0);
             this.NumGrafo.Name = "NumGrafo";
             this.NumGrafo.Size = new System.Drawing.Size(33, 20);
             this.NumGrafo.TabIndex = 7;
@@ -388,28 +427,83 @@
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 9;
             // 
-            // algoritmosToolStripMenuItem
+            // corolario1ToolStripMenuItem
             // 
-            this.algoritmosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.caminoEulerianoToolStripMenuItem,
-            this.ciruitoEulerianoToolStripMenuItem});
-            this.algoritmosToolStripMenuItem.Name = "algoritmosToolStripMenuItem";
-            this.algoritmosToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.algoritmosToolStripMenuItem.Text = "Algoritmos";
+            this.corolario1ToolStripMenuItem.Name = "corolario1ToolStripMenuItem";
+            this.corolario1ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.corolario1ToolStripMenuItem.Text = "Corolario 1";
+            this.corolario1ToolStripMenuItem.Click += new System.EventHandler(this.corolario1ToolStripMenuItem_Click);
             // 
-            // caminoEulerianoToolStripMenuItem
+            // cotolario2ToolStripMenuItem
             // 
-            this.caminoEulerianoToolStripMenuItem.Name = "caminoEulerianoToolStripMenuItem";
-            this.caminoEulerianoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.caminoEulerianoToolStripMenuItem.Text = "Camino Euleriano";
-            this.caminoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.caminoEulerianoToolStripMenuItem_Click);
+            this.cotolario2ToolStripMenuItem.Name = "cotolario2ToolStripMenuItem";
+            this.cotolario2ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.cotolario2ToolStripMenuItem.Text = "Corolario 2";
+            this.cotolario2ToolStripMenuItem.Click += new System.EventHandler(this.cotolario2ToolStripMenuItem_Click);
             // 
-            // ciruitoEulerianoToolStripMenuItem
+            // númeroCromáticoToolStripMenuItem
             // 
-            this.ciruitoEulerianoToolStripMenuItem.Name = "ciruitoEulerianoToolStripMenuItem";
-            this.ciruitoEulerianoToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.ciruitoEulerianoToolStripMenuItem.Text = "Ciruito Euleriano";
-            this.ciruitoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.ciruitoEulerianoToolStripMenuItem_Click);
+            this.númeroCromáticoToolStripMenuItem.Name = "númeroCromáticoToolStripMenuItem";
+            this.númeroCromáticoToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.númeroCromáticoToolStripMenuItem.Text = "Número Cromático";
+            this.númeroCromáticoToolStripMenuItem.Click += new System.EventHandler(this.númeroCromáticoToolStripMenuItem_Click);
+            // 
+            // algoritmosDirigidosToolStripMenuItem
+            // 
+            this.algoritmosDirigidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.floydToolStripMenuItem,
+            this.impresiónDeCaminosToolStripMenuItem,
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem,
+            this.acíclicosToolStripMenuItem});
+            this.algoritmosDirigidosToolStripMenuItem.Name = "algoritmosDirigidosToolStripMenuItem";
+            this.algoritmosDirigidosToolStripMenuItem.Size = new System.Drawing.Size(128, 20);
+            this.algoritmosDirigidosToolStripMenuItem.Text = "Algoritmos Dirigidos";
+            // 
+            // algoritmosNoDirigidosToolStripMenuItem
+            // 
+            this.algoritmosNoDirigidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kruskalToolStripMenuItem,
+            this.recorridoEnAmplitudToolStripMenuItem});
+            this.algoritmosNoDirigidosToolStripMenuItem.Name = "algoritmosNoDirigidosToolStripMenuItem";
+            this.algoritmosNoDirigidosToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
+            this.algoritmosNoDirigidosToolStripMenuItem.Text = "Algoritmos no Dirigidos";
+            // 
+            // floydToolStripMenuItem
+            // 
+            this.floydToolStripMenuItem.Name = "floydToolStripMenuItem";
+            this.floydToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.floydToolStripMenuItem.Text = "Floyd";
+            // 
+            // impresiónDeCaminosToolStripMenuItem
+            // 
+            this.impresiónDeCaminosToolStripMenuItem.Name = "impresiónDeCaminosToolStripMenuItem";
+            this.impresiónDeCaminosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.impresiónDeCaminosToolStripMenuItem.Text = "Impresión de caminos";
+            // 
+            // bosqueAbarcadorEnProfundidadToolStripMenuItem
+            // 
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Name = "bosqueAbarcadorEnProfundidadToolStripMenuItem";
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Text = "Bosque abarcador en profundidad";
+            // 
+            // acíclicosToolStripMenuItem
+            // 
+            this.acíclicosToolStripMenuItem.Name = "acíclicosToolStripMenuItem";
+            this.acíclicosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.acíclicosToolStripMenuItem.Text = "Acíclicos";
+            // 
+            // kruskalToolStripMenuItem
+            // 
+            this.kruskalToolStripMenuItem.Name = "kruskalToolStripMenuItem";
+            this.kruskalToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.kruskalToolStripMenuItem.Text = "Kruskal";
+            // 
+            // recorridoEnAmplitudToolStripMenuItem
+            // 
+            this.recorridoEnAmplitudToolStripMenuItem.Name = "recorridoEnAmplitudToolStripMenuItem";
+            this.recorridoEnAmplitudToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.recorridoEnAmplitudToolStripMenuItem.Text = "Recorrido en amplitud";
+            this.recorridoEnAmplitudToolStripMenuItem.Click += new System.EventHandler(this.recorridoEnAmplitudToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -486,6 +580,17 @@
         private System.Windows.Forms.ToolStripMenuItem algoritmosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem caminoEulerianoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ciruitoEulerianoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem corolario1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cotolario2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem númeroCromáticoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem algoritmosDirigidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem floydToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem impresiónDeCaminosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bosqueAbarcadorEnProfundidadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acíclicosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem algoritmosNoDirigidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kruskalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recorridoEnAmplitudToolStripMenuItem;
     }
 }
 

@@ -15,12 +15,14 @@ namespace grafosv1
         private int totalArist;
         private bool dirigido;
         public List<string> ListGradosAd;
+        public List<string> ListVAdy;
 
         private MatrizAdy m;
         private MatrizIncid mi;
         private ListaAd l;
         private Isomorfismo GIsomor;
         public int[] TGrados, TGrados2;
+        private string VerRecorridos;
 
         public Grafo()
         {
@@ -28,13 +30,12 @@ namespace grafosv1
             ListaVer = new List<CVertice>();
             
         }
-
-        /*public List<int> getList
-        {
-            get => ListGradosAd;
-            set => ListGradosAd = value;
-        }*/
         
+        public string Recorridos
+        {
+            get => VerRecorridos;
+        }
+
         public bool Dir
         {
             get => dirigido;
@@ -51,6 +52,43 @@ namespace grafosv1
         {
             set => TGrados = value;
             get => TGrados;
+        }
+
+        public void bea(CVertice v)
+        {
+            List<string> visitados = new List<string>();
+            List<string> cola = new List<string>();
+            if (v.VerVisitado == false)
+            {
+                //int s = Int32.Parse(v.name); //´convierte el nombre en entero
+                v.VerVisitado = true;
+                visitados.Add(v.name);
+                cola.Add(v.name);
+                while (cola.Any())
+                {
+                    string actual = cola[0];
+                    cola.Remove(actual);
+                    int s = Int32.Parse(actual); //´convierte el nombre en entero
+                    string ady = ListVAdy[s - 1];
+                    char[] ArrAdy = ady.ToCharArray();
+                    for (int i = 0; i < ArrAdy.Length; i++)
+                    {
+                        int pos = Int32.Parse(ArrAdy[i].ToString());
+                        CVertice ver = ListaVer[pos - 1];
+                        if (ver.VerVisitado == false)
+                        {
+                            ver.VerVisitado = true;
+                            cola.Add(ver.name);
+                            visitados.Add(ver.name);
+                        }
+
+                    }
+                }
+
+                for (int i = 0; i < visitados.Count; i++)
+                    VerRecorridos += visitados[i];
+                        // Console.Write(" " + visitados[i]);
+            }
         }
 
         //devuelve los grados totales del nodo / externos del nodo
@@ -88,10 +126,7 @@ namespace grafosv1
             l = new ListaAd();
             l.CreaLista(ListaVer, t, dir);
             ListGradosAd = l.GradosAd();
-            /*Console.WriteLine("Lista de los grados de vértices adyacentes");
-            for (int i = 0; i < ListGradosAd.Count; i++)
-                Console.WriteLine("vértice " + ListaVer[i].name + " ,grados de los ady:  " + ListGradosAd[i]);*/
-            //l.GradosAdy();
+            ListVAdy = l.vad;
         }
 
         public void MtzIncd(int n, List<int> TAristas, RichTextBox t)

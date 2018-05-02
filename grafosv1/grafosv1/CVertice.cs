@@ -16,6 +16,8 @@ namespace grafosv1
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
         private int grado;
+        private int cromatico;
+        private bool visitado = false;
 
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
@@ -23,7 +25,20 @@ namespace grafosv1
             name = nombre;
             x = dx;
             y = dy;
+            cromatico = 0;
             ListAristas = new List<Arista>();
+        }
+
+        public bool VerVisitado
+        {
+            set => visitado = value;
+            get => visitado;
+        }
+
+        public int NumCrom
+        {
+            set => cromatico = value;
+            get => cromatico;
         }
 
         public int GetGrado
