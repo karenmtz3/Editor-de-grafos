@@ -60,6 +60,17 @@
             this.algoritmosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.caminoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ciruitoEulerianoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.corolario1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cotolario2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.númeroCromáticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algoritmosDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.floydToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.impresiónDeCaminosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acíclicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.algoritmosNoDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kruskalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recorridoEnAmplitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -68,17 +79,6 @@
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.corolario1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cotolario2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.númeroCromáticoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.algoritmosDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.algoritmosNoDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.floydToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.impresiónDeCaminosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bosqueAbarcadorEnProfundidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.acíclicosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kruskalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recorridoEnAmplitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.SuspendLayout();
@@ -354,6 +354,85 @@
             this.ciruitoEulerianoToolStripMenuItem.Text = "Ciruito Euleriano";
             this.ciruitoEulerianoToolStripMenuItem.Click += new System.EventHandler(this.ciruitoEulerianoToolStripMenuItem_Click);
             // 
+            // corolario1ToolStripMenuItem
+            // 
+            this.corolario1ToolStripMenuItem.Name = "corolario1ToolStripMenuItem";
+            this.corolario1ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.corolario1ToolStripMenuItem.Text = "Corolario 1";
+            this.corolario1ToolStripMenuItem.Click += new System.EventHandler(this.corolario1ToolStripMenuItem_Click);
+            // 
+            // cotolario2ToolStripMenuItem
+            // 
+            this.cotolario2ToolStripMenuItem.Name = "cotolario2ToolStripMenuItem";
+            this.cotolario2ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.cotolario2ToolStripMenuItem.Text = "Corolario 2";
+            this.cotolario2ToolStripMenuItem.Click += new System.EventHandler(this.cotolario2ToolStripMenuItem_Click);
+            // 
+            // númeroCromáticoToolStripMenuItem
+            // 
+            this.númeroCromáticoToolStripMenuItem.Name = "númeroCromáticoToolStripMenuItem";
+            this.númeroCromáticoToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.númeroCromáticoToolStripMenuItem.Text = "Número Cromático";
+            this.númeroCromáticoToolStripMenuItem.Click += new System.EventHandler(this.númeroCromáticoToolStripMenuItem_Click);
+            // 
+            // algoritmosDirigidosToolStripMenuItem
+            // 
+            this.algoritmosDirigidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.floydToolStripMenuItem,
+            this.impresiónDeCaminosToolStripMenuItem,
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem,
+            this.acíclicosToolStripMenuItem});
+            this.algoritmosDirigidosToolStripMenuItem.Name = "algoritmosDirigidosToolStripMenuItem";
+            this.algoritmosDirigidosToolStripMenuItem.Size = new System.Drawing.Size(128, 20);
+            this.algoritmosDirigidosToolStripMenuItem.Text = "Algoritmos Dirigidos";
+            // 
+            // floydToolStripMenuItem
+            // 
+            this.floydToolStripMenuItem.Name = "floydToolStripMenuItem";
+            this.floydToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.floydToolStripMenuItem.Text = "Floyd";
+            // 
+            // impresiónDeCaminosToolStripMenuItem
+            // 
+            this.impresiónDeCaminosToolStripMenuItem.Name = "impresiónDeCaminosToolStripMenuItem";
+            this.impresiónDeCaminosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.impresiónDeCaminosToolStripMenuItem.Text = "Impresión de caminos";
+            // 
+            // bosqueAbarcadorEnProfundidadToolStripMenuItem
+            // 
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Name = "bosqueAbarcadorEnProfundidadToolStripMenuItem";
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Text = "Bosque abarcador en profundidad";
+            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Click += new System.EventHandler(this.bosqueAbarcadorEnProfundidadToolStripMenuItem_Click);
+            // 
+            // acíclicosToolStripMenuItem
+            // 
+            this.acíclicosToolStripMenuItem.Name = "acíclicosToolStripMenuItem";
+            this.acíclicosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.acíclicosToolStripMenuItem.Text = "Acíclicos";
+            // 
+            // algoritmosNoDirigidosToolStripMenuItem
+            // 
+            this.algoritmosNoDirigidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.kruskalToolStripMenuItem,
+            this.recorridoEnAmplitudToolStripMenuItem});
+            this.algoritmosNoDirigidosToolStripMenuItem.Name = "algoritmosNoDirigidosToolStripMenuItem";
+            this.algoritmosNoDirigidosToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
+            this.algoritmosNoDirigidosToolStripMenuItem.Text = "Algoritmos no Dirigidos";
+            // 
+            // kruskalToolStripMenuItem
+            // 
+            this.kruskalToolStripMenuItem.Name = "kruskalToolStripMenuItem";
+            this.kruskalToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.kruskalToolStripMenuItem.Text = "Kruskal";
+            // 
+            // recorridoEnAmplitudToolStripMenuItem
+            // 
+            this.recorridoEnAmplitudToolStripMenuItem.Name = "recorridoEnAmplitudToolStripMenuItem";
+            this.recorridoEnAmplitudToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.recorridoEnAmplitudToolStripMenuItem.Text = "Recorrido en amplitud";
+            this.recorridoEnAmplitudToolStripMenuItem.Click += new System.EventHandler(this.recorridoEnAmplitudToolStripMenuItem_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -426,84 +505,6 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 9;
-            // 
-            // corolario1ToolStripMenuItem
-            // 
-            this.corolario1ToolStripMenuItem.Name = "corolario1ToolStripMenuItem";
-            this.corolario1ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.corolario1ToolStripMenuItem.Text = "Corolario 1";
-            this.corolario1ToolStripMenuItem.Click += new System.EventHandler(this.corolario1ToolStripMenuItem_Click);
-            // 
-            // cotolario2ToolStripMenuItem
-            // 
-            this.cotolario2ToolStripMenuItem.Name = "cotolario2ToolStripMenuItem";
-            this.cotolario2ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.cotolario2ToolStripMenuItem.Text = "Corolario 2";
-            this.cotolario2ToolStripMenuItem.Click += new System.EventHandler(this.cotolario2ToolStripMenuItem_Click);
-            // 
-            // númeroCromáticoToolStripMenuItem
-            // 
-            this.númeroCromáticoToolStripMenuItem.Name = "númeroCromáticoToolStripMenuItem";
-            this.númeroCromáticoToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.númeroCromáticoToolStripMenuItem.Text = "Número Cromático";
-            this.númeroCromáticoToolStripMenuItem.Click += new System.EventHandler(this.númeroCromáticoToolStripMenuItem_Click);
-            // 
-            // algoritmosDirigidosToolStripMenuItem
-            // 
-            this.algoritmosDirigidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.floydToolStripMenuItem,
-            this.impresiónDeCaminosToolStripMenuItem,
-            this.bosqueAbarcadorEnProfundidadToolStripMenuItem,
-            this.acíclicosToolStripMenuItem});
-            this.algoritmosDirigidosToolStripMenuItem.Name = "algoritmosDirigidosToolStripMenuItem";
-            this.algoritmosDirigidosToolStripMenuItem.Size = new System.Drawing.Size(128, 20);
-            this.algoritmosDirigidosToolStripMenuItem.Text = "Algoritmos Dirigidos";
-            // 
-            // algoritmosNoDirigidosToolStripMenuItem
-            // 
-            this.algoritmosNoDirigidosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kruskalToolStripMenuItem,
-            this.recorridoEnAmplitudToolStripMenuItem});
-            this.algoritmosNoDirigidosToolStripMenuItem.Name = "algoritmosNoDirigidosToolStripMenuItem";
-            this.algoritmosNoDirigidosToolStripMenuItem.Size = new System.Drawing.Size(145, 20);
-            this.algoritmosNoDirigidosToolStripMenuItem.Text = "Algoritmos no Dirigidos";
-            // 
-            // floydToolStripMenuItem
-            // 
-            this.floydToolStripMenuItem.Name = "floydToolStripMenuItem";
-            this.floydToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.floydToolStripMenuItem.Text = "Floyd";
-            // 
-            // impresiónDeCaminosToolStripMenuItem
-            // 
-            this.impresiónDeCaminosToolStripMenuItem.Name = "impresiónDeCaminosToolStripMenuItem";
-            this.impresiónDeCaminosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.impresiónDeCaminosToolStripMenuItem.Text = "Impresión de caminos";
-            // 
-            // bosqueAbarcadorEnProfundidadToolStripMenuItem
-            // 
-            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Name = "bosqueAbarcadorEnProfundidadToolStripMenuItem";
-            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.bosqueAbarcadorEnProfundidadToolStripMenuItem.Text = "Bosque abarcador en profundidad";
-            // 
-            // acíclicosToolStripMenuItem
-            // 
-            this.acíclicosToolStripMenuItem.Name = "acíclicosToolStripMenuItem";
-            this.acíclicosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.acíclicosToolStripMenuItem.Text = "Acíclicos";
-            // 
-            // kruskalToolStripMenuItem
-            // 
-            this.kruskalToolStripMenuItem.Name = "kruskalToolStripMenuItem";
-            this.kruskalToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.kruskalToolStripMenuItem.Text = "Kruskal";
-            // 
-            // recorridoEnAmplitudToolStripMenuItem
-            // 
-            this.recorridoEnAmplitudToolStripMenuItem.Name = "recorridoEnAmplitudToolStripMenuItem";
-            this.recorridoEnAmplitudToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.recorridoEnAmplitudToolStripMenuItem.Text = "Recorrido en amplitud";
-            this.recorridoEnAmplitudToolStripMenuItem.Click += new System.EventHandler(this.recorridoEnAmplitudToolStripMenuItem_Click);
             // 
             // Form1
             // 

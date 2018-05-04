@@ -462,41 +462,25 @@ namespace grafosv1
                 ListGrafo[posG].bea(ver);
             }
             MessageBox.Show("Recorrido en amplitud: " + ListGrafo[posG].Recorridos);
-            /*List <string> recorridos = new List<string>();
-            List<string> Cola = new List<string>();
+        }
+
+        private void bosqueAbarcadorEnProfundidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].guarda();
+            DatosT.Clear();
+            ListGrafo[posG].LstAd(DatosT, dirigido);
+            CVertice vertex = ListGrafo[posG].ListaVer[0];
+            ListGrafo[posG].dfs(vertex);
             for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
             {
                 CVertice ver = ListGrafo[posG].ListaVer[i];
-                ver.VerVisitado = true;
-                recorridos.Add(ver.name);
-                string ady = ListGrafo[posG].ListVAdy[i];
-                char[] AdyOrdenados = ady.ToCharArray();
-                foreach(char c in ady)
-                    Cola.Add(c.ToString());
-                while (!Cola.Any())
-                {
-                    string n = Cola[0];
-                    Cola.RemoveAt(0);
-                    for (int j = 0; j < ListGrafo[posG].ListaVer.Count; j++)
-                    {
-                        CVertice v = ListGrafo[posG].ListaVer[j];
-                        if (n == v.name && v.VerVisitado == false)
-                        {
-                            v.VerVisitado = true;
-                            string a = ListGrafo[posG].ListVAdy[j];
-                            char[] AdyOr = ady.ToCharArray();
-                            foreach (char c in a)
-                                Cola.Add(c.ToString());
-                            recorridos.Add(v.name);
-                        }
-
-                    }
-                }
-
+                if (ver.VerVisitado == false)
+                    ListGrafo[posG].dfs(ver);
             }
 
-            for (int i = 0; i < recorridos.Count; i++)
-                Console.Write(" " + recorridos[i]);*/
+            ListGrafo[posG].imprimedfs();
+            MessageBox.Show("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
         }
 
         //grado del vértice     activa bandera la dar el grado del vértice que se de click

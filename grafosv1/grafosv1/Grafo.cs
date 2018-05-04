@@ -28,9 +28,9 @@ namespace grafosv1
         {
             auxi = -1;
             ListaVer = new List<CVertice>();
-            
+
         }
-        
+
         public string Recorridos
         {
             get => VerRecorridos;
@@ -52,6 +52,38 @@ namespace grafosv1
         {
             set => TGrados = value;
             get => TGrados;
+        }
+
+        List<CVertice> visitados = new List<CVertice>();
+        public void dfs(CVertice v)
+        {
+            v.VerVisitado = true;
+            if (!visitados.Contains(v))
+                visitados.Add(v);
+            int s = Int32.Parse(v.name); //´convierte el nombre en entero
+            string ady = ListVAdy[s - 1];
+            char[] ArrAdy = ady.ToCharArray();
+            for (int i = 0; i < ArrAdy.Length; i++)
+            {
+                int pos = Int32.Parse(ArrAdy[i].ToString());
+                CVertice ver = ListaVer[pos - 1];
+                if (ver.VerVisitado == false)
+                {
+                    ver.VerVisitado = true;
+                    if (!visitados.Contains(ver))
+                        visitados.Add(ver);
+                    dfs(ver);
+                }
+            }
+        }
+
+        public void imprimedfs()
+        {
+            for (int i = 0; i < visitados.Count; i++)
+            {
+                VerRecorridos += visitados[i].name;
+                Console.Write(" " + visitados[i].name);
+            }
         }
 
         public void bea(CVertice v)
