@@ -11,16 +11,74 @@ namespace grafosv1
     public class MatrizAdy
     {
         private int n;
-        private int[,] matriz;
+        private int[,] matriz, matrizP;
         private int cont = 0, cont2 = 0;
         private List<int> arr, arr2;
+        private int max = int.MaxValue;
 
         public MatrizAdy(int i)
         {
             n = i;
             matriz = new int[n,n];
+            matrizP = new int[n,n];
             arr = new List<int>();
             arr2 = new List<int>();
+        }
+
+
+        public void CreaMatrizPon(List<CVertice> ver, RichTextBox t)
+        {
+            List<string> ListVer = new List<string>();
+            for (int i = 0; i < ver.Count; i++)
+                ListVer.Add(ver[i].name);
+            ListVer.Sort(); //ordena la lista
+
+            //inicializa la matriz en 0
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    matrizP[i, j] = max;
+                    if (i == j)
+                        matrizP[i, j] = 0;
+                }
+
+            //almacena los pesos a la matriz de ponderados
+            for (int i = 0; i < ver.Count; i++)
+            {
+                string vo = ver[i].name;
+                foreach (Arista a in ver[i].ListAristas)
+                {
+                    string vd = a.destino.name;
+                    matrizP[ListVer.IndexOf(vo), ListVer.IndexOf(vd)] = a.peso; //dirigido
+                    matrizP[ListVer.IndexOf(vd), ListVer.IndexOf(vo)] = max; //no dirigido
+
+                }
+            }
+
+            //imprime la matriz de ponderados
+            for (int i = 0; i < ver.Count; i++)
+            {
+                t.Text += ver[i].name + " |   ";
+                for (int j = 0; j < n; j++)
+                {
+                    //Console.Write(string.Format("{0,4:D}", matrizP[i, j]));
+                    //t.Text += string.Format("{0,4:D}", matrizP[i, j].ToString());
+                    if(matrizP[i,j] == max)
+                        t.Text += string.Format("{0,4:D}", "∞");
+
+                    else
+                        t.Text += string.Format("{0,4:D}", matrizP[i, j].ToString());
+                }
+
+                t.Text += Environment.NewLine;
+                //Console.WriteLine();
+            }
+
+        }
+
+        public int[,] matrizPond 
+        {
+            get => matrizP;
         }
 
         public void CreaMatriz(List<CVertice> ver, RichTextBox t, bool dir)

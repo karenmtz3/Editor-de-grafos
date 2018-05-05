@@ -483,6 +483,13 @@ namespace grafosv1
             MessageBox.Show("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
         }
 
+        private void floydToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            menu = 8;
+            ListGrafo[posG].MatrizAdyP(ListGrafo[posG].ListaVer.Count, DatosT);
+            ListGrafo[posG].Floyd();
+        }
+
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
         private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {

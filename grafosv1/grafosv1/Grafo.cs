@@ -24,6 +24,8 @@ namespace grafosv1
         public int[] TGrados, TGrados2;
         private string VerRecorridos;
 
+        private int[,] ponderados;
+
         public Grafo()
         {
             auxi = -1;
@@ -159,6 +161,42 @@ namespace grafosv1
             l.CreaLista(ListaVer, t, dir);
             ListGradosAd = l.GradosAd();
             ListVAdy = l.vad;
+        }
+
+        public void MatrizAdyP(int i, RichTextBox t)
+        {
+            m = new MatrizAdy(i);
+            m.CreaMatrizPon(ListaVer, t);
+            ponderados = m.matrizPond;
+        }
+
+        public void Floyd()
+        {
+            int[,] floyd = ponderados;
+            for(int k = 0; k < ListaVer.Count; k++)
+                for(int i = 0; i < ListaVer.Count; i++)
+                    for(int j = 0; j < ListaVer.Count; j++)
+                    {
+                        if (ponderados[i, k] != int.MaxValue && ponderados[k, j] != int.MaxValue)
+                        {
+                            int suma = ponderados[i, k] + ponderados[k, j];
+                            if ((k != i && i != j && k != j) && suma < ponderados[i, j])
+                                floyd[i, j] = suma;
+                        }
+                    }
+
+            for (int i = 0; i < ListaVer.Count; i++)
+            {
+                for (int j = 0; j < ListaVer.Count; j++)
+                {
+                    if(floyd[i,j] == int.MaxValue)
+                        Console.Write(string.Format("{0,4:D}", "-"));
+                    else
+                        Console.Write(string.Format("{0,4:D}", floyd[i, j]));
+                }
+                Console.WriteLine();
+            }
+
         }
 
         public void MtzIncd(int n, List<int> TAristas, RichTextBox t)
