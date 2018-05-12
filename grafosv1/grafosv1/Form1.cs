@@ -33,6 +33,7 @@ namespace grafosv1
 
         public List<int> TotalAris = new List<int>();
         int total = 0;
+        public bool pintar = false, pAristas = false;
 
         public Point p1, c1, p2, c2;
 
@@ -64,13 +65,15 @@ namespace grafosv1
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
+            pAristas = false;
         }
 
 
         //nuevo documento
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             vérticeToolStripMenuItem.Enabled = false;
             aristaToolStripMenuItem.Enabled = false;
             //habilita los botones de dirgido y no dirigido
@@ -81,15 +84,12 @@ namespace grafosv1
             {
                 guardarToolStripMenuItem_Click(sender, e);
                 ListGrafo.Clear();
-
-                //posG += 1;
             }
             else
             {
                 ListGrafo.Clear();
                 posG = -1;
             }
-            //ListGrafo = new List<Grafo>();
 
             temp1 = 0;
             Invalidate();
@@ -98,6 +98,7 @@ namespace grafosv1
         //guardar el grafo
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
             save = new SaveFileDialog();
             if (save.ShowDialog() == DialogResult.OK)
             {
@@ -114,6 +115,7 @@ namespace grafosv1
         //abrir un grafo
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
             gradoDeNodoToolStripMenuItem.Enabled = true;
             gradoInternoToolStripMenuItem.Enabled = true;
             aristaToolStripMenuItem.Enabled = true;
@@ -156,6 +158,7 @@ namespace grafosv1
         //crea un nuevo grafo y lo agrega a la lista de grafos
         private void nuevoGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
             gradoDeNodoToolStripMenuItem.Enabled = false;
             gradoInternoToolStripMenuItem.Enabled = false;
             aristaToolStripMenuItem.Enabled = true;
@@ -176,12 +179,16 @@ namespace grafosv1
         //mover grafo   activa variable para mover el grafo
         private void moverGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 6;
         }
 
         //Crea la matriz de adyacencia  imprime en consola
         private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 8;
             label5.Text = "Matriz de Adyacencia";
             DatosT.Clear();
@@ -191,6 +198,8 @@ namespace grafosv1
         //Crea la lista de adyacencia   imprime en consola
         private void listaDeAdyacenciasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 9;
             label5.Text = "Lista de Adyacencia";
             DatosT.Clear();
@@ -205,6 +214,8 @@ namespace grafosv1
         //Crea matriz de incidencia
         private void matrizIncidenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 11;
             nombrear = true;
             label5.Text = "Matriz de Incidencia";
@@ -215,49 +226,55 @@ namespace grafosv1
         //isomorfismo
         private void isomorfismoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 12;
-            //posG -= 1;
-            int n =posG-1;
-            ListGrafo[posG].setAris = TotalAris.Count;
-            ListGrafo[n].setAris = TotalAris.Count;
-            //grafo1
-            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
-            ListGrafo[posG].guarda();
-            DatosT.Clear();
-            ListGrafo[posG].LstAd(DatosT, dirigido);
-            DatosT.Clear();
-
-            //grafo2
-            int[] arreglo2 = ListGrafo[n].MtzAd(ListGrafo[n].ListaVer.Count, DatosT, dirigido);
-            ListGrafo[n].guarda();
-            DatosT.Clear();
-            ListGrafo[n].LstAd(DatosT, dirigido);
-            DatosT.Clear();
-
-
-            ListGrafo[posG].setGrados = arreglo;
-            ListGrafo[n].setGrados = arreglo2;
-
-            if (ListGrafo.Count > 1)
+            if (NumGrafo.Value == 0)
+                MessageBox.Show("El indice debe de ser diferente de 0");
+            else
             {
-                if (ListGrafo[posG].Dir == ListGrafo[n].Dir)
+                int n = posG - 1;
+                ListGrafo[posG].setAris = TotalAris.Count;
+                ListGrafo[n].setAris = TotalAris.Count;
+                //grafo1
+                int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+                ListGrafo[posG].guarda();
+                DatosT.Clear();
+                ListGrafo[posG].LstAd(DatosT, dirigido);
+                DatosT.Clear();
+
+                //grafo2
+                int[] arreglo2 = ListGrafo[n].MtzAd(ListGrafo[n].ListaVer.Count, DatosT, dirigido);
+                ListGrafo[n].guarda();
+                DatosT.Clear();
+                ListGrafo[n].LstAd(DatosT, dirigido);
+                DatosT.Clear();
+
+                ListGrafo[posG].setGrados = arreglo;
+                ListGrafo[n].setGrados = arreglo2;
+
+                if (ListGrafo.Count > 1)
                 {
-                    if (ListGrafo[posG].Iso(ListGrafo[posG], ListGrafo[n]))
-                        MessageBox.Show("Son Isomorficos");
+                    if (ListGrafo[posG].Dir == ListGrafo[n].Dir)
+                    {
+                        if (ListGrafo[posG].Iso(ListGrafo[posG], ListGrafo[n]))
+                            MessageBox.Show("Son Isomorficos");
+                        else
+                            MessageBox.Show("No Son Isomorficos");
+                    }
                     else
-                        MessageBox.Show("No Son Isomorficos");
+                        MessageBox.Show("No son del mismo tipo de grafos");
                 }
                 else
-                    MessageBox.Show("No son del mismo tipo de grafos");
+                    MessageBox.Show("Solo hay un grafo");
             }
-            else
-                MessageBox.Show("Solo hay un grafo");
         } 
 
         //crea nuevo nodo       activa banderas para dibujar los nodos
         private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 1;
             //forma = false;
             TipoArista = false;
@@ -268,6 +285,8 @@ namespace grafosv1
         //elimina nodo      activa bandera para eliminar los nodos
         private void quitarNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 2;
             TipoArista = false;
         }
@@ -275,6 +294,8 @@ namespace grafosv1
         //mover nodo        activa bandera para mover el nodo seleccionado
         private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 3;
             //move = true;
             //moveG = false;
@@ -282,12 +303,16 @@ namespace grafosv1
 
         private void nuevaAristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             total = 0;
             TotalAris.Clear();
         }
 
         private void medioKuratowskyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             //a partir del grafo determinar si contiene un subgrafo homeomórfico a k3,3 o k5
             Grafo g = ListGrafo[posG];
             int NV = g.ListaVer.Count;
@@ -334,6 +359,8 @@ namespace grafosv1
 
         private void caminoEulerianoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             int cont = 0;
             bool resp = false;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
@@ -352,6 +379,8 @@ namespace grafosv1
 
         private void ciruitoEulerianoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             bool resp = true;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
             ListGrafo[posG].setGrados = arreglo;
@@ -368,6 +397,8 @@ namespace grafosv1
 
         private void corolario1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             ListGrafo[posG].setAris = TotalAris.Count;
             int valor = (3 * ListGrafo[posG].ListaVer.Count) - 6;
             if (ListGrafo[posG].ListaVer.Count >= 3 && ListGrafo[posG].setAris <= valor)
@@ -378,6 +409,8 @@ namespace grafosv1
 
         private void cotolario2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             ListGrafo[posG].setAris = TotalAris.Count;
             int valor = (2 * ListGrafo[posG].ListaVer.Count) - 4;
             if (ListGrafo[posG].ListaVer.Count >= 3 && ListGrafo[posG].setAris <= valor)
@@ -389,13 +422,17 @@ namespace grafosv1
 
         private void númeroCromáticoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pAristas = false;
+            mfloyd.Visible = false;
+            pintar = true;
             int cont = 0;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
             ListGrafo[posG].guarda();
             DatosT.Clear();
             ListGrafo[posG].LstAd(DatosT, dirigido);
+            DatosT.Clear();
 
-            //Asegura que en un principio en número cromático de los vértices es 0
+            //Asegura que en un principio el número cromático de los vértices es 0
             for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
                 ListGrafo[posG].ListaVer[i].NumCrom = 0;
 
@@ -424,7 +461,6 @@ namespace grafosv1
                         }
                         else if (!ListGrafo[posG].ListVAdy[i - 1].Contains(n))
                         {
-                            
                             vertice.NumCrom = ListGrafo[posG].ListaVer[i - 1].NumCrom;
                             if (vertice.NumCrom == ListGrafo[posG].ListaVer[p - 2].NumCrom)
                                 vertice.NumCrom = ListGrafo[posG].ListaVer[p - 3].NumCrom;
@@ -447,11 +483,13 @@ namespace grafosv1
                     mayor = v.NumCrom;
                 Console.WriteLine("Vértice " + ListGrafo[posG].ListaVer[i].name + " número cromático " + ListGrafo[posG].ListaVer[i].NumCrom);
             }
-            MessageBox.Show("El número cromático es " + mayor);
+            //MessageBox.Show("El número cromático es " + mayor);
         }
 
         private void recorridoEnAmplitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
             ListGrafo[posG].guarda();
             DatosT.Clear();
@@ -466,6 +504,8 @@ namespace grafosv1
 
         private void bosqueAbarcadorEnProfundidadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
             ListGrafo[posG].guarda();
             DatosT.Clear();
@@ -485,14 +525,45 @@ namespace grafosv1
 
         private void floydToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            label5.Text = "";
+            DatosT.Clear();
             menu = 8;
             ListGrafo[posG].MatrizAdyP(ListGrafo[posG].ListaVer.Count, DatosT);
-            ListGrafo[posG].Floyd();
+            ListGrafo[posG].Floyd(mfloyd);
         }
 
+        private void kruskalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pintar = false;
+            mfloyd.Visible = false;
+            ListGrafo[posG].kruskal();
+            pAristas = true;
+           // ponderado = true;
+        }
+
+        public void PintaAr(PaintEventArgs e)
+        {
+            List<Arista> aristas = ListGrafo[posG].kruskal();
+            for (int i = 0; i < aristas.Count; i++)
+            {
+                Arista arista = aristas[i];
+                //int xm = (arista.destino.x + arista.orix) / 2;
+                //int ym = (arista.destino.y + arista.oriy) / 2;
+                Console.WriteLine("arista: " + arista.peso);
+                e.Graphics.DrawLine(new Pen(Color.Red,3), arista.destx, arista.desty, arista.orix, arista.oriy);
+                //if (ponderado == true)
+                  //  e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
+                    //    new SolidBrush(Color.Red), xm, ym);
+
+            }
+
+        }
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
         private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 7;
             DatosT.Clear();
             arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
@@ -500,6 +571,8 @@ namespace grafosv1
 
         private void gradoInternoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 10;
             DatosT.Clear();
             //arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
@@ -593,12 +666,16 @@ namespace grafosv1
         //Se activa bandera para poder eliminar una arista
         private void eliminaAristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             menu = 5;
         }
 
         //Se asigna a la variable de posición de grafo el valor de este numericUpDown
         private void NumGrafo_ValueChanged(object sender, EventArgs e)
         {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
             posG = ((int)NumGrafo.Value);
 
         }
@@ -606,6 +683,7 @@ namespace grafosv1
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            pintar = false;
             x = e.X - wid / 2;
             y = e.Y - he / 2;
             if (!TipoArista)
@@ -805,7 +883,7 @@ namespace grafosv1
                             {
 
                                 int g = arreglo2[i]; //interno
-                                label1.Text = g.ToString();
+                                //label1.Text = g.ToString();
                                 MessageBox.Show("El grado interno del vértice es: " + g.ToString()
                                 + Environment.NewLine + "El grado externo del vertice es: " +
                                 grade.ToString(), "Grado de vértice", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -819,6 +897,36 @@ namespace grafosv1
             Invalidate();
         }
      
+        private void PintaCromatico(PaintEventArgs e)
+        {
+            forma = false;
+            foreach (CVertice v in ListGrafo[posG].ListaVer)
+            {
+                int color = v.NumCrom;
+                switch(color)
+                {
+                    case 1: //rojo
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Red), v.x, v.y, wid, he);
+                        break;
+                    case 2: //verde
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Green), v.x, v.y, wid, he);
+                        break;
+                    case 3://amarillo
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Yellow), v.x, v.y, wid, he);
+                        break;
+                    case 4://naranja
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Orange), v.x, v.y, wid, he);
+                        break;
+                    case 5://rosa
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Pink), v.x, v.y, wid, he);
+                        break;
+                    case 6://cafe
+                        e.Graphics.FillEllipse(new SolidBrush(Color.Brown), v.x, v.y, wid, he);
+                        break;
+                }
+            }
+        }
+
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             PointF[] puntos;
@@ -869,12 +977,12 @@ namespace grafosv1
                                 int xm = (arista.destino.x + arista.orix) / 2;
                                 int ym = (arista.destino.y + arista.oriy) / 2;
                                 if (nombrear == true)
-                                    e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 10),
+                                    e.Graphics.DrawString("e"+arista.NombreAr, new Font("Times New Roman", 10),
                                         new SolidBrush(Color.Black), xm, ym);
                                 if (ponderado == true)
                                     e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
-                                        new SolidBrush(Color.Black), arista.destx, arista.desty);
-                                label1.Text = arista.peso.ToString();
+                                        new SolidBrush(Color.Black), xm, ym);
+                                //label1.Text = arista.peso.ToString();
                                 point.Clear();
                                 
                             }
@@ -896,7 +1004,7 @@ namespace grafosv1
                             for (int k = 0; k < ver.ListAristas.Count; k++)
                             {
                                 Arista arista = ver.ListAristas[k];
-                                if (k < 1)
+                                if (k <= 3)
                                 {
                                     arista.Recta = true;
                                     e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
@@ -921,13 +1029,13 @@ namespace grafosv1
                                 int ym = (arista.destino.y + arista.oriy) / 2;
                                 //bandera para que se visualicen los nombres de las aristas
                                 if (nombrear == true)
-                                    e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 10),
+                                    e.Graphics.DrawString("e"+arista.NombreAr, new Font("Times New Roman", 10),
                                         new SolidBrush(Color.Black), xm, ym);
                                 //bandera para que se visualicen las ponderaciones 
                                 if (ponderado == true)
                                     e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
-                                        new SolidBrush(Color.Black), arista.destx, arista.desty);
-                                label1.Text = arista.peso.ToString();
+                                        new SolidBrush(Color.Black),xm, ym);
+                                //label1.Text = arista.peso.ToString();
                                 point.Clear();
                                 
                             }
@@ -936,6 +1044,9 @@ namespace grafosv1
                 }
                 else
                 {
+                    if (pintar)
+                        PintaCromatico(e);
+                    
                     //for (int i = 0; i < ListGrafo.Count; i++)
                     for (int j = 0; j < ListGrafo[i].ListaVer.Count; j++)
                     {
@@ -954,8 +1065,10 @@ namespace grafosv1
                             Arista arista = ver.ListAristas[k];
                             if (k <= 3)
                             {
-                                arista.Recta = true;
-                                e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+                                if (pAristas)
+                                    PintaAr(e);
+                                    arista.Recta = true;
+                                    e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
                             }
                             else
                             {
@@ -977,12 +1090,12 @@ namespace grafosv1
                             int xm = (arista.destino.x + arista.orix) / 2;
                             int ym = (arista.destino.y + arista.oriy) / 2;
                             if(nombrear == true)
-                                e.Graphics.DrawString(arista.NombreAr, new Font("Times New Roman", 10),
+                                e.Graphics.DrawString("e"+arista.NombreAr, new Font("Times New Roman", 10),
                                     new SolidBrush(Color.Black),xm, ym );
                             if (ponderado == true)
                                 e.Graphics.DrawString(arista.peso.ToString(), new Font("Times New Roman", 10),
-                                    new SolidBrush(Color.Black), arista.destx, arista.desty);
-                            label1.Text = arista.peso.ToString();
+                                    new SolidBrush(Color.Black), xm, ym);
+                            //label1.Text = arista.peso.ToString();
                             point.Clear();
                         }
                     }

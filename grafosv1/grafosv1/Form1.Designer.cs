@@ -71,15 +71,14 @@
             this.algoritmosNoDirigidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kruskalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recorridoEnAmplitudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.NumGrafo = new System.Windows.Forms.NumericUpDown();
             this.DatosT = new System.Windows.Forms.RichTextBox();
+            this.mfloyd = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -425,6 +424,7 @@
             this.kruskalToolStripMenuItem.Name = "kruskalToolStripMenuItem";
             this.kruskalToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.kruskalToolStripMenuItem.Text = "Kruskal";
+            this.kruskalToolStripMenuItem.Click += new System.EventHandler(this.kruskalToolStripMenuItem_Click);
             // 
             // recorridoEnAmplitudToolStripMenuItem
             // 
@@ -433,51 +433,15 @@
             this.recorridoEnAmplitudToolStripMenuItem.Text = "Recorrido en amplitud";
             this.recorridoEnAmplitudToolStripMenuItem.Click += new System.EventHandler(this.recorridoEnAmplitudToolStripMenuItem_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(22, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
-            this.label1.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(22, 114);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Indigo;
-            this.label3.Location = new System.Drawing.Point(22, 127);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 13);
-            this.label3.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(22, 85);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 13);
-            this.label4.TabIndex = 5;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.BackColor = System.Drawing.SystemColors.Control;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label5.Location = new System.Drawing.Point(12, 39);
+            this.label5.Location = new System.Drawing.Point(8, 16);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 16);
+            this.label5.Size = new System.Drawing.Size(0, 15);
             this.label5.TabIndex = 6;
             // 
             // NumGrafo
@@ -490,11 +454,34 @@
             // 
             // DatosT
             // 
-            this.DatosT.Location = new System.Drawing.Point(0, 53);
+            this.DatosT.Location = new System.Drawing.Point(6, 41);
             this.DatosT.Name = "DatosT";
-            this.DatosT.Size = new System.Drawing.Size(139, 74);
+            this.DatosT.ReadOnly = true;
+            this.DatosT.Size = new System.Drawing.Size(139, 69);
             this.DatosT.TabIndex = 8;
             this.DatosT.Text = "";
+            // 
+            // mfloyd
+            // 
+            this.mfloyd.Location = new System.Drawing.Point(6, 128);
+            this.mfloyd.Name = "mfloyd";
+            this.mfloyd.ReadOnly = true;
+            this.mfloyd.Size = new System.Drawing.Size(139, 78);
+            this.mfloyd.TabIndex = 10;
+            this.mfloyd.Text = "";
+            this.mfloyd.Visible = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.DatosT);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.mfloyd);
+            this.groupBox1.Location = new System.Drawing.Point(4, 40);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(153, 248);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "propiedades";
             // 
             // Form1
             // 
@@ -502,13 +489,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(792, 424);
-            this.Controls.Add(this.DatosT);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.NumGrafo);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.Control;
@@ -525,6 +507,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -532,10 +516,6 @@
 
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem1;
@@ -580,6 +560,8 @@
         private System.Windows.Forms.ToolStripMenuItem algoritmosNoDirigidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kruskalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recorridoEnAmplitudToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox mfloyd;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

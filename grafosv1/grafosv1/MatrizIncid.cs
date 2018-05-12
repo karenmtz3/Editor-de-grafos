@@ -64,13 +64,15 @@ namespace grafosv1
 
 
             //imprime en consola
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < vertice.Count; i++)
             {
+                t.Text += vertice[i].name + " |   ";
                 for (int j = 0; j < m; j++)
                 {
                     Console.Write(string.Format("{0,4:D}", matrizI[i, j]));
                     t.Text += string.Format("{0,4:D}", matrizI[i, j].ToString());
                 }
+                t.Text += Environment.NewLine;
                 Console.WriteLine();
             }
         }

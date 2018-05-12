@@ -108,7 +108,6 @@ namespace grafosv1
                     
                 }
             }
-
             //Imprime la matriz
             for (int i = 0; i < ver.Count; i++)
             {

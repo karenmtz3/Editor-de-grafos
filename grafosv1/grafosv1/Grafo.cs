@@ -121,7 +121,7 @@ namespace grafosv1
 
                 for (int i = 0; i < visitados.Count; i++)
                     VerRecorridos += visitados[i];
-                        // Console.Write(" " + visitados[i]);
+                // Console.Write(" " + visitados[i]);
             }
         }
 
@@ -132,7 +132,7 @@ namespace grafosv1
             TGrados = new int[i];
             m.CreaMatriz(ListaVer, t, dir);
             TGrados = m.GetList.ToArray();
-            return TGrados; 
+            return TGrados;
         }
 
         public void guarda()
@@ -170,12 +170,13 @@ namespace grafosv1
             ponderados = m.matrizPond;
         }
 
-        public void Floyd()
+        public void Floyd(RichTextBox t)
         {
+            t.Visible = true;
             int[,] floyd = ponderados;
-            for(int k = 0; k < ListaVer.Count; k++)
-                for(int i = 0; i < ListaVer.Count; i++)
-                    for(int j = 0; j < ListaVer.Count; j++)
+            for (int k = 0; k < ListaVer.Count; k++)
+                for (int i = 0; i < ListaVer.Count; i++)
+                    for (int j = 0; j < ListaVer.Count; j++)
                     {
                         if (ponderados[i, k] != int.MaxValue && ponderados[k, j] != int.MaxValue)
                         {
@@ -187,16 +188,99 @@ namespace grafosv1
 
             for (int i = 0; i < ListaVer.Count; i++)
             {
+                t.Text += ListaVer[i].name + " |   ";
                 for (int j = 0; j < ListaVer.Count; j++)
                 {
-                    if(floyd[i,j] == int.MaxValue)
+                    if (floyd[i, j] == int.MaxValue)
+                    {
                         Console.Write(string.Format("{0,4:D}", "-"));
+                        t.Text += string.Format("{0,4:D}", "∞");
+                    }
                     else
+                    {
                         Console.Write(string.Format("{0,4:D}", floyd[i, j]));
+                        t.Text += string.Format("{0,4:D}", floyd[i, j]);
+                    }
                 }
+                t.Text += Environment.NewLine;
                 Console.WriteLine();
             }
 
+        }
+
+        public List<Arista> kruskal()
+        {
+            List<List<CVertice>> comp = CreaComp(ListaVer); //lista de componentes del grafo
+            List<Arista> AristQ = new List<Arista>(); //lista de aristas del grafo
+            List<Arista> ArisOrd; //lista de aristas ordenadas por su peso
+            List<Arista> List = new List<Arista>(); //lista para crear el arbol de expansión mínima
+
+            int i = -1, j = -1;
+            CVertice origen, destino;
+            Arista menorcost;
+
+            foreach(CVertice v in ListaVer)
+            {
+                foreach (Arista a in v.ListAristas)
+                    AristQ.Add(a);
+            }
+            ArisOrd = AristQ.OrderBy(o => o.peso).ToList();
+            foreach (Arista a in ArisOrd)
+                Console.WriteLine("Arista: " + a.NombreAr + " peso: " + a.peso);
+            while (List.Count < ListaVer.Count - 1)
+            {
+                origen = null;
+                menorcost = ArisOrd[0];
+                ArisOrd.Remove(menorcost);
+                foreach (CVertice v in ListaVer)
+                    foreach (Arista a in v.ListAristas)
+                    {
+                        if (a == menorcost)
+                            origen = v;
+                    }
+                destino = menorcost.destino;
+                i = BuscaK(origen, comp);
+                j = BuscaK(destino, comp);
+                if( i != j)
+                {
+                    List.Add(menorcost);
+                    Unir(i, j, comp);
+                }
+            }
+
+            Console.WriteLine("Lista de aristas de menor peso");
+            for (int k = 0; k < List.Count; k++)
+                Console.WriteLine("arista: " + List[k].NombreAr + " peso: " + List[k].peso);
+            return List;
+        }
+
+        
+
+        public int BuscaK(CVertice v, List<List<CVertice>> c)
+        {
+            int index = 0;
+            for (int i = 0; i < c.Count; i++)
+                if (c[i].Contains(v))
+                    index = i;
+            return index;
+        }
+
+        public void Unir(int i, int j, List<List<CVertice>> c)
+        {
+            foreach (CVertice v in c[j])
+                c[i].Add(v);
+            c[j].Clear();
+        }
+
+        public List<List<CVertice>> CreaComp(List<CVertice> vertex)
+        {
+            List<List<CVertice>> lista = new List<List<CVertice>>();
+            for(int i = 0; i < vertex.Count; i++)
+            {
+                lista.Add(new List<CVertice>());
+                lista[i].Add(vertex[i]);
+            }
+            return lista;
         }
 
         public void MtzIncd(int n, List<int> TAristas, RichTextBox t)
