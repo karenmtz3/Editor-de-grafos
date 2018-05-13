@@ -76,6 +76,7 @@
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.mfloyd = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -396,6 +397,7 @@
             this.impresiónDeCaminosToolStripMenuItem.Name = "impresiónDeCaminosToolStripMenuItem";
             this.impresiónDeCaminosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.impresiónDeCaminosToolStripMenuItem.Text = "Impresión de caminos";
+            this.impresiónDeCaminosToolStripMenuItem.Click += new System.EventHandler(this.impresiónDeCaminosToolStripMenuItem_Click);
             // 
             // bosqueAbarcadorEnProfundidadToolStripMenuItem
             // 
@@ -409,6 +411,7 @@
             this.acíclicosToolStripMenuItem.Name = "acíclicosToolStripMenuItem";
             this.acíclicosToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.acíclicosToolStripMenuItem.Text = "Acíclicos";
+            this.acíclicosToolStripMenuItem.Click += new System.EventHandler(this.acíclicosToolStripMenuItem_Click);
             // 
             // algoritmosNoDirigidosToolStripMenuItem
             // 
@@ -473,15 +476,25 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.richTextBox1);
             this.groupBox1.Controls.Add(this.DatosT);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.mfloyd);
             this.groupBox1.Location = new System.Drawing.Point(4, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(153, 248);
+            this.groupBox1.Size = new System.Drawing.Size(153, 334);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "propiedades";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(6, 238);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(136, 78);
+            this.richTextBox1.TabIndex = 11;
+            this.richTextBox1.Text = "";
             // 
             // Form1
             // 
@@ -562,6 +575,7 @@
         private System.Windows.Forms.ToolStripMenuItem recorridoEnAmplitudToolStripMenuItem;
         private System.Windows.Forms.RichTextBox mfloyd;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

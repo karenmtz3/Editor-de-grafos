@@ -518,7 +518,9 @@ namespace grafosv1
                 if (ver.VerVisitado == false)
                     ListGrafo[posG].dfs(ver);
             }
-
+            /*Grafo g = new Grafo();
+            g.ListaVer = ListGrafo[posG].visitados;
+            ListGrafo[posG].visitados.Clear();*/
             ListGrafo[posG].imprimedfs();
             MessageBox.Show("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
         }
@@ -533,6 +535,20 @@ namespace grafosv1
             ListGrafo[posG].Floyd(mfloyd);
         }
 
+
+        private void impresiónDeCaminosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pintar = pAristas = false;
+            label5.Text = "";
+            DatosT.Clear();
+            menu = 8;
+            ListGrafo[posG].MatrizAdyP(ListGrafo[posG].ListaVer.Count, DatosT);
+            mfloyd.Clear();
+            ListGrafo[posG].Floyd(mfloyd);
+            ListGrafo[posG].CaminosFloyd(richTextBox1);
+            
+            }
+
         private void kruskalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = false;
@@ -540,6 +556,24 @@ namespace grafosv1
             ListGrafo[posG].kruskal();
             pAristas = true;
            // ponderado = true;
+        }
+
+        private void acíclicosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pintar = pAristas = false;
+            mfloyd.Visible = false;
+            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            ListGrafo[posG].guarda();
+            DatosT.Clear();
+            ListGrafo[posG].LstAd(DatosT, dirigido);
+            CVertice vertex = ListGrafo[posG].ListaVer[0];
+            ListGrafo[posG].dfs(vertex);
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            {
+                CVertice ver = ListGrafo[posG].ListaVer[i];
+                if (ver.VerVisitado == false)
+                    ListGrafo[posG].dfs(ver);
+            }
         }
 
         public void PintaAr(PaintEventArgs e)
@@ -559,6 +593,8 @@ namespace grafosv1
             }
 
         }
+
+
         //grado del vértice     activa bandera la dar el grado del vértice que se de click
         private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1063,7 +1099,7 @@ namespace grafosv1
                         for (int k = 0; k < ver.ListAristas.Count; k++)
                         {
                             Arista arista = ver.ListAristas[k];
-                            if (k <= 3)
+                            if (k <= 3 && ListGrafo[i].ListaVer.ElementAt(j) != ListGrafo[i].ListaVer[j].ListAristas[k].RegresaDest)
                             {
                                 if (pAristas)
                                     PintaAr(e);

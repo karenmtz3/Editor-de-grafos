@@ -49,7 +49,10 @@ namespace grafosv1
                 foreach (Arista a in ver[i].ListAristas)
                 {
                     string vd = a.destino.name;
-                    matrizP[ListVer.IndexOf(vo), ListVer.IndexOf(vd)] = a.peso; //dirigido
+                    if (vo == vd)
+                        matrizP[ListVer.IndexOf(vo), ListVer.IndexOf(vd)] = 0;
+                    else
+                        matrizP[ListVer.IndexOf(vo), ListVer.IndexOf(vd)] = a.peso; //dirigido
                     matrizP[ListVer.IndexOf(vd), ListVer.IndexOf(vo)] = max; //no dirigido
 
                 }
@@ -64,7 +67,7 @@ namespace grafosv1
                     //Console.Write(string.Format("{0,4:D}", matrizP[i, j]));
                     //t.Text += string.Format("{0,4:D}", matrizP[i, j].ToString());
                     if(matrizP[i,j] == max)
-                        t.Text += string.Format("{0,4:D}", "∞");
+                        t.Text += string.Format("{0,4:D}", "-");
 
                     else
                         t.Text += string.Format("{0,4:D}", matrizP[i, j].ToString());

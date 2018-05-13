@@ -16,6 +16,7 @@ namespace grafosv1
         private bool dirigido;
         public List<string> ListGradosAd;
         public List<string> ListVAdy;
+       
 
         private MatrizAdy m;
         private MatrizIncid mi;
@@ -23,6 +24,7 @@ namespace grafosv1
         private Isomorfismo GIsomor;
         public int[] TGrados, TGrados2;
         private string VerRecorridos;
+        public int[,] caminos;
 
         private int[,] ponderados;
 
@@ -56,13 +58,15 @@ namespace grafosv1
             get => TGrados;
         }
 
-        List<CVertice> visitados = new List<CVertice>();
+        public List<CVertice> visitados = new List<CVertice>();
+        public int cont = 0;
+        //busqueda ne profundidad
         public void dfs(CVertice v)
         {
             v.VerVisitado = true;
             if (!visitados.Contains(v))
                 visitados.Add(v);
-            int s = Int32.Parse(v.name); //´convierte el nombre en entero
+            int s = Int32.Parse(v.name); //convierte el nombre en entero
             string ady = ListVAdy[s - 1];
             char[] ArrAdy = ady.ToCharArray();
             for (int i = 0; i < ArrAdy.Length; i++)
@@ -174,6 +178,9 @@ namespace grafosv1
         {
             t.Visible = true;
             int[,] floyd = ponderados;
+            caminos = new int[ListaVer.Count, ListaVer.Count];
+
+            //int[,] caminos = new int[ListaVer.Count, ListaVer.Count];
             for (int k = 0; k < ListaVer.Count; k++)
                 for (int i = 0; i < ListaVer.Count; i++)
                     for (int j = 0; j < ListaVer.Count; j++)
@@ -181,8 +188,11 @@ namespace grafosv1
                         if (ponderados[i, k] != int.MaxValue && ponderados[k, j] != int.MaxValue)
                         {
                             int suma = ponderados[i, k] + ponderados[k, j];
-                            if ((k != i && i != j && k != j) && suma < ponderados[i, j])
+                            if (suma < ponderados[i, j])
+                            {
                                 floyd[i, j] = suma;
+                                caminos[i, j] = k+1;
+                            }
                         }
                     }
 
@@ -193,19 +203,42 @@ namespace grafosv1
                 {
                     if (floyd[i, j] == int.MaxValue)
                     {
-                        Console.Write(string.Format("{0,4:D}", "-"));
-                        t.Text += string.Format("{0,4:D}", "∞");
+                        //Console.Write(string.Format("{0,4:D}", "-"));
+                        t.Text += string.Format("{0,4:D}", "-");
                     }
                     else
                     {
-                        Console.Write(string.Format("{0,4:D}", floyd[i, j]));
+                        //Console.Write(string.Format("{0,4:D}", floyd[i, j]));
                         t.Text += string.Format("{0,4:D}", floyd[i, j]);
                     }
                 }
                 t.Text += Environment.NewLine;
+                //Console.WriteLine();
+            }
+        }
+
+        public void CaminosFloyd(RichTextBox t)
+        {
+            for (int i = 0; i < ListaVer.Count; i++)
+            {
+                t.Text += ListaVer[i].name + " |   ";
+                for (int j = 0; j < ListaVer.Count; j++)
+                {
+                    if (caminos[i, j] == 0)
+                    {
+                        Console.Write(string.Format("{0,4:D}", "0"));
+                        t.Text += string.Format("{0,4:D}", "0");
+                    }
+                    else
+                    {
+                        Console.Write(string.Format("{0,4:D}", caminos[i, j]));
+                        t.Text += string.Format("{0,4:D}", caminos[i, j]);
+                    }
+                }
+                
+                t.Text += Environment.NewLine;
                 Console.WriteLine();
             }
-
         }
 
         public List<Arista> kruskal()
