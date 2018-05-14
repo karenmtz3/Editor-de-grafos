@@ -59,8 +59,8 @@ namespace grafosv1
         }
 
         public List<CVertice> visitados = new List<CVertice>();
-        public int cont = 0;
-        //busqueda ne profundidad
+        public int ciclico = -1;
+        //busqueda en profundidad
         public void dfs(CVertice v)
         {
             v.VerVisitado = true;
@@ -75,11 +75,14 @@ namespace grafosv1
                 CVertice ver = ListaVer[pos - 1];
                 if (ver.VerVisitado == false)
                 {
+                    ciclico = 0;
                     ver.VerVisitado = true;
                     if (!visitados.Contains(ver))
                         visitados.Add(ver);
                     dfs(ver);
                 }
+                else
+                    ciclico = -1;
             }
         }
 
@@ -87,7 +90,7 @@ namespace grafosv1
         {
             for (int i = 0; i < visitados.Count; i++)
             {
-                VerRecorridos += visitados[i].name;
+                VerRecorridos += " "+ visitados[i].name;
                 Console.Write(" " + visitados[i].name);
             }
         }
@@ -124,7 +127,7 @@ namespace grafosv1
                 }
 
                 for (int i = 0; i < visitados.Count; i++)
-                    VerRecorridos += visitados[i];
+                    VerRecorridos += " " + visitados[i];
                 // Console.Write(" " + visitados[i]);
             }
         }
@@ -172,15 +175,13 @@ namespace grafosv1
             m = new MatrizAdy(i);
             m.CreaMatrizPon(ListaVer, t);
             ponderados = m.matrizPond;
+            caminos = m.MatrizC;
         }
 
         public void Floyd(RichTextBox t)
         {
             t.Visible = true;
             int[,] floyd = ponderados;
-            caminos = new int[ListaVer.Count, ListaVer.Count];
-
-            //int[,] caminos = new int[ListaVer.Count, ListaVer.Count];
             for (int k = 0; k < ListaVer.Count; k++)
                 for (int i = 0; i < ListaVer.Count; i++)
                     for (int j = 0; j < ListaVer.Count; j++)
@@ -224,7 +225,7 @@ namespace grafosv1
                 t.Text += ListaVer[i].name + " |   ";
                 for (int j = 0; j < ListaVer.Count; j++)
                 {
-                    if (caminos[i, j] == 0)
+                    if (i ==j)
                     {
                         Console.Write(string.Format("{0,4:D}", "0"));
                         t.Text += string.Format("{0,4:D}", "0");

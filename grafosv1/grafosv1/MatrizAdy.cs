@@ -11,7 +11,7 @@ namespace grafosv1
     public class MatrizAdy
     {
         private int n;
-        private int[,] matriz, matrizP;
+        private int[,] matriz, matrizP, caminos;
         private int cont = 0, cont2 = 0;
         private List<int> arr, arr2;
         private int max = int.MaxValue;
@@ -21,6 +21,7 @@ namespace grafosv1
             n = i;
             matriz = new int[n,n];
             matrizP = new int[n,n];
+            caminos = new int[n, n];
             arr = new List<int>();
             arr2 = new List<int>();
         }
@@ -32,6 +33,11 @@ namespace grafosv1
             for (int i = 0; i < ver.Count; i++)
                 ListVer.Add(ver[i].name);
             ListVer.Sort(); //ordena la lista
+
+            //inicializa la matriz de caminos si mismos
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    caminos[i, j] = j + 1;
 
             //inicializa la matriz en 0
             for (int i = 0; i < n; i++)
@@ -82,6 +88,11 @@ namespace grafosv1
         public int[,] matrizPond 
         {
             get => matrizP;
+        }
+
+        public int[,] MatrizC
+        {
+            get => caminos;
         }
 
         public void CreaMatriz(List<CVertice> ver, RichTextBox t, bool dir)

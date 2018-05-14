@@ -528,6 +528,7 @@ namespace grafosv1
         private void floydToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
+            ponderado = true;
             label5.Text = "";
             DatosT.Clear();
             menu = 8;
@@ -547,7 +548,7 @@ namespace grafosv1
             ListGrafo[posG].Floyd(mfloyd);
             ListGrafo[posG].CaminosFloyd(richTextBox1);
             
-            }
+        }
 
         private void kruskalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -568,12 +569,16 @@ namespace grafosv1
             ListGrafo[posG].LstAd(DatosT, dirigido);
             CVertice vertex = ListGrafo[posG].ListaVer[0];
             ListGrafo[posG].dfs(vertex);
-            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            if (ListGrafo[posG].ciclico == 0)
+                MessageBox.Show("El grafo es acíclico");
+            else
+                MessageBox.Show("El grafo no es acíclico");
+            /*for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
             {
                 CVertice ver = ListGrafo[posG].ListaVer[i];
                 if (ver.VerVisitado == false)
                     ListGrafo[posG].dfs(ver);
-            }
+            }*/
         }
 
         public void PintaAr(PaintEventArgs e)
