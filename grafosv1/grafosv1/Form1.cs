@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using Microsoft.VisualBasic;
 
 
@@ -37,6 +38,7 @@ namespace grafosv1
 
         public Point p1, c1, p2, c2;
 
+        Graphics g;
 
         //variables para abrir y guardar el grafo
         SaveFileDialog save;
@@ -68,10 +70,17 @@ namespace grafosv1
             pAristas = false;
         }
 
+        //pone los nodos en no visitados
+        public void NoVisitados()
+        {
+            foreach (CVertice v in ListGrafo[posG].ListaVer)
+                v.VerVisitado = false;
+        }
 
         //nuevo documento
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            NoVisitados();
             pintar = pAristas = false;
             mfloyd.Visible = false;
             vérticeToolStripMenuItem.Enabled = false;
@@ -98,6 +107,7 @@ namespace grafosv1
         //guardar el grafo
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            NoVisitados();
             pintar = pAristas = false;
             save = new SaveFileDialog();
             if (save.ShowDialog() == DialogResult.OK)
@@ -497,9 +507,55 @@ namespace grafosv1
             for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
             {
                 CVertice ver = ListGrafo[posG].ListaVer[i];
-                ListGrafo[posG].bea(ver);
+                bea(ver);
+                //if (ver.VerVisitado)
+
+                    
             }
-            MessageBox.Show("Recorrido en amplitud: " + ListGrafo[posG].Recorridos);
+
+            //MessageBox.Show("Recorrido en amplitud: " + ListGrafo[posG].Recorridos);
+        }
+
+        public void bea(CVertice v)
+        {
+            List<CVertice> visitados = new List<CVertice>();
+            List<string> cola = new List<string>();
+            string VerRecorridos = "";
+            if (v.VerVisitado == false)
+            {
+                //int s = Int32.Parse(v.name); //´convierte el nombre en entero
+                v.VerVisitado = true;
+                visitados.Add(v);
+                cola.Add(v.name);
+                while (cola.Any())
+                {
+                    string actual = cola[0];
+                    cola.Remove(actual);
+                    int s = Int32.Parse(actual); //´convierte el nombre en entero
+                    string ady = ListGrafo[posG].ListVAdy[s - 1];
+                    char[] ArrAdy = ady.ToCharArray();
+                    for (int i = 0; i < ArrAdy.Length; i++)
+                    {
+                        int pos = Int32.Parse(ArrAdy[i].ToString());
+                        CVertice ver = ListGrafo[posG].ListaVer[pos - 1];
+                        if (ver.VerVisitado == false)
+                        {
+                            ver.VerVisitado = true;
+                            Refresh();
+                            Thread.Sleep(1000);
+                            cola.Add(ver.name);
+                            visitados.Add(ver);
+                        }
+
+                    }
+                }
+
+                for (int i = 0; i < visitados.Count; i++)
+                    VerRecorridos += " " + visitados[i].name;
+                MessageBox.Show("Recorrido en amplitud: " + VerRecorridos);
+                // Console.Write(" " + visitados[i]);
+            }
+            //return visitados;
         }
 
         private void bosqueAbarcadorEnProfundidadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -724,6 +780,7 @@ namespace grafosv1
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            NoVisitados();
             pintar = false;
             x = e.X - wid / 2;
             y = e.Y - he / 2;
@@ -862,8 +919,6 @@ namespace grafosv1
             //TotalAris = 0;
             if (TipoArista && menu == 4)
             {
-                
-                total++;
                 move = false;
                 forma = false;
                 int temp = ListGrafo[posG].Buscar(e.X, e.Y);
@@ -873,6 +928,7 @@ namespace grafosv1
                 destv = temp;
                 if (temp >= 0)
                 {
+                    total++;
                     ListGrafo[posG].ListaVer[temp1].InsertaArista(total.ToString(),xd, yd, xo, yo, ListGrafo[posG].ListaVer.ElementAt(temp), ponderado, dirigido);
                     TotalAris.Add(total);
                 }
@@ -1096,9 +1152,18 @@ namespace grafosv1
                         Rectangle r = new Rectangle(ListGrafo[i].ListaVer[j].x, ListGrafo[i].ListaVer[j].y, wid, he);
                         //e.Graphics.DrawRectangle(lapiz,r);
                         CVertice ver = ListGrafo[i].ListaVer[j];
-                        e.Graphics.DrawEllipse(lapiz, ver.x, ver.y, wid, he);
-                        e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
-                          new SolidBrush(Color.Blue), ver.x + wid / 3, ver.y + he / 4);
+                        if (ver.VerVisitado)
+                        {
+                            e.Graphics.DrawEllipse(new Pen(Color.Red, 3), ver.x, ver.y, wid, he);
+                            e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
+                             new SolidBrush(Color.Blue), ver.x + wid / 3, ver.y + he / 4);
+                        }
+                        else
+                        {
+                            e.Graphics.DrawEllipse(lapiz, ver.x, ver.y, wid, he);
+                            e.Graphics.DrawString(ver.name, new Font("Times New Roman", 12),
+                              new SolidBrush(Color.Blue), ver.x + wid / 3, ver.y + he / 4);
+                        }
 
                         //dibuja las líneas 
                         for (int k = 0; k < ver.ListAristas.Count; k++)

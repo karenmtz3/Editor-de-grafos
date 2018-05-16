@@ -95,43 +95,6 @@ namespace grafosv1
             }
         }
 
-        public void bea(CVertice v)
-        {
-            List<string> visitados = new List<string>();
-            List<string> cola = new List<string>();
-            if (v.VerVisitado == false)
-            {
-                //int s = Int32.Parse(v.name); //´convierte el nombre en entero
-                v.VerVisitado = true;
-                visitados.Add(v.name);
-                cola.Add(v.name);
-                while (cola.Any())
-                {
-                    string actual = cola[0];
-                    cola.Remove(actual);
-                    int s = Int32.Parse(actual); //´convierte el nombre en entero
-                    string ady = ListVAdy[s - 1];
-                    char[] ArrAdy = ady.ToCharArray();
-                    for (int i = 0; i < ArrAdy.Length; i++)
-                    {
-                        int pos = Int32.Parse(ArrAdy[i].ToString());
-                        CVertice ver = ListaVer[pos - 1];
-                        if (ver.VerVisitado == false)
-                        {
-                            ver.VerVisitado = true;
-                            cola.Add(ver.name);
-                            visitados.Add(ver.name);
-                        }
-
-                    }
-                }
-
-                for (int i = 0; i < visitados.Count; i++)
-                    VerRecorridos += " " + visitados[i];
-                // Console.Write(" " + visitados[i]);
-            }
-        }
-
         //devuelve los grados totales del nodo / externos del nodo
         public int[] MtzAd(int i, RichTextBox t, bool dir)
         {
