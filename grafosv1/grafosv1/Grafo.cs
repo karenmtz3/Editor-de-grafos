@@ -17,7 +17,6 @@ namespace grafosv1
         public List<string> ListGradosAd;
         public List<string> ListVAdy;
        
-
         private MatrizAdy m;
         private MatrizIncid mi;
         private ListaAd l;
@@ -58,14 +57,20 @@ namespace grafosv1
             get => TGrados;
         }
 
-        public List<CVertice> visitados = new List<CVertice>();
+        public List<CVertice> visitados2 = new List<CVertice>();
+        List<Arista> arista = new List<Arista>();
+
         public int ciclico = -1;
         //busqueda en profundidad
         public void dfs(CVertice v)
         {
+            //List<CVertice> visitados = new List<CVertice>();
             v.VerVisitado = true;
-            if (!visitados.Contains(v))
-                visitados.Add(v);
+            if (!visitados2.Contains(v))
+            {
+                visitados2.Add(v);
+                
+            }
             int s = Int32.Parse(v.name); //convierte el nombre en entero
             string ady = ListVAdy[s - 1];
             char[] ArrAdy = ady.ToCharArray();
@@ -73,25 +78,54 @@ namespace grafosv1
             {
                 int pos = Int32.Parse(ArrAdy[i].ToString());
                 CVertice ver = ListaVer[pos - 1];
+
                 if (ver.VerVisitado == false)
                 {
                     ciclico = 0;
                     ver.VerVisitado = true;
-                    if (!visitados.Contains(ver))
-                        visitados.Add(ver);
+
+                    if (!visitados2.Contains(ver))
+                        visitados2.Add(ver);
                     dfs(ver);
                 }
                 else
                     ciclico = -1;
+                //imprimedfs();
             }
+            //visitados2 = visitados;
         }
 
         public void imprimedfs()
         {
-            for (int i = 0; i < visitados.Count; i++)
+            Console.WriteLine("Vértices visitados");
+            for (int i = 0; i < visitados2.Count; i++)
             {
-                VerRecorridos += " "+ visitados[i].name;
-                Console.Write(" " + visitados[i].name);
+                VerRecorridos += " "+ visitados2[i].name;
+                Console.WriteLine(" " + visitados2[i].name);
+            }
+            //VerRecorridos = null;
+            //visitados.Clear();
+            //VerRecorridos = "";
+        }
+
+        public void Bosque()
+        {
+           List < CVertice > aux = visitados2;
+            for (int i = 0; i < aux.Count; i++)
+            {
+                int k = 0;
+                for (int j = 0; j < aux[i].ListAristas.Count; j++)
+                {
+                    k = j;
+                    Arista a = aux[i].ListAristas[j];
+                    if (visitados2.Contains(a.destino))
+                    {//if (a.destino.name == visitados2[i+1].name)
+                        a.Visitada = true;
+                        //visitados2.RemoveAt(k);
+                        visitados2.Remove(a.destino);
+                        //j--;
+                    }
+                }
             }
         }
 
@@ -189,19 +223,11 @@ namespace grafosv1
                 for (int j = 0; j < ListaVer.Count; j++)
                 {
                     if (i ==j)
-                    {
-                        Console.Write(string.Format("{0,4:D}", "0"));
                         t.Text += string.Format("{0,4:D}", "0");
-                    }
                     else
-                    {
-                        Console.Write(string.Format("{0,4:D}", caminos[i, j]));
                         t.Text += string.Format("{0,4:D}", caminos[i, j]);
-                    }
                 }
-                
                 t.Text += Environment.NewLine;
-                Console.WriteLine();
             }
         }
 

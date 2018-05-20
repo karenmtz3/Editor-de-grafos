@@ -17,6 +17,7 @@ namespace grafosv1
         public Point p1, c1, p2, c2;
         public bool dirigido;
         private bool recta;
+        private bool ArVisitada;
 
         //constructor de la clase Arista
         public Arista(string n, int xd, int yd, int xo, int yo, CVertice dest, int p)
@@ -28,6 +29,7 @@ namespace grafosv1
             destx = xd;
             desty = yd;
             peso = p;
+            ArVisitada = false;
             puntos();
         }
 
@@ -39,6 +41,7 @@ namespace grafosv1
             oriy = yo;
             destx = xd;
             desty = yd;
+            ArVisitada = false;
             puntos();
         }
 
@@ -46,6 +49,12 @@ namespace grafosv1
         public CVertice RegresaDest //vertice
         {
             get { return destino; }
+        }
+
+        public bool Visitada
+        {
+            set => ArVisitada = value;
+            get => ArVisitada;
         }
 
         public bool Recta

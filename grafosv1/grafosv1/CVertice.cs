@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Microsoft.VisualBasic;
+using System.IO;
+using System.Windows.Forms;
 
 namespace grafosv1
 {
@@ -96,13 +98,22 @@ namespace grafosv1
                 x2 = xd - r;
                 y2 = yd;
             }
-            if (p == true)
-            {
-                string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
-                int pe = Convert.ToInt32(pes);
-                ListAristas.Add(new Arista(n,x2, y2, x1, y1, des, pe));
 
-            }
+                if (p == true)
+                {
+                    try
+                    {
+                        string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
+                        int pe = Int32.Parse(pes);
+                        ListAristas.Add(new Arista(n, x2, y2, x1, y1, des, pe));
+                    }
+
+                    catch (Exception)
+                    {
+                        MessageBox.Show("La arista no tiene una ponderación");
+                    }
+
+                }
             else
                 ListAristas.Add(new Arista(n,x2, y2, x1, y1, des));
             
@@ -125,7 +136,7 @@ namespace grafosv1
                 {
                     float m = (float)(ar.desty - ar.oriy) / (float)(ar.destx - ar.orix);
                     float ecy = (m * (x - ar.orix)+ ar.oriy);
-                    if ((int) ecy < y+4 && (int)ecy > y-4)
+                    if ((int) ecy < y+5 && (int)ecy > y-5)
                     {
                         Console.WriteLine("arista encontrada");
                         ListAristas.Remove(ar);
@@ -140,7 +151,7 @@ namespace grafosv1
                         float xb = (int)((ar.p2.X * Math.Pow(m, 3)) + (3 * ar.c2.X * Math.Pow(m, 2) * t) + (2 * ar.c1.X * Math.Pow(t, 2) * m) + ar.p1.X * Math.Pow(t, 3));
                         float yb = (int)((ar.p2.Y * Math.Pow(m, 3)) + (3 * ar.c2.Y * Math.Pow(m, 2) * t) + (2 * ar.c1.Y * Math.Pow(t, 2) * m) + ar.p1.Y * Math.Pow(t, 3));
                         //Console.WriteLine("xb = " + xb + ", yb = " + yb);
-                        if (xb + 4 > x && xb - 4 < x && yb + 4 > y && yb - 4 < y)
+                        if (xb + 5 > x && xb - 5 < x && yb + 5 > y && yb - 5 < y)
                         {
                             Console.WriteLine("curva encontrada");
                             ListAristas.Remove(ar);

@@ -76,7 +76,7 @@
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.mfloyd = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -94,7 +94,7 @@
             this.algoritmosNoDirigidosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(792, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(829, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -476,32 +476,33 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.richTextBox1);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.DatosT);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.mfloyd);
             this.groupBox1.Location = new System.Drawing.Point(4, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(153, 334);
+            this.groupBox1.Size = new System.Drawing.Size(153, 296);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "propiedades";
             // 
-            // richTextBox1
+            // label1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(6, 238);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(136, 78);
-            this.richTextBox1.TabIndex = 11;
-            this.richTextBox1.Text = "";
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(8, 249);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(792, 424);
+            this.ClientSize = new System.Drawing.Size(829, 453);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.NumGrafo);
             this.Controls.Add(this.menuStrip1);
@@ -575,7 +576,7 @@
         private System.Windows.Forms.ToolStripMenuItem recorridoEnAmplitudToolStripMenuItem;
         private System.Windows.Forms.RichTextBox mfloyd;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

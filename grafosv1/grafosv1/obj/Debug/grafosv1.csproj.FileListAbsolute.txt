@@ -39,3 +39,4 @@ C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafo
 C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.csproj.CoreCompileInputs.cache
 C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.exe
 C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.pdb
+C:\Users\Karen\Desktop\github\Editor-de-grafos\grafosv1\grafosv1\obj\Debug\grafosv1.Bosque.resources

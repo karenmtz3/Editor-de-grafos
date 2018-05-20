@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arista.cs" />
+    <Compile Include="Bosque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bosque.Designer.cs">
+      <DependentUpon>Bosque.cs</DependentUpon>
+    </Compile>
     <Compile Include="CVertice.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -61,6 +67,9 @@
     <Compile Include="MatrizIncid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Bosque.resx">
+      <DependentUpon>Bosque.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
