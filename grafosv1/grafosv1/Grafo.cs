@@ -58,7 +58,9 @@ namespace grafosv1
         }
 
         public List<CVertice> visitados2 = new List<CVertice>();
-        List<Arista> arista = new List<Arista>();
+        public List<CVertice> visitados = new List<CVertice>();
+        List<CVertice> aux = new List<CVertice>();
+        List<CVertice> aux2 = new List<CVertice>();
 
         public int ciclico = -1;
         //busqueda en profundidad
@@ -69,6 +71,7 @@ namespace grafosv1
             if (!visitados2.Contains(v))
             {
                 visitados2.Add(v);
+                aux.Add(v);
                 
             }
             int s = Int32.Parse(v.name); //convierte el nombre en entero
@@ -85,45 +88,120 @@ namespace grafosv1
                     ver.VerVisitado = true;
 
                     if (!visitados2.Contains(ver))
+                    {
                         visitados2.Add(ver);
+                        aux.Add(ver);
+                    }
                     dfs(ver);
                 }
                 else
                     ciclico = -1;
-                //imprimedfs();
             }
-            //visitados2 = visitados;
         }
+
+        public void dfs2(CVertice v)
+        {
+            //List<CVertice> visitados = new List<CVertice>();
+            v.VerVisitado = true;
+            if (!visitados.Contains(v))
+            {
+                visitados.Add(v);
+                aux.Add(v);
+
+            }
+            int s = Int32.Parse(v.name); //convierte el nombre en entero
+            string ady = ListVAdy[s - 1];
+            char[] ArrAdy = ady.ToCharArray();
+            for (int i = 0; i < ArrAdy.Length; i++)
+            {
+                int pos = Int32.Parse(ArrAdy[i].ToString());
+                CVertice ver = ListaVer[pos - 1];
+
+                if (ver.VerVisitado == false)
+                {
+                    ver.VerVisitado = true;
+
+                    if (!visitados.Contains(ver))
+                    {
+                        visitados.Add(ver);
+
+                        aux.Add(ver);
+                    }
+                    for (int j = 0; j < ver.ListAristas.Count; j++)
+                    {
+                        Arista a = ver.ListAristas[j];
+                        if (visitados2.Contains(a.destino))
+                        {
+                            aux2.Add(ver);
+                            a.Visitada2 = true;
+                        }
+
+                    }
+                        dfs2(ver);
+                }
+               /* else
+                {
+                    for (int j = 0; j < ver.ListAristas.Count; j++)
+                    {
+                        Arista a = ver.ListAristas[j];
+                        //if (a.destino.VerVisitado == true)
+                        if(visitados2.Contains(a.destino))
+                        {
+                            //if (!aux2.Contains(ver))
+                            //{
+                                aux2.Add(ver);
+                                a.Visitada2 = true;
+                            //}
+                        }
+
+                    }
+                }*/
+            }
+        }
+
+        
 
         public void imprimedfs()
         {
+            for (int i = 0; i < visitados.Count; i++)
+                visitados2.Add(visitados[i]);
             Console.WriteLine("Vértices visitados");
             for (int i = 0; i < visitados2.Count; i++)
             {
                 VerRecorridos += " "+ visitados2[i].name;
-                Console.WriteLine(" " + visitados2[i].name);
+                Console.Write(" " + visitados2[i].name);
             }
-            //VerRecorridos = null;
-            //visitados.Clear();
-            //VerRecorridos = "";
+            Console.WriteLine();
+            Console.WriteLine("Vértices visitados");
+            for (int i = 0; i < visitados.Count; i++)
+            {
+                VerRecorridos += " " + visitados[i].name;
+                Console.Write(" " + visitados[i].name);
+            }
+            Console.WriteLine();
+            for (int i = 0; i < aux.Count; i++)
+            {
+
+                Console.Write(" " + aux[i].name);
+            }
         }
 
         public void Bosque()
         {
-           List < CVertice > aux = visitados2;
+            //aux = visitados2;
             for (int i = 0; i < aux.Count; i++)
             {
                 int k = 0;
+               // Console.WriteLine("cantidad de aristas de vértice " + aux[i].name + ": " + aux[i].ListAristas.Count);
                 for (int j = 0; j < aux[i].ListAristas.Count; j++)
                 {
                     k = j;
                     Arista a = aux[i].ListAristas[j];
                     if (visitados2.Contains(a.destino))
-                    {//if (a.destino.name == visitados2[i+1].name)
+                    {
+                        visitados2.Remove(aux[0]);
                         a.Visitada = true;
-                        //visitados2.RemoveAt(k);
                         visitados2.Remove(a.destino);
-                        //j--;
                     }
                 }
             }

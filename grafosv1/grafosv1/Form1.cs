@@ -73,7 +73,15 @@ namespace grafosv1
         public void NoVisitados()
         {
             foreach (CVertice v in ListGrafo[posG].ListaVer)
+            {
                 v.VerVisitado = false;
+                foreach (Arista a in v.ListAristas)
+                {
+                    a.Visitada = false;
+                    a.Visitada2 = false;
+                }
+            }
+        
         }
 
         //nuevo documento
@@ -392,14 +400,31 @@ namespace grafosv1
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
             ListGrafo[posG].setGrados = arreglo;
             DatosT.Clear();
+            CVertice vertex = ListGrafo[posG].ListaVer[0];
             for (int i = 0; i < ListGrafo[posG].setGrados.Length; i++)
                 if (ListGrafo[posG].setGrados[i] % 2 != 0)
                     resp = false;
             if (resp)
-                MessageBox.Show("El grafo tiene un Circuito Euleriano");
+                CircuitoRecursivo(vertex);
+            // MessageBox.Show("El grafo tiene un Circuito Euleriano");
             else
                 MessageBox.Show("El grafo no tiene un Circuito Euleriano");
 
+        }
+        List<CVertice> lista = new List<CVertice>();
+        List<Arista> ArVisitadas = new List<Arista>();
+
+        public void CircuitoRecursivo(CVertice ver)
+        {
+            if(lista.Count == 0)
+            {
+                lista.Add(ver);
+                ver.ListAristas[0].Visitada = true;
+                Refresh();
+                Thread.Sleep(1000);
+                ArVisitadas.Add(ver.ListAristas[0]);
+                CircuitoRecursivo(ver.ListAristas[0].destino);
+            }
         }
 
         private void corolario1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -563,36 +588,29 @@ namespace grafosv1
             ListGrafo[posG].LstAd(DatosT, dirigido);
             CVertice vertex = ListGrafo[posG].ListaVer[0];
             ListGrafo[posG].dfs(vertex);
-            ListGrafo[posG].imprimedfs();
-            ListGrafo[posG].Bosque();
-            /*for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
+            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
             {
                 CVertice ver = ListGrafo[posG].ListaVer[i];
                 if (ver.VerVisitado == false)
-                    ListGrafo[posG].dfs(ver);
-            }*/
+                {
+                    //ListGrafo[posG].dfs(ver);
+                    ListGrafo[posG].dfs2(ver);
+                }
+            }
             //List<CVertice> v = ListGrafo[posG].visitados;
-            
+
+            ListGrafo[posG].imprimedfs();
+            ListGrafo[posG].Bosque();
             //ListGrafo[posG].imprimedfs();
             //ListGrafo[posG].Bosque();
-            Console.Write("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
+            // Console.Write("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
             //NoVisitados();
             //this.Hide();
-            MessageBox.Show("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
+            //MessageBox.Show("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
 
             //b.Show();
 
         }
-
-       /* public void PintaBosque(PaintEventArgs e)
-        {
-            List<CVertice> v = ListGrafo[posG].visitados;
-            foreach (CVertice ver in v)
-                foreach (Arista a in ver.ListAristas)
-                    if (a.Visitada)
-                        e.Graphics.DrawLine(new Pen(Color.Yellow, 4), a.destx, a.desty, a.orix, a.oriy);
-
-        }*/
         private void floydToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -864,7 +882,7 @@ namespace grafosv1
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             NoVisitados();
-           pAristas = impresion = pintar = false;
+           pAristas = impresion = pintar = bosque = false;
             recorrido.Clear();
             x = e.X - wid / 2;
             y = e.Y - he / 2;
@@ -1217,8 +1235,8 @@ namespace grafosv1
                         PintaCromatico(e);
                     if (impresion)
                         PintaImpresionCaminos(e);
-                    //if (bosque)
-                      //  PintaBosque(e);
+                   // if (bosque)
+                    //    PintaBosque(e);
 
                     //for (int i = 0; i < ListGrafo.Count; i++)
                     for (int j = 0; j < ListGrafo[i].ListaVer.Count; j++)
@@ -1248,17 +1266,26 @@ namespace grafosv1
                             Arista arista = ver.ListAristas[k];
                             if (k <= 3 && ListGrafo[i].ListaVer.ElementAt(j) != ListGrafo[i].ListaVer[j].ListAristas[k].RegresaDest)
                             {
+                                Pen lapiz3 = new Pen(Color.Red, 4);
+                                lapiz3.StartCap = LineCap.ArrowAnchor;
+                                lapiz3.EndCap = LineCap.NoAnchor;
+
+                                Pen lapiz4 = new Pen(Color.DarkCyan, 4);
+                                lapiz4.DashPattern = new float[] { 2.0F, 2.0F, 1.0F, 2.0F };
+                                lapiz4.StartCap = LineCap.ArrowAnchor;
+                                lapiz4.EndCap = LineCap.NoAnchor;
+
                                 arista.Recta = true;
                                 if (pAristas)
                                     PintaAr(e);
-                                else if(arista.Visitada)
-                                    e.Graphics.DrawLine(new Pen(Color.Yellow, 4), arista.destx, arista.desty, arista.orix, arista.oriy);
+                                else if (arista.Visitada)
+                                   e.Graphics.DrawLine(lapiz3, arista.destx, arista.desty, arista.orix, arista.oriy);
+                                else if(arista.Visitada2)
+                                    e.Graphics.DrawLine(lapiz4, arista.destx, arista.desty, arista.orix, arista.oriy);
                                 else
                                     e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
-                                //if (!impresion)
-                                //   PintaImpresionCaminos(e);
-                                //else
-                                //     e.Graphics.DrawLine(lapiz2, arista.destx, arista.desty, arista.orix, arista.oriy);
+
+
                             }
                             else
                             {

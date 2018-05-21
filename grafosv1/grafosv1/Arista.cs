@@ -18,6 +18,7 @@ namespace grafosv1
         public bool dirigido;
         private bool recta;
         private bool ArVisitada;
+        private bool visit;
 
         //constructor de la clase Arista
         public Arista(string n, int xd, int yd, int xo, int yo, CVertice dest, int p)
@@ -55,6 +56,11 @@ namespace grafosv1
         {
             set => ArVisitada = value;
             get => ArVisitada;
+        }
+        public bool Visitada2
+        {
+            set => visit = value;
+            get => visit;
         }
 
         public bool Recta
