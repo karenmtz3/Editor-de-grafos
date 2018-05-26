@@ -34,11 +34,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 301);
+            this.ClientSize = new System.Drawing.Size(741, 353);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Bosque";
             this.Text = "Bosque";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Bosque_Paint);
             this.ResumeLayout(false);
 
         }

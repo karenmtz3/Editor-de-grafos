@@ -20,6 +20,7 @@ namespace grafosv1
         private int grado;
         private int cromatico;
         private bool visitado = false;
+        private int Nivel = 0;
 
         //contructor de la clase CVertice
         public CVertice(string nombre, int dx, int dy)
@@ -29,6 +30,12 @@ namespace grafosv1
             y = dy;
             cromatico = 0;
             ListAristas = new List<Arista>();
+        }
+
+        public int Niveles
+        {
+            set => Nivel = value;
+            get => Nivel;
         }
 
         public bool VerVisitado
@@ -57,12 +64,11 @@ namespace grafosv1
                 int xm = x + 20;
                 int ym = y + 20;
                 ListAristas[i].CambiaCoord(xm, ym);
-               // ListAristas[i].Coordenadas();
             }
         }
 
         //inserta una arista a la lista de aristas
-        public void InsertaArista(string n, int xd, int yd, int xo, int yo, CVertice des, bool p, bool dirgido)
+        public void InsertaArista( int xd, int yd, int xo, int yo, CVertice des, bool p, bool dirgido, string n)
         {
             int r = 8, x1, y1, x2, y2;
             x1 = y1 = x2 = y2 = 0;
@@ -105,7 +111,8 @@ namespace grafosv1
                     {
                         string pes = Interaction.InputBox("Ingrese el peso", "Ponderación", "0", 100, 50);
                         int pe = Int32.Parse(pes);
-                        ListAristas.Add(new Arista(n, x2, y2, x1, y1, des, pe));
+                        Arista a = new Arista(x2, y2, x1, y1, des, pe, n);
+                        ListAristas.Add(a);
                     }
 
                     catch (Exception)
@@ -115,7 +122,10 @@ namespace grafosv1
 
                 }
             else
-                ListAristas.Add(new Arista(n,x2, y2, x1, y1, des));
+            {
+                Arista a = new Arista(x2, y2, x1, y1, des, n);
+                ListAristas.Add(a);
+            }
             
         }
 

@@ -12,13 +12,15 @@ namespace grafosv1
     {
         private int n, m;
         private int[,] matrizI;
-        List<int> total;
+        List<int> total = new List<int>();
 
-        public MatrizIncid(int i, List<int> TArista)
+        public MatrizIncid(int i, int TArista) //List<int> TArista
         {
             n = i;
-            m = TArista.Count;
-            total = TArista;
+            m = TArista;
+            for (int j = 0; j < m; j++)
+                total.Add(j);
+            //total = TArista;
             matrizI = new int[n,m];
         }
 

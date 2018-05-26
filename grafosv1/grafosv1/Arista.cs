@@ -17,11 +17,11 @@ namespace grafosv1
         public Point p1, c1, p2, c2;
         public bool dirigido;
         private bool recta;
-        private bool ArVisitada;
-        private bool visit;
+        private int TipoArista;
+        private bool Arvisitada;
 
         //constructor de la clase Arista
-        public Arista(string n, int xd, int yd, int xo, int yo, CVertice dest, int p)
+        public Arista( int xd, int yd, int xo, int yo, CVertice dest, int p, string n)
         {
             NombreAr = n;
             destino = dest;
@@ -30,11 +30,12 @@ namespace grafosv1
             destx = xd;
             desty = yd;
             peso = p;
-            ArVisitada = false;
+            TipoArista = 0;
+            Arvisitada = false;
             puntos();
         }
 
-        public Arista(string n,int xd, int yd, int xo, int yo, CVertice dest)
+        public Arista(int xd, int yd, int xo, int yo, CVertice dest, string n)
         {
             NombreAr = n;
             destino = dest;
@@ -42,7 +43,8 @@ namespace grafosv1
             oriy = yo;
             destx = xd;
             desty = yd;
-            ArVisitada = false;
+            TipoArista = 0;
+            Arvisitada = false;
             puntos();
         }
 
@@ -54,13 +56,14 @@ namespace grafosv1
 
         public bool Visitada
         {
-            set => ArVisitada = value;
-            get => ArVisitada;
+            set => Arvisitada = value;
+            get => Arvisitada;
         }
-        public bool Visitada2
+
+        public int Tipo
         {
-            set => visit = value;
-            get => visit;
+            set => TipoArista = value;
+            get => TipoArista;
         }
 
         public bool Recta

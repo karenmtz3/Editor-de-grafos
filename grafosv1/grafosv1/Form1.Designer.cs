@@ -76,6 +76,10 @@
             this.DatosT = new System.Windows.Forms.RichTextBox();
             this.mfloyd = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ElimAr = new System.Windows.Forms.Button();
+            this.VerCut = new System.Windows.Forms.Button();
+            this.ElimV = new System.Windows.Forms.Button();
+            this.ChecaK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumGrafo)).BeginInit();
@@ -195,7 +199,7 @@
             // 
             this.medioKuratowskyToolStripMenuItem.Name = "medioKuratowskyToolStripMenuItem";
             this.medioKuratowskyToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.medioKuratowskyToolStripMenuItem.Text = "medio kuratowsky";
+            this.medioKuratowskyToolStripMenuItem.Text = "Kuratowski";
             this.medioKuratowskyToolStripMenuItem.Click += new System.EventHandler(this.medioKuratowskyToolStripMenuItem_Click);
             // 
             // vérticeToolStripMenuItem
@@ -476,22 +480,74 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ElimAr);
+            this.groupBox1.Controls.Add(this.VerCut);
+            this.groupBox1.Controls.Add(this.ElimV);
+            this.groupBox1.Controls.Add(this.ChecaK);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.DatosT);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.mfloyd);
             this.groupBox1.Location = new System.Drawing.Point(4, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(153, 296);
+            this.groupBox1.Size = new System.Drawing.Size(153, 339);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "propiedades";
+            // 
+            // ElimAr
+            // 
+            this.ElimAr.ForeColor = System.Drawing.Color.Blue;
+            this.ElimAr.Location = new System.Drawing.Point(73, 294);
+            this.ElimAr.Name = "ElimAr";
+            this.ElimAr.Size = new System.Drawing.Size(49, 36);
+            this.ElimAr.TabIndex = 15;
+            this.ElimAr.Text = "Elimina Arista";
+            this.ElimAr.UseVisualStyleBackColor = true;
+            this.ElimAr.Visible = false;
+            this.ElimAr.Click += new System.EventHandler(this.ElimAr_Click);
+            // 
+            // VerCut
+            // 
+            this.VerCut.ForeColor = System.Drawing.Color.Blue;
+            this.VerCut.Location = new System.Drawing.Point(73, 248);
+            this.VerCut.Name = "VerCut";
+            this.VerCut.Size = new System.Drawing.Size(55, 41);
+            this.VerCut.TabIndex = 13;
+            this.VerCut.Text = "Vértice Cut";
+            this.VerCut.UseVisualStyleBackColor = true;
+            this.VerCut.Visible = false;
+            this.VerCut.Click += new System.EventHandler(this.VerCut_Click);
+            // 
+            // ElimV
+            // 
+            this.ElimV.ForeColor = System.Drawing.Color.Blue;
+            this.ElimV.Location = new System.Drawing.Point(6, 295);
+            this.ElimV.Name = "ElimV";
+            this.ElimV.Size = new System.Drawing.Size(51, 35);
+            this.ElimV.TabIndex = 14;
+            this.ElimV.Text = "Elimina Vértice";
+            this.ElimV.UseVisualStyleBackColor = true;
+            this.ElimV.Visible = false;
+            this.ElimV.Click += new System.EventHandler(this.ElimV_Click);
+            // 
+            // ChecaK
+            // 
+            this.ChecaK.ForeColor = System.Drawing.Color.Blue;
+            this.ChecaK.Location = new System.Drawing.Point(0, 247);
+            this.ChecaK.Name = "ChecaK";
+            this.ChecaK.Size = new System.Drawing.Size(67, 41);
+            this.ChecaK.TabIndex = 13;
+            this.ChecaK.Text = "Checa Kuratowski";
+            this.ChecaK.UseVisualStyleBackColor = true;
+            this.ChecaK.Visible = false;
+            this.ChecaK.Click += new System.EventHandler(this.ChecaK_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(8, 249);
+            this.label1.Location = new System.Drawing.Point(8, 218);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 12;
@@ -577,6 +633,10 @@
         private System.Windows.Forms.RichTextBox mfloyd;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button ElimAr;
+        private System.Windows.Forms.Button VerCut;
+        private System.Windows.Forms.Button ElimV;
+        private System.Windows.Forms.Button ChecaK;
     }
 }
 

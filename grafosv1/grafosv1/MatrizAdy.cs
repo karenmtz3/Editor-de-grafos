@@ -129,7 +129,7 @@ namespace grafosv1
                 //Console.WriteLine(matriz[i,0]);
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write(string.Format("{0,4:D}", matriz[i, j]));
+                    //Console.Write(string.Format("{0,4:D}", matriz[i, j]));
                     t.Text += string.Format("{0,4:D}", matriz[i, j].ToString());
                     if (dir == true) //grafo dirigido
                     {
@@ -143,12 +143,12 @@ namespace grafosv1
                             cont += matriz[i, j];
 
                 }
-                Console.WriteLine(" interno = " + cont2 + " externo = " + cont);
+                //Console.WriteLine(" interno = " + cont2 + " externo = " + cont);
                 arr.Add(cont);
                 arr2.Add(cont2);
                 cont = cont2 = 0;
                 t.Text += Environment.NewLine;
-                Console.WriteLine();
+                //Console.WriteLine();
             }
             //return matriz;
 

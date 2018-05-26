@@ -10,7 +10,8 @@ namespace grafosv1
     [Serializable()]
     public class ListaAd
     {
-        List<string> ListA;
+        List<CVertice> ListA;
+        List<CVertice> VOrd;
         //List<int> GradosAd;
         List<string> Grados;
         public List<string> vad;
@@ -18,7 +19,7 @@ namespace grafosv1
 
         public ListaAd()
         {
-            ListA = new List<string>();
+            ListA = new List<CVertice>();
             Grados = new List<string>();
             vad = new List<string>(); //lista de vértices adyacentes
         }
@@ -30,28 +31,28 @@ namespace grafosv1
 
             for (int i = 0; i < vertice.Count; i++)
             {
-                ListA.Add(vertice[i].name);
+                ListA.Add(vertice[i]);
                 vad.Add("");
                 Grados.Add("");
                 
             }
 
-            ListA.Sort(); //ordena la lista
+            //ListA.Sort(); //ordena la lista
+            VOrd = ListA.OrderBy(o => o.name).ToList();
 
-
-            for(int i = 0; i < vertice.Count; i++)
+            for (int i = 0; i < vertice.Count; i++)
             {
-                string vo = vertice[i].name; //vértice origen
+                CVertice vo = vertice[i]; //vértice origen
                 foreach (Arista a in vertice[i].ListAristas)
                 {
-                    string vd = a.destino.name; //vértice destino
-                    int or = ListA.IndexOf(vo);  //posición del vértice origen
-                    int des = ListA.IndexOf(vd); //posición del vértice destino 
-                    vad[or] += vd; //agrega a la lista el vértice destino 
+                    CVertice vd = a.destino; //vértice destino
+                    int or = VOrd.IndexOf(vo);  //posición del vértice origen
+                    int des = VOrd.IndexOf(vd); //posición del vértice destino 
+                    vad[or] += vd.name; //agrega a la lista el vértice destino 
                     Grados[or] += a.destino.GetGrado;
                     if (dir == false)
                     {
-                        vad[des] += vo; //agrega a la lista el vértice origen
+                        vad[des] += vo.name; //agrega a la lista el vértice origen
                         Grados[des] += vertice[i].GetGrado;
 
                     }
@@ -80,12 +81,12 @@ namespace grafosv1
 
             Console.WriteLine("Vértices |Ady|" + " Grados ");
             for (int i = 0; i < Grados.Count; i++)
-                Console.WriteLine(ListA[i] + "        |" + vad[i] + "       |" + Grados[i]);
+                Console.WriteLine(VOrd[i].name + "        |" + vad[i] + "       |" + Grados[i]);
 
             t.Text += "Vértice|  Vértices Ady" + Environment.NewLine;
-           for(int i = 0; i < ListA.Count; i++)
+           for(int i = 0; i < VOrd.Count; i++)
             {
-                t.Text += ListA[i].ToString() + "       | " + vad[i].ToString();
+                t.Text += VOrd[i].name + "       | " + vad[i].ToString();
                 t.Text += Environment.NewLine;
             }
         }

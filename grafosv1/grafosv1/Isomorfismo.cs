@@ -30,11 +30,26 @@ namespace grafosv1
 
         public bool CantAristas()
         {
+            
             if (grafo1.setAris == grafo2.setAris)
                 return true;
             else
                 return false;
         }
+
+        /*public bool Aristas()
+        {
+            grafo1.setAris = grafo2.setAris;
+            if (grafo1.setAris == grafo2.setAris)
+                return true;
+            else
+                return false;
+        }
+
+        public bool Coinciden()
+        {
+            return true;
+        }*/
 
         public bool MismosGrados()
         {
@@ -105,7 +120,9 @@ namespace grafosv1
 
         public bool SonIsomosfos()
         {
-            if (MismosVertices() && MismosGrados() && CantAristas() && GradosCoinc())
+            //if (MismosVertices() && MismosGrados() && Aristas() && Coinciden())
+                
+                if (MismosVertices() && MismosGrados() && CantAristas() && GradosCoinc())
                 return true;
             else
                 return false;
