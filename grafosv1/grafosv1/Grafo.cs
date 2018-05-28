@@ -12,10 +12,10 @@ namespace grafosv1
     {
         public List<CVertice> ListaVer; //lista de los vertices
         public int auxi; //auxiliar que guarda la posición del nodo encontrado
-        private int totalArist;
-        private bool dirigido;
-        public List<string> ListGradosAd;
-        public List<string> ListVAdy;
+        private int totalArist; //variable que almacena el total de aristas del grafo
+        private bool dirigido; //si el grafo es dirigido o no
+        public List<string> ListGradosAd; //almacena los grados adyacentes
+        public List<string> ListVAdy; //almacena los nombres de los vértices adyacentes
        
         private MatrizAdy m;
         private MatrizIncid mi;
@@ -64,7 +64,7 @@ namespace grafosv1
         List<CVertice> aux2 = new List<CVertice>();
 
         public List<List<CVertice>> bosque = new List<List<CVertice>>();
-        List<List<CVertice>> aux = new List<List<CVertice>>();
+        public List<CVertice> aux = new List<CVertice>();
         public int ciclico = -1;
 
         //busqueda en profundidad
@@ -75,7 +75,7 @@ namespace grafosv1
             if (!visitados2.Contains(v))
             {
                 visitados2.Add(v);
-               // aux.Add(v);
+                aux.Add(v);
                 
             }
             int s = Int32.Parse(v.name); //convierte el nombre en entero
@@ -85,7 +85,7 @@ namespace grafosv1
             {
                 int pos = Int32.Parse(ArrAdy[i].ToString());
                 CVertice ver = ListaVer[pos - 1];
-
+                ver.Niveles = 2;
                 if (ver.VerVisitado == false)
                 {
                     ciclico = 0;
@@ -94,14 +94,13 @@ namespace grafosv1
                     if (!visitados2.Contains(ver))
                     {
                         visitados2.Add(ver);
-                        //aux.Add(ver);
+                        aux.Add(ver);
                     }
                     dfs(ver);
                 }
                 else
                     ciclico = -1;
             }
-            //bosque.Add(visitados2);
         }
 
         public int AristatasTotales()
@@ -112,21 +111,32 @@ namespace grafosv1
             return totalArist/2;
         }
 
+        public void Niveles()
+        {
+            for (int i = 0; i < ListaVer.Count; i++)
+            {
+                ListaVer[2].Niveles = 3;
+                ListaVer[3].Niveles = 3;
+                CVertice ver = ListaVer[i];
+                Console.WriteLine("Vértice " + ver.name + " con nivel: " + ver.Niveles);
+            }
+        }
+
         public void marca(CVertice origen, CVertice destino)
         {
             for(int i = 0; i < origen.ListAristas.Count; i++)
             {
                 Arista a = origen.ListAristas[i];
                 if (a.destino == destino)
+                {
                     a.Tipo = 1;
+                }
             }
         }
 
-       public void AgregaBosque()
+      public void AgregaBosque()
         {
             bosque.Add(visitados2);
-            //aux.Add(visitados2);
-            //aux = new List<List<CVertice>>();
             visitados2 = new List<CVertice>();
         }
         
@@ -134,9 +144,14 @@ namespace grafosv1
         {
             for(int i = 0; i < bosque.Count; i ++)
             {
+                //Console.WriteLine(visitados2[i].name);
                 Console.WriteLine("Elementos del recorrido " + i);
                 foreach(CVertice v in bosque[i])
                     Console.WriteLine(v.name);
+            }
+            for(int i = 0; i < aux.Count; i++)
+            {
+                Console.WriteLine(aux[i].name);
             }
         }
 
@@ -419,15 +434,13 @@ namespace grafosv1
                     Arista a = ver.ListAristas[j];
                     float m = (float)(a.desty - a.oriy) / (float)(a.destx - a.orix);
                     float ecy = (m * (x - a.orix) + a.oriy);
-                    //if((int)ecy == y)
-                    //if ((int)ecy < y + 6)
                      if ((int)ecy <= y + 6 && (int)ecy >= y - 6)
                     {
                         CVertice aux = new CVertice(v, x, y);
                         ListaVer.Add(aux);
                         Console.WriteLine(ListaVer.Count);
                         int origen = Buscar(a.orix, a.oriy); //se pasan las coords del vértice destino
-                        int destino = ListaVer.Count - 1;
+                        int destino = ListaVer.Count - 1; //el destino siempre sera el último de la lista 
                         int total = setAris + 1;
                         ListaVer[origen].InsertaArista(a.orix, a.orix, aux.x, aux.y, ListaVer.ElementAt(destino), false, false, total.ToString());
                         ListaVer[destino].InsertaArista(aux.x, aux.y, a.destx, a.desty, a.destino, false, false, (total + 1).ToString());

@@ -464,16 +464,16 @@
             this.DatosT.Location = new System.Drawing.Point(6, 41);
             this.DatosT.Name = "DatosT";
             this.DatosT.ReadOnly = true;
-            this.DatosT.Size = new System.Drawing.Size(139, 69);
+            this.DatosT.Size = new System.Drawing.Size(159, 103);
             this.DatosT.TabIndex = 8;
             this.DatosT.Text = "";
             // 
             // mfloyd
             // 
-            this.mfloyd.Location = new System.Drawing.Point(6, 128);
+            this.mfloyd.Location = new System.Drawing.Point(6, 150);
             this.mfloyd.Name = "mfloyd";
             this.mfloyd.ReadOnly = true;
-            this.mfloyd.Size = new System.Drawing.Size(139, 78);
+            this.mfloyd.Size = new System.Drawing.Size(147, 78);
             this.mfloyd.TabIndex = 10;
             this.mfloyd.Text = "";
             this.mfloyd.Visible = false;
@@ -490,7 +490,7 @@
             this.groupBox1.Controls.Add(this.mfloyd);
             this.groupBox1.Location = new System.Drawing.Point(4, 40);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(153, 339);
+            this.groupBox1.Size = new System.Drawing.Size(165, 339);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "propiedades";
@@ -547,7 +547,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(8, 218);
+            this.label1.Location = new System.Drawing.Point(6, 231);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 12;

@@ -882,15 +882,16 @@ namespace grafosv1
 
         private void bosqueAbarcadorEnProfundidadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //ListGrafo[posG].bosque.Clear();
             pintar = pAristas = false;
             mfloyd.Visible = false;
             bosque = true;
-            //Bosque b = new Bosque(ListGrafo[posG]);
+            Bosque b = new Bosque(ListGrafo[posG]);
             //this.Hide();
-            //b.Show();
-            //b.MarcaBosque(DatosT, dirigido);
+            b.Show();
+            b.MarcaBosque(DatosT, dirigido);
             //this.Show();
-            int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
+            /*int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
             ListGrafo[posG].guarda();
             DatosT.Clear();
             ListGrafo[posG].LstAd(DatosT, dirigido);
@@ -899,9 +900,11 @@ namespace grafosv1
             ListGrafo[posG].AgregaBosque();
             for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
             {
+                ListGrafo[posG].ListaVer[0].Niveles = 1;
                 CVertice ver = ListGrafo[posG].ListaVer[i];
                 if (ver.VerVisitado == false)
                 {
+                    ver.Niveles = 1;
                     ListGrafo[posG].dfs(ver);
                     ListGrafo[posG].AgregaBosque();
                 }
@@ -909,6 +912,7 @@ namespace grafosv1
 
             ListGrafo[posG].imprimedfs();
             ListGrafo[posG].Bosque();
+            ListGrafo[posG].Niveles();*/
             //ListGrafo[posG].Bosque2();
             //ListGrafo[posG].imprimedfs();
             //ListGrafo[posG].Bosque();
