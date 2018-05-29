@@ -18,31 +18,62 @@ namespace grafosv1
 {
     public partial class Form1 : Form
     {
-        public int x, y, wid, he; //posiciones del nodo, altura y ancho
-        Pen lapiz = new Pen(Color.Blue, 3); //color del contorno del nodo
-        Pen lapiz2 = new Pen(Color.BlueViolet, 4); //color de la arista
-        public List<Grafo> ListGrafo; //lista de grafos
-        public bool BVertice; //bandera cuando se da click en el boton nodo
-        public bool TipoArista; //bandera que se activa si se selecciono arista dirigida o no dirigida, checa el mouseup y mousedown
-        public bool move, moveG; //bandera para ver si se activa el mover
-        public int menu; //checa cual sección del menú se presiono
-        public int xo, yo, xd, yd; //coordenadas del nodo origen y nodo destino
-        public int temp1, destv; //se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
-        public int posG; //posición de la lista de grafos
-        bool ponderado = false, dirigido = false, nombrear = false;
+        /**
+         *  x, y, wid, he -> Posiciones del vértice, altura y ancho del vértice
+         *  lapiz -> Color del contorno del vértice
+         *  lapiz2 -> Color de la arista 
+         *  ListGrafo -> Lista de grafos
+         *  BVertice -> Bandera cuando se da clic en el botón de nodo
+         *  TipoArista -> Bandera que se activa si se selecciono arista dirigida o no dirigida, checa el mouseup y mousedown
+         *  move, moveG -> Bandera para ver si se activa el mover nodo y mover grafo
+         *  menu -> Checa cual sección del menú se presiono
+         *  xo, yo, xd, yd -> coordenadas del nodo origen y nodo destino
+         *  temp1, destv -> se guarda la posición del nodo origen y nodo destino para poder hacer las aristas
+         *  posG -> Posición en la lista de grafos
+         * **/
+        public int x, y, wid, he;
+        Pen lapiz = new Pen(Color.Blue, 3);
+        Pen lapiz2 = new Pen(Color.BlueViolet, 4);
+        public List<Grafo> ListGrafo;
+        public bool BVertice;
+        public bool TipoArista;
+        public bool move, moveG; 
+        public int menu;
+        public int xo, yo, xd, yd;
+        public int temp1, destv; 
+        public int posG;
         public int x1, y1;
 
-        //public List<int> TotalAris = new List<int>();
+        /**
+         * total -> Contador para poder dar el nombre a las aristas
+         * pintar, pAristas, impresion, bosque, ponderado, dirigido, nombrear, forma -> Banderas para activar diferentes operaciones arealizar dentro del grafo
+         * **/
         int total = 0;
         public bool pintar = false, pAristas = false, impresion = false, bosque = false;
+        bool ponderado = false, dirigido = false, nombrear = false, forma = false;
 
+
+        /**
+         * kuratowski -> Posición en la lista de grafos del grafo que se usará en kuratowski
+         * cut -> Bandera para activar el botón de vértice cut
+         * valor -> Bandera que se activa si se encontro la arista en donde se agregará el vérice cut
+         * **/
         int kuratowski;
         bool cut;
-
-        public Point p1, c1, p2, c2;
-
         bool valor = false;
 
+        /**
+         *  p1, c1, p2, c2 -> Puntos para dibujar las curvas
+         * **/
+        public Point p1, c1, p2, c2;
+
+        /**
+         * lista -> Lista en donde se agregan los vértices para el circuito euleriano
+         * ArVisitadas -> Lista en donde se agregan las aristas visitadas
+         * listaCamino -> Lista en donde se agregan los vértices para el camino euleriano
+         * impar -> Lista que agrega los vértices de grado impar que se utilza para el camino euleriano
+         * recorrido ->  Lista en donde almacena los vértices que estan en el camino euleriano
+         * **/
         List<CVertice> lista = new List<CVertice>();
         List<Arista> ArVisitadas = new List<Arista>();
         List<CVertice> listaCamino = new List<CVertice>();
@@ -50,15 +81,20 @@ namespace grafosv1
         List<CVertice> recorrido = new List<CVertice>();
 
 
-        //variables para abrir y guardar el grafo
+        /**
+         * save -> Varible para guardar el archivo
+         * open -> Variable para abrir el archivo
+         * **/
         SaveFileDialog save;
         OpenFileDialog open;
-        bool forma = false;
 
         int dx, dy;
 
         int[] arreglo, arreglo2;
 
+        /**
+         * Constructor de la forma
+         * **/
         public Form1()
         {
             InitializeComponent();
@@ -80,7 +116,9 @@ namespace grafosv1
             pAristas = false;
         }
 
-        //pone los nodos y aristas en no visitados
+        /**
+         * Pone los nodos y aristas en no visitados
+         * **/
         public void NoVisitados()
         {
             foreach (CVertice v in ListGrafo[posG].ListaVer)
@@ -94,7 +132,9 @@ namespace grafosv1
             }
         }
 
-        //nuevo documento
+        /**
+         * Crea un nuevo documento
+         * **/
         private void nuevoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             NoVisitados();
@@ -123,7 +163,9 @@ namespace grafosv1
             Invalidate();
         }
 
-        //guardar el grafo
+        /**
+         * Guarda el grafo
+         * **/
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NoVisitados();
@@ -141,7 +183,9 @@ namespace grafosv1
             }
         }
 
-        //abrir un grafo
+        /**
+         * Abre un grafo
+         * **/
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -184,7 +228,9 @@ namespace grafosv1
             Invalidate();
         }
 
-        //crea un nuevo grafo y lo agrega a la lista de grafos
+        /**
+         * Crea un nuevo grafo y se agrega a la lista de grafos
+         * **/
         private void nuevoGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -205,7 +251,10 @@ namespace grafosv1
             forma = move = moveG = TipoArista = false;
         }
 
-        //mover grafo   activa variable para mover el grafo
+        /**
+         * Opción de mover grafo
+         * Activa variable para mover el grafo
+         * **/
         private void moverGrafoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -213,7 +262,10 @@ namespace grafosv1
             menu = 6;
         }
 
-        //Crea la matriz de adyacencia  imprime en consola
+        /**
+         * Crea la matriz de adyacencia
+         * Imprime en un RichTextBox
+         * **/
         private void matrizAdyacenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -224,7 +276,10 @@ namespace grafosv1
             ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
         }
 
-        //Crea la lista de adyacencia   imprime en consola
+        /**
+         * Crea la lista de adyacencia 
+         * Imprime en un RichTextBox
+         * **/
         private void listaDeAdyacenciasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -238,7 +293,10 @@ namespace grafosv1
             ListGrafo[posG].LstAd(DatosT, dirigido);
         }
 
-        //Crea matriz de incidencia
+        /**
+         * Crea matriz de incidencia
+         * Imprime en un RichTextBox
+         * **/
         private void matrizIncidenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -251,7 +309,10 @@ namespace grafosv1
             ListGrafo[posG].MtzIncd(ListGrafo[posG].ListaVer.Count, ListGrafo[posG].setAris, DatosT);
         }
 
-        //isomorfismo
+        /**
+         * Opción de isomorfismo
+         * Hace algunos cambios antes de llamar al método que realiza el isomorfismo
+         * **/
         private void isomorfismoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -298,7 +359,10 @@ namespace grafosv1
             }
         }
 
-        //crea nuevo nodo       activa banderas para dibujar los nodos
+        /**
+         * Crea nuevo nodo
+         * Activa banderas para dibujar los nodos
+         * **/
         private void nuevoNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -310,7 +374,10 @@ namespace grafosv1
             temp1 = 0;
         }
 
-        //elimina nodo      activa bandera para eliminar los nodos
+        /**
+         * Elimina nodo
+         * Activa bandera para eliminar los nodos
+         * **/
         private void quitarNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -319,14 +386,17 @@ namespace grafosv1
             TipoArista = false;
         }
 
-        //mover nodo        activa bandera para mover el nodo seleccionado
+        /**
+         * mover nodo
+         * Activa bandera para mover el nodo seleccionado
+         * **/
         private void moverNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
             mfloyd.Visible = false;
             menu = 3;
         }
-
+        
         private void nuevaAristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -335,6 +405,15 @@ namespace grafosv1
             //ListGrafo[posG].TotalAris.Clear();
         }
 
+        /**
+         * Se hacen validaciones para saber si el grafo dibujado es homeomórfico a k3,3 o k5 y se dibujará 
+         * uno de esos grafos
+         * Se activan los botones de 
+         *      Checar kuratowski
+         *      vértice cut
+         *      elimina vértice
+         *      elimina arista
+         * **/
         private void medioKuratowskyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -454,10 +533,14 @@ namespace grafosv1
             }
         }
 
+
+        /**
+         * Método que dibuja el grafo k3.3
+         * **/
         public void DibujaK33()
         {
             //ListGrafo[posG].TotalAris = new List<int>();
-            int x = 160, xi = 100;
+            int x = 200, xi = 100;
             int y = 180, yi = 250;
             int t = 0;
             int n = 0;
@@ -496,6 +579,9 @@ namespace grafosv1
 
         }
 
+        /**
+         * Método que dibuja el grafo k5
+         * **/
         public void DibujaK5(int n)
         {
             bool s = false, aux = false;
@@ -562,7 +648,11 @@ namespace grafosv1
             Console.WriteLine("Total de aristas para k3,3: " + ListGrafo[posG].setAris);
         }
 
-
+        /**
+         * Se hace la validación para saber si tiene un camino euleriano
+         * Si lo tiene manda llamar al método que realiza el camino
+         * En caso de no tenerlo monstrará un mensaje diciendo que el grafo no tiene camino
+         * **/
         private void caminoEulerianoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -614,6 +704,9 @@ namespace grafosv1
             }
         }
 
+        /*
+         * Método que almacena los dos vértices que tienen grado impar para poder hacer el camino
+         * */
         public void EncuentraImpar()
         {
             int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
@@ -627,6 +720,11 @@ namespace grafosv1
 
         }
 
+        /**
+         * Método que hace el camino euleriano recursivo
+         * Recibe por parámetros el nodo inicia y final del recorrido 
+         * Estos son los que se encontraron en el método EncuentraImpar()
+         * **/
         public void CaminoRecursivo(CVertice inicio, CVertice fin)
         {
             Console.WriteLine("inicio: " + inicio.name + " fin: " + fin.name);
@@ -671,6 +769,11 @@ namespace grafosv1
 
         }
 
+        /**
+         * Se hace la validación para saber si tiene un circuito euleriano
+         * Si lo tiene manda llamar al método que realiza el circuito
+         * En caso de no tenerlo monstrará un mensaje diciendo que el grafo no tiene circuito
+         * **/
         private void ciruitoEulerianoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -698,6 +801,10 @@ namespace grafosv1
 
         }
 
+        /**
+         * Método que hace el circuito euleriano recursivo
+         * Recive por parámetros el nodo inicial
+         * **/
         public void CircuitoRecursivo(CVertice ver)
         {
             if (lista.Count == 0)
@@ -731,6 +838,10 @@ namespace grafosv1
             }
         }
 
+
+        /**
+         * Checa si el grafo es plano por el corolario 1
+         * **/
         private void corolario1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -743,6 +854,9 @@ namespace grafosv1
                 MessageBox.Show("El grafo no es plano");
         }
 
+        /**
+         * Checa si el grafo es plano por el corolario 2
+         * **/
         private void cotolario2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -756,6 +870,9 @@ namespace grafosv1
 
         }
 
+        /**
+         * Llama al método que realiza el número cromático
+         * **/
         private void númeroCromáticoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pAristas = false;
@@ -821,7 +938,11 @@ namespace grafosv1
             }
             //MessageBox.Show("El número cromático es " + mayor);
         }
-
+        
+        /**
+         * Llama al método que hace el recorrido en amplitud 
+         * Método para grafos no dirigidos
+         * **/
         private void recorridoEnAmplitudToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -837,7 +958,9 @@ namespace grafosv1
             }
         }
 
-        //recorrido en aplitud
+        /**
+         * Recorrido en amplitud
+         * **/
         public void bea(CVertice v)
         {
             List<CVertice> visitados = new List<CVertice>();
@@ -880,6 +1003,10 @@ namespace grafosv1
             //return visitados;
         }
 
+        /**
+         * Llama a a forma en donde se visualizará el bosque abarcador en profundidad
+         * Método para grafos dirigidos
+         * **/
         private void bosqueAbarcadorEnProfundidadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //ListGrafo[posG].bosque.Clear();
@@ -887,44 +1014,13 @@ namespace grafosv1
             mfloyd.Visible = false;
             bosque = true;
             Bosque b = new Bosque(ListGrafo[posG]);
-            //this.Hide();
             b.Show();
             b.MarcaBosque(DatosT, dirigido);
-            //this.Show();
-            /*int[] arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
-            ListGrafo[posG].guarda();
-            DatosT.Clear();
-            ListGrafo[posG].LstAd(DatosT, dirigido);
-            CVertice vertex = ListGrafo[posG].ListaVer[0];
-            ListGrafo[posG].dfs(vertex);
-            ListGrafo[posG].AgregaBosque();
-            for (int i = 0; i < ListGrafo[posG].ListaVer.Count; i++)
-            {
-                ListGrafo[posG].ListaVer[0].Niveles = 1;
-                CVertice ver = ListGrafo[posG].ListaVer[i];
-                if (ver.VerVisitado == false)
-                {
-                    ver.Niveles = 1;
-                    ListGrafo[posG].dfs(ver);
-                    ListGrafo[posG].AgregaBosque();
-                }
-            }
-
-            ListGrafo[posG].imprimedfs();
-            ListGrafo[posG].Bosque();
-            ListGrafo[posG].Niveles();*/
-            //ListGrafo[posG].Bosque2();
-            //ListGrafo[posG].imprimedfs();
-            //ListGrafo[posG].Bosque();
-            // Console.Write("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
-            //NoVisitados();
-            //this.Hide();
-            //MessageBox.Show("Busqueda en profundidad: " + ListGrafo[posG].Recorridos);
-
-            //b.Show();
-
         }
 
+        /**
+         * Llama al método que hace el algoritmo de floyd
+         * **/
         private void floydToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -936,6 +1032,10 @@ namespace grafosv1
             ListGrafo[posG].Floyd(mfloyd);
         }
 
+        /**
+         * Se pregunta cuales será el nodo inicial y final para hacer el recorrido
+         * Enseguida llamara al método que busca el camino para después pintarlo
+         * **/
         private void impresiónDeCaminosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NoVisitados();
@@ -958,6 +1058,10 @@ namespace grafosv1
 
         }
 
+        /**
+         * Método que hace la busqueda del camino 
+         * para "impresion de caminos"
+         * **/
         public List<CVertice> BuscaCamino(int inicio, int fin)
         {
             //impresion = true;
@@ -1012,6 +1116,9 @@ namespace grafosv1
             return recorrido;
         }
 
+        /**
+         * Pinta las aristas que serán parte de la impresión de caminos
+         * **/
         public void PintaImpresionCaminos(PaintEventArgs e)
         {
 
@@ -1033,6 +1140,9 @@ namespace grafosv1
 
         }
 
+        /**
+         * Pinta las aristas para kruskal
+         * **/
         public void PintaAr(PaintEventArgs e)
         {
             List<Arista> aristas = ListGrafo[posG].kruskal();
@@ -1045,29 +1155,52 @@ namespace grafosv1
 
         }
 
+        /**
+         * Llama a quita nodo
+         * **/
         private void ElimV_Click(object sender, EventArgs e)
         {
             quitarNodoToolStripMenuItem_Click(sender, e);
+            forma = move = moveG = false;
+
         }
 
+        /**
+         * Llama a elimina arista
+         * **/
         private void ElimAr_Click(object sender, EventArgs e)
         {
             eliminaAristaToolStripMenuItem_Click(sender, e);
+            forma = move = moveG = false;
+
         }
 
+        /**
+         * Activa la vaariable cut para poder insertar vértices cut
+         * **/
         private void VerCut_Click(object sender, EventArgs e)
         {
             cut = true;
             pintar = pAristas = false;
             mfloyd.Visible = false;
             forma = move = moveG = false;
+            menu = 0;
         }
 
+
+        /**
+         * Llama a isomorfismo
+         * **/
         private void ChecaK_Click(object sender, EventArgs e)
         {
             isomorfismoToolStripMenuItem_Click(sender, e);
+            forma = move = moveG = false;
+
         }
 
+        /**
+         * Llama al método que hacer el algoritmo de kruskal
+         * **/
         private void kruskalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = false;
@@ -1078,6 +1211,9 @@ namespace grafosv1
             ponderado = true;
         }
 
+        /**
+         * Llama al recorrido en profundidad para saber si el grafo es acíclico o no
+         * **/
         private void acíclicosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -1094,7 +1230,10 @@ namespace grafosv1
                 MessageBox.Show("El grafo no es acíclico");
         }
 
-        //grado del vértice     activa bandera la dar el grado del vértice que se de click
+        /**
+         * Grado del vértice
+         * Activa bandera, da el grado del vértice que se de click
+         * **/
         private void gradoDeNodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -1104,6 +1243,11 @@ namespace grafosv1
             arreglo = ListGrafo[posG].MtzAd(ListGrafo[posG].ListaVer.Count, DatosT, dirigido);
         }
 
+        /**
+         * Grado interno del vértice
+         * Método para grafos dirigidos
+         * Da los grados internos al dar click en el vértice 
+         * **/
         private void gradoInternoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -1118,7 +1262,10 @@ namespace grafosv1
         {
         }
 
-        //aristas dirigidas
+        /**
+         * Aristas dirigidas
+         * Activa la bandera de dirigido
+         * **/
         private void dirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
@@ -1128,7 +1275,9 @@ namespace grafosv1
             ListGrafo[posG].Dir = true;
         }
 
-        //Se usan banderas para poner ponderación en las aristas dirigidas
+        /**
+         * Se usan banderas para poner ponderación en las aristas dirigidas
+         * **/
         private void ponderadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ponderado = true;
@@ -1141,7 +1290,9 @@ namespace grafosv1
             lapiz2.EndCap = LineCap.NoAnchor;
         }
 
-        //Se usan banderas para poner aristas sin ponderación
+        /**
+         * Se usan banderas para poner aristas sin ponderación
+         * **/
         private void noPonderadoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ponderado = false;
@@ -1154,7 +1305,10 @@ namespace grafosv1
             lapiz2.EndCap = LineCap.NoAnchor;
         }
 
-        //aristas no dirigidas
+        /**
+         * Aristas no dirigidas
+         * Desactiva la bandera de dirigido
+         * **/
         private void noDirigidoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             gradoDeNodoToolStripMenuItem.Enabled = true;
@@ -1163,7 +1317,9 @@ namespace grafosv1
             ListGrafo[posG].Dir = false;
         }
 
-        //Se usan banderas para pner ponderacion a las aristas no dirigidas
+        /**
+         * Se usan banderas para poner ponderacion a las aristas no dirigidas
+         * **/
         private void ponderadoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ponderado = true;
@@ -1175,7 +1331,9 @@ namespace grafosv1
             lapiz2.EndCap = LineCap.NoAnchor;
         }
 
-        //se usan banderas para poner aristas no dirigidas sin ponderación
+        /**
+         * se usan banderas para poner aristas no dirigidas sin ponderación
+         * **/
         private void noPonderadoToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             ponderado = false;
@@ -1187,7 +1345,9 @@ namespace grafosv1
             lapiz2.EndCap = LineCap.NoAnchor;
         }
 
-        //Se activa bandera para poder eliminar una arista
+        /**
+         * Se activa bandera para poder eliminar una arista
+         * **/
         private void eliminaAristaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -1195,7 +1355,9 @@ namespace grafosv1
             menu = 5;
         }
 
-        //Se asigna a la variable de posición de grafo el valor de este numericUpDown
+        /**
+         * Se asigna a la variable de posición de grafo el valor de este numericUpDown
+         * **/
         private void NumGrafo_ValueChanged(object sender, EventArgs e)
         {
             pintar = pAristas = false;
@@ -1221,13 +1383,15 @@ namespace grafosv1
                         ListGrafo[posG].QuitaVertice(e.X, e.Y);
                         break;
                 }
-                if (cut)
+                if (cut) //Si esta activada llama al método InsertaVCut, se mandan las coordenadas del click y el nombre
                 {
-                    moveG = false;
+                    forma = move = moveG = false;
                     int a = ListGrafo[kuratowski].ListaVer.Count;
-                    valor = ListGrafo[kuratowski].InsertaVCut(x, y, (a + 1).ToString());
+                    valor = ListGrafo[kuratowski].InsertaVCut(e.X, e.Y, (a + 1).ToString());
                     if (valor)
                         Console.WriteLine("Se encontró la arista, se agrego el vértice");
+                    else
+                        Console.WriteLine("No");
 
                 }
             }
@@ -1431,6 +1595,9 @@ namespace grafosv1
             Invalidate();
         }
      
+        /**
+         * Método para pintar los vértices dependiendoe de su número cromático
+         * **/
         private void PintaCromatico(PaintEventArgs e)
         {
             forma = false;
@@ -1461,6 +1628,9 @@ namespace grafosv1
             }
         }
 
+        /**
+         * Se encarca de pintar todo el grafo en el form
+         * **/
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             PointF[] puntos;

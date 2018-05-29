@@ -10,6 +10,18 @@ namespace grafosv1
     [Serializable()]
     public class Arista
     {
+        /**
+         * Clase Arista, contiene 
+         * destx, desty, orix, oriy -> Son las coordenas de inicio y fin de la arista
+         * peso -> Es la ponderación que puede tener la arista
+         * destino -> Vértice destino de la arista
+         * p1, c1, p2, c2 -> Son los puntos para dibujar una curva 
+         * dirgido -> Marca si la arista es dirigida o no dirigida
+         * recta -> Bandera para ver si las arstas son rectas o curvas
+         * TipoArista -> Se utiliza para marcas los tipos de aristas que hay en el bosuqe abarcador
+         * Arvisitada -> Bandera de si la arista fue visitada o no
+         * **/
+
         public int destx, desty, orix, oriy;
         public int peso;
         public CVertice destino;
@@ -20,7 +32,12 @@ namespace grafosv1
         private int TipoArista;
         private bool Arvisitada;
 
-        //constructor de la clase Arista
+        /**
+        constructores de la clase Arista
+        El primero recibe las coordenads finales e iniciales de la arista, el vértice destino, el peso y el nombre de la arista
+        El segundo recibe las coordenads finales e iniciales de la arista, el vértice destino, y el nombre de la arista
+
+        **/
         public Arista( int xd, int yd, int xo, int yo, CVertice dest, int p, string n)
         {
             NombreAr = n;
@@ -48,8 +65,7 @@ namespace grafosv1
             puntos();
         }
 
-        //regresa el vertice destino
-        public CVertice RegresaDest //vertice
+        public CVertice RegresaDest
         {
             get { return destino; }
         }
@@ -72,6 +88,9 @@ namespace grafosv1
             get => recta;
         }
         
+        /**
+         * Método que calcula los puntos para dibujar la curva y regresa un arreglo de puntos
+         * **/
         public Point[] puntos()
         {
             int x1 = (destx - orix)/20;
@@ -97,8 +116,11 @@ namespace grafosv1
             return new Point[] { p2, c2, p1, c1 };
         }
         
-        //cambia las coordenadas del origen de la arista
-        public void CambiaCoord(int xo, int yo) //cords de origen de la arista
+        /**
+         * Cambia las coordenadas del origen de la arista
+         * Recibe las coordenadas del vértice destino
+         * **/
+        public void CambiaCoord(int xo, int yo) 
         {
             int r = 10;
             int x1 = 0, y1 = 0;
@@ -117,8 +139,6 @@ namespace grafosv1
             {
                 x1 = xo + r;
                 y1 = yo + r;
-                /*xo += r;
-                yo += r;*/
                 
             }
             //segundo cuadrante
@@ -132,16 +152,12 @@ namespace grafosv1
             {
                 x1 = xo - r;
                 y1 = yo - r;
-                // xo -= r;
-                //yo += r / 2;
             }
             //cuarto cuadrante
             else if(destino.x > xo && destino.y > yo)
             {
                 x1 = xo + r;
                 y1 = yo - r;
-                // xo += r;
-                //yo += r / 2;
             }
             orix = x1;
             oriy = y1;

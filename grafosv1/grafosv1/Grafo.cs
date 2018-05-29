@@ -10,13 +10,34 @@ namespace grafosv1
     [Serializable()]
     public class Grafo
     {
-        public List<CVertice> ListaVer; //lista de los vertices
-        public int auxi; //auxiliar que guarda la posición del nodo encontrado
-        private int totalArist; //variable que almacena el total de aristas del grafo
-        private bool dirigido; //si el grafo es dirigido o no
-        public List<string> ListGradosAd; //almacena los grados adyacentes
-        public List<string> ListVAdy; //almacena los nombres de los vértices adyacentes
-       
+        /**
+         * ListaVer -> Lista de los vértices que hay en el grafo
+         * auxi -> Auxiliar que guarda la posición del vértice encontrado
+         * totalAris -> Variable que almacena el total de aristas que hay el el grafo
+         * dirigido -> Variable que dice si el grafo es dirigido o no dirigido
+         * ListGradosAd -> Lista que almacena los grados adyacentes
+         * ListVAdy -> Lista que almacena los nombre de los vértices adyacentes
+         * ciclico -> Variable para saber si un grafo es acíclico o no 
+         * m -> Varialbe para llamar a la clase que crea la matriz de adyacencia
+         * mi -> Variable para llamar a la clase que crea la matriz de incidencia
+         * l -> Variable para llamar a la clase que crea la lista de adyacencia
+         * GIsomor -> Varialbe que llama a la clase para realizar el isomorfismo
+         * TGrados, TGrados2 -> La primera almacena los grados totales de un grado no dirigido (externos de un grafo dirigido) y la segunda almacena los grados internos
+         * caminos -> Almacena la matriz de caminos que se genera en floyd
+         * ponderado -> Se almacenan los costos de las aristas 
+         * bosque -> Lista de listas vértices en donde se guarda los recorrido en profundidad de un grafo
+         * visitados2, aux, aux2 -> Auxiliar en donde se guarda el recorrido en profundidad, en aux y aux2 se guarda el recorrido completo
+         * 
+         * **/
+
+        public List<CVertice> ListaVer; 
+        public int auxi; 
+        private int totalArist; 
+        private bool dirigido;
+        public List<string> ListGradosAd;
+        public List<string> ListVAdy;
+        public int ciclico = -1;
+
         private MatrizAdy m;
         private MatrizIncid mi;
         private ListaAd l;
@@ -26,9 +47,14 @@ namespace grafosv1
 
         private int[,] ponderados;
 
-        public List<int> TotalAris = new List<int>();
+        public List<List<CVertice>> bosque = new List<List<CVertice>>();
+        public List<CVertice> visitados2 = new List<CVertice>();
+        public List<CVertice> aux = new List<CVertice>();
+        List<CVertice> aux2 = new List<CVertice>();
 
-
+        /**
+         * Constructor de la clase grafo
+         * **/
         public Grafo()
         {
             auxi = -1;
@@ -60,17 +86,13 @@ namespace grafosv1
             get => TGrados2;
         }
 
-        public List<CVertice> visitados2 = new List<CVertice>();
-        List<CVertice> aux2 = new List<CVertice>();
-
-        public List<List<CVertice>> bosque = new List<List<CVertice>>();
-        public List<CVertice> aux = new List<CVertice>();
-        public int ciclico = -1;
-
-        //busqueda en profundidad
+       
+        /**
+         * Busqueda en profundidad recursivo
+         * Recibe un vértice 
+         * **/
         public void dfs(CVertice v)
         {
-           // List<CVertice> visitados2 = new List<CVertice>();
             v.VerVisitado = true;
             if (!visitados2.Contains(v))
             {
@@ -103,6 +125,10 @@ namespace grafosv1
             }
         }
 
+        /**
+         * Método que cuenta las aristas totales que hay en el grafo
+         * Regresa el total de aristas dividido entre dos
+         * **/
         public int AristatasTotales()
         {
             foreach (CVertice v in ListaVer)
@@ -110,8 +136,8 @@ namespace grafosv1
                     totalArist++;
             return totalArist/2;
         }
-
-        public void Niveles()
+        
+        /*public void Niveles()
         {
             for (int i = 0; i < ListaVer.Count; i++)
             {
@@ -120,8 +146,12 @@ namespace grafosv1
                 CVertice ver = ListaVer[i];
                 Console.WriteLine("Vértice " + ver.name + " con nivel: " + ver.Niveles);
             }
-        }
+        }*/
 
+        /**
+         * Método que asigna el tipo de arista 
+         * Reibe por parámetro el vértice origen y el vértice destino
+         * **/
         public void marca(CVertice origen, CVertice destino)
         {
             for(int i = 0; i < origen.ListAristas.Count; i++)
@@ -131,15 +161,22 @@ namespace grafosv1
                 {
                     a.Tipo = 1;
                 }
+                
             }
         }
 
-      public void AgregaBosque()
+        /**
+         * Método que agrega el recorrido en profundidad a la lista bosque
+         * **/
+        public void AgregaBosque()
         {
             bosque.Add(visitados2);
             visitados2 = new List<CVertice>();
         }
         
+        /**
+         * Imprime los nombres de los vértices que se encuentran en el recorrido en profundidad
+         * **/
         public void imprimedfs()
         {
             for(int i = 0; i < bosque.Count; i ++)
@@ -155,37 +192,9 @@ namespace grafosv1
             }
         }
 
-        public void Bosque2()
-        {
-            List<CVertice> auxv = new List<CVertice>();
-
-            for (int i = 0; i < bosque.Count; i++)
-            {
-                aux2 = bosque[i];
-                for (int j = 0; j < bosque[i].Count; j++)
-                {
-                    //int auxv = aux2[j].ListAristas.Count;
-                    for (int k = 0; k < aux2[j].ListAristas.Count; k++)
-                    {
-
-                        Arista a = aux2[j].ListAristas[k];
-                        if(aux2.Contains(a.destino))
-                        {
-                            if (a.destino.VerVisitado == false)
-                            {// bosque[i].RemoveAt(0);
-                                a.Tipo = 1;
-                                //aux2.Remove(a.destino);
-                            }
-                            if (a.destino != aux2[0])
-                                a.Tipo = 1; //pinta las del recorrido en profundidad
-                            //auxv.Add(a.destino);
-                            //int vaca = aux2[j].ListAristas.Count;
-                        }
-                    }
-                }
-            }
-        }
-
+        /**
+         * Método que asigna la arista de cruce
+         * **/
         public void Bosque()
         {
             for(int i = 0; i < bosque.Count; i++)
@@ -198,13 +207,15 @@ namespace grafosv1
                         int x = j;// + 1;
                         Arista a = aux2[j].ListAristas[k];
                         if(!bosque[i].Contains(a.destino))
-                            a.Tipo = 2; //conexión al otro árbol
+                            a.Tipo = 3; //conexión al otro árbol
                     }
                 }
             }
         }
 
-        //devuelve los grados totales del nodo / externos del nodo
+        /**
+         * Devuelve los grados totales del nodo / externos del nodo
+         * **/
         public int[] MtzAd(int i, RichTextBox t, bool dir)
         {
             m = new MatrizAdy(i);
@@ -214,16 +225,20 @@ namespace grafosv1
             return TGrados;
         }
 
+        /**
+         * Guarda los grados de los vértices
+         * **/
         public void guarda()
         {
             for (int i = 0; i < TGrados.Length; i++)
             {
                 ListaVer[i].GetGrado = TGrados[i];
-                //Console.WriteLine("vértice = " + ListaVer[i].name + " grado = " + ListaVer[i].GetGrado);
             }
         }
 
-        //devuelve los grados internos 
+        /**
+         * Devuelve los grados internos
+         * **/
         public int[] mtzad(int i, RichTextBox t, bool dir)
         {
             m = new MatrizAdy(i);
@@ -234,6 +249,10 @@ namespace grafosv1
 
         }
 
+
+        /**
+         * Método que hace la lista de adyacencia
+         * **/
         public void LstAd(RichTextBox t, bool dir)
         {
             l = new ListaAd();
@@ -242,6 +261,9 @@ namespace grafosv1
             ListVAdy = l.vad;
         }
 
+        /**
+         * Método que crea la matriz de ponderados
+         * **/
         public void MatrizAdyP(int i, RichTextBox t)
         {
             m = new MatrizAdy(i);
@@ -250,6 +272,10 @@ namespace grafosv1
             caminos = m.MatrizC;
         }
 
+
+        /**
+         * Método que hace el algoritmo de floyd y crea la matriz de caminos
+         * **/
         public void Floyd(RichTextBox t)
         {
             t.Visible = true;
@@ -290,6 +316,10 @@ namespace grafosv1
             }
         }
 
+
+        /**
+         * Método que imprime en el RichTextBox la matriz de caminos que se genero del algoritmo de floyd
+         * **/
         public void CaminosFloyd(RichTextBox t)
         {
             for (int i = 0; i < ListaVer.Count; i++)
@@ -306,6 +336,9 @@ namespace grafosv1
             }
         }
 
+        /**
+         * Método que hace el algoritmo de kruskal
+         * **/
         public List<Arista> kruskal()
         {
             List<List<CVertice>> comp = CreaComp(ListaVer); //lista de componentes del grafo
@@ -323,8 +356,6 @@ namespace grafosv1
                     AristQ.Add(a);
             }
             ArisOrd = AristQ.OrderBy(o => o.peso).ToList();
-            /*foreach (Arista a in ArisOrd)
-                Console.WriteLine("Arista: " + a.NombreAr + " peso: " + a.peso);*/
             while (List.Count < ListaVer.Count - 1)
             {
                 origen = null;
@@ -352,6 +383,9 @@ namespace grafosv1
             return List;
         } 
 
+        /**
+         * Busca el vértice que se pasa por parámetro en la lista de componentes que también se pasa por parámetros
+         * **/
         public int BuscaK(CVertice v, List<List<CVertice>> c)
         {
             int index = 0;
@@ -361,6 +395,10 @@ namespace grafosv1
             return index;
         }
 
+        /**
+         * Une las componentes
+         * Se pasa por parámetros los indices y la lista de componentes
+         * **/
         public void Unir(int i, int j, List<List<CVertice>> c)
         {
             foreach (CVertice v in c[j])
@@ -368,6 +406,9 @@ namespace grafosv1
             c[j].Clear();
         }
 
+        /**
+         * Se crea una componente con una lista de  vértices
+         * **/
         public List<List<CVertice>> CreaComp(List<CVertice> vertex)
         {
             List<List<CVertice>> lista = new List<List<CVertice>>();
@@ -379,6 +420,10 @@ namespace grafosv1
             return lista;
         }
 
+        /**
+         * Método que crea la matriz de incidencia
+         * Se para por parametros el total de vértices y el total de aristas
+         * **/
         public void MtzIncd(int n, int TAristas, RichTextBox t)
         {
             mi = new MatrizIncid(n,TAristas);
@@ -386,43 +431,28 @@ namespace grafosv1
             
         }
 
+        /**
+         * Método que realiza el isomorfimos
+         * Se pasa por parámetros los dos grafos a comparar
+         * **/
         public bool Iso(Grafo g1, Grafo g2)
         {
             GIsomor = new Isomorfismo(g1,g2);
             return GIsomor.SonIsomosfos();
         }
 
-        //inserta un nuevo vertice a la lista
+        /**
+         * Inserta un nuevo vertice a la lista
+         * **/
         public void InsertaVertice(string n, int x, int y)
         {
             ListaVer.Add(new CVertice(n, x, y));
         }
 
-        //inserta vértice corte en el grafo k3,3 o k5
-       /* public bool InsertaVCut(CVertice inicio, CVertice destino, int posi, int posd)
-        {
-            bool encontro = false;
-            int name = setAris+1;
-            for(int i = 0; i < inicio.ListAristas.Count; i++)
-            {
-                Arista arista = inicio.ListAristas[i];
-                int xm = (arista.destino.x + arista.orix) / 2;
-                int ym = (arista.destino.y + arista.oriy) / 2;
-                if(arista.destino == destino)
-                {
-                    ListaVer.Add(new CVertice((name + 1).ToString(), xm, ym));
-                    ListaVer[posi].InsertaArista( arista.orix, arista.oriy, xm+50, ym, ListaVer.ElementAt(name-1), false, false,name.ToString());
-                    ListaVer[posd].InsertaArista(xm + 50, ym, arista.destx, arista.desty, arista.destino, false, false, (name+1).ToString());
-                    inicio.ListAristas.Remove(arista);
-                    setAris += 2;
-                    encontro = true;
-                    break;
-
-                }
-            }
-            return encontro;
-        }*/
-
+        /**
+         * Método que busca la arista en donde se va a insertar el vértice nuevo 
+         * Se para por parametros las coordenads en x, y del nuevo vértice y el nombre de este vértice
+         * **/
         public bool InsertaVCut(int x, int y, string v) //x, y son las coordenadas del click
         {
             bool encontro = false;
@@ -434,7 +464,10 @@ namespace grafosv1
                     Arista a = ver.ListAristas[j];
                     float m = (float)(a.desty - a.oriy) / (float)(a.destx - a.orix);
                     float ecy = (m * (x - a.orix) + a.oriy);
-                     if ((int)ecy <= y + 6 && (int)ecy >= y - 6)
+                    int xm = (a.orix + a.destx) / 2;
+                    int ym = (a.oriy + a.desty) / 2;
+                    //if(x > xm - 20 && x < xm + 20 && y > ym - 20 && y < ym + 20)
+                    if ((int)ecy < y + 5 && (int)ecy > y - 5)
                     {
                         CVertice aux = new CVertice(v, x, y);
                         ListaVer.Add(aux);
@@ -447,7 +480,7 @@ namespace grafosv1
                         ver.ListAristas.Remove(a);
                         setAris += 2;
                         return true;
-                       }
+                     }
                      else
                        Console.WriteLine("No se encontró la arista");
                 }
@@ -456,7 +489,9 @@ namespace grafosv1
             return encontro;
         }
 
-        //busca nodo y guarda el indice en una variable auxiliar
+        /**
+         * Busca Vértice y guarda el indice en una variable auxiliar
+         * **/
         public int Buscar(int dx, int dy)
         {
             auxi = -1;
@@ -471,7 +506,9 @@ namespace grafosv1
             return auxi;
         }
 
-        //elimina el vertice junto con las aristas que tiene
+        /**
+         * Elimina el vertice junto con las aristas que tiene
+         * **/
         public void QuitaVertice(int dx, int dy)
         {
             int aux = Buscar(dx, dy);

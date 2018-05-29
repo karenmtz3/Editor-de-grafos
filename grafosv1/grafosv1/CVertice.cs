@@ -14,6 +14,16 @@ namespace grafosv1
     [Serializable()]
     public class CVertice
     {
+        /**
+         * Clase CVertice, contiene
+         * name -> El nombre del vértice
+         * ListAristas -> Lista de aristas por cada vértice
+         * x, y -> Coordenadas del vértice
+         * grado -> Inidica el grado del vértice
+         * cromatico -> Sirve para aisgnar el número cromático del vértice
+         * visitado -> Bandera que marca si el vértice fue visitado o no
+         * **/
+
         public string name; //nombre del nodo
         public List<Arista> ListAristas; //lista de las aristas
         public int x, y; //cordenadas de vertice
@@ -22,7 +32,8 @@ namespace grafosv1
         private bool visitado = false;
         private int Nivel = 0;
 
-        //contructor de la clase CVertice
+        /**contructor de la clase CVertice
+         * **/
         public CVertice(string nombre, int dx, int dy)
         {
             name = nombre;
@@ -56,7 +67,9 @@ namespace grafosv1
             get => grado;
         }
 
-        //recorre la lista de aristas de cada nodo y les cambia las coordenadas
+        /**
+         * Recorre la lista de aristas de cada nodo y les cambia las coordenadas
+         * **/
         public void Cambia()
         {
             for (int i = 0; i < ListAristas.Count; i++)
@@ -67,7 +80,11 @@ namespace grafosv1
             }
         }
 
-        //inserta una arista a la lista de aristas
+        /**
+         * Inserta una arista a la lista de aristas
+         * Recibe las coordenadas finales e iniciales de la arista, el véritce destino, variable de peso, variable de dirigido y el nombre de la arista
+         * Se hacen ajuntes en las coordenadas iniciales y finales de la arista para que se acomode mejor
+        **/
         public void InsertaArista( int xd, int yd, int xo, int yo, CVertice des, bool p, bool dirgido, string n)
         {
             int r = 8, x1, y1, x2, y2;
@@ -129,12 +146,19 @@ namespace grafosv1
             
         }
 
-        //regresa la lista de aristas
+        /**
+         * Regresa la lista de aristas
+         * **/
         public List<Arista> Regresa()
         {
             return ListAristas;
         }
 
+
+        /**
+         * Elimina la arista
+         * Se pasan las coordenadas del clic
+         * **/
         public void EliminaArista(int x, int y)
         {
             //buscar arista 

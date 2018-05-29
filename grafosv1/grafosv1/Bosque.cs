@@ -13,22 +13,36 @@ namespace grafosv1
 {
     public partial class Bosque : Form
     {
+        /**
+         * Form que dibuja el bosque abarcador en profundidad
+         * BosqueCom -> Grafo al cual se sacará el bosque
+         * wid, he -> alto y ancho de los vértices
+         * Listaaux -> lista de lista vértices que almacena los lista de listas generada de la busqueda en profundidad
+         * lapiz -> Color del contorno del vértice
+         * lapiz2 -> Color de la arista
+         * **/
         private Grafo BosqueCom = new Grafo();
-        private List<CVertice> n2, n3, visitados;
-        private CVertice raiz;
+        //private List<CVertice> visitados;
+        private List<List<CVertice>> Listaaux;
         private int wid, he;
         private Pen lapiz = new Pen(Color.Blue, 3); //color del contorno del nodo
         private Pen lapiz2 = new Pen(Color.BlueViolet, 4); //color de la arista
 
+        /**
+         * Constructor de la forma
+         * Se para por parámetro el grafo a sacar el bosque
+         * **/
         public Bosque(Grafo NuevoGrafo)
         {
             InitializeComponent();
             BosqueCom = NuevoGrafo;
-            n2 = new List<CVertice>();
-            n3 = new List<CVertice>();
             wid = he = 40;
         }
 
+
+        /**
+         * Método que hace la busqueda en profundidad
+         * **/
         public void MarcaBosque(RichTextBox DatosT, bool dirigido)
         {
             int[] arreglo = BosqueCom.MtzAd(BosqueCom.ListaVer.Count, DatosT, dirigido);
@@ -51,151 +65,82 @@ namespace grafosv1
             }
             BosqueCom.imprimedfs();
             BosqueCom.Bosque();
-            visitados = BosqueCom.aux;
-            DibujaArbol();
-            //Dibuja();
+            //visitados = BosqueCom.aux;
+            Listaaux = BosqueCom.bosque;
+
+            DibujaAr();
         }
 
-        public void DibujaArbol()
+        /**
+         * Cambia las coordenadas de los vértices y aristas para dibujar como árbol 
+         * **/
+        public void DibujaAr()
         {
-            label1.Text = "";
-            foreach (CVertice v in visitados)
-                label1.Text += " " + v.name;
-            //visitados[2].ListAristas[1].Tipo = 3;
-            int x = 200, x1 = 220, y = 20;
-            visitados[0].x = 100;
-            visitados[0].y = 100;
-            visitados[3].ListAristas[1].Tipo = 3;
-
-            for (int i =1; i < visitados.Count; i++)
+            int x = 100, y = 80;
+            foreach (List<CVertice> arbol in Listaaux)
             {
-                CVertice ver = visitados[i];
-                if (i == 1 || i == visitados.Count - 1)
+                foreach(CVertice v in arbol)
                 {
-                    ver.x = x;
-                    ver.y = y;
+                    if (arbol.IndexOf(v) == 0)
+                    {
+                        v.x = x;
+                        v.y = y;
+                    }
+                    for(int j = 0; j < v.ListAristas.Count; j++)
+                    {
+                        if(v.ListAristas.Count > 1)
+                            x -= (50 * (v.ListAristas.Count - 1) / 2);
+                        if (v.ListAristas[j].Tipo == 1)
+                        {
+                            v.ListAristas[j].destino.y = v.y + 100;
+                            v.ListAristas[j].destino.x = v.x + 50*j;
+                        }
+                    }
+                    foreach (Arista a in v.ListAristas)
+                    {
+                        if (a.Tipo == 0)
+                        {
+                            a.orix = v.x;
+                            a.oriy = v.y + (he / 2);
+                        }
+                        if (a.Tipo == 1)
+                        {
+                            a.orix = v.x + (wid / 2);
+                            a.oriy = v.y + he;
+                        }
+                        if (a.Tipo == 3)
+                        {
+                            a.orix = v.x + (wid / 2) - 20;
+                            a.oriy = v.y + 20;
+                        }
+                    }
+                    foreach (Arista a in v.ListAristas)
+                    {
+                        if (a.Tipo == 0)
+                        {
+                            a.destx = a.destino.x;
+                            a.desty = a.destino.y + (he / 2);
+                        }
+                        if (a.Tipo == 1)
+                        {
+                            a.destx = a.destino.x + (wid / 2);
+                            a.desty = a.destino.y + (he / 4);
+                        }
+                        if (a.Tipo == 3)
+                        {
+                            a.destx = a.destino.x + (wid / 2);
+                            a.desty = a.destino.y + 40;
+                        }
+                    }
                 }
-                else
-                {
-                    ver.x = x1;
-                    ver.y = y;
-                }
-                y += 80;
-                foreach (Arista a in ver.ListAristas)
-                {
-                    if (a.Tipo == 0)
-                    {
-                        a.orix = ver.x;
-                        a.oriy = ver.y + (he / 2);
-                    }
-                    if (a.Tipo == 1)
-                    {
-                        a.orix = ver.x + (wid / 2);
-                        a.oriy = ver.y + he;
-                    }
-                    if (a.Tipo == 3)
-                    {
-                        a.orix = ver.x + (wid / 2) - 20;
-                        a.oriy = ver.y + 20;
-                    }
-                }
-            }
-            for (int i = 0; i < visitados.Count; i++)
-            {
-                CVertice ver = visitados[i];
-                foreach (Arista a in ver.ListAristas)
-                {
-                    if (a.Tipo == 0)
-                    {
-                        a.destx = a.destino.x;
-                        a.desty = a.destino.y + (he / 2);
-                    }
-                    if (a.Tipo == 1)
-                    {
-                        a.destx = a.destino.x + (wid / 2);
-                        a.desty = a.destino.y + (he / 4);
-                    }
-                    if (a.Tipo == 3)
-                    {
-                        a.destx = a.destino.x + (wid / 2);
-                        a.desty = a.destino.y + 40;
-                    }
-
-                }
-            }
-
-            visitados[4].ListAristas[0].orix = visitados[4].x;
-            visitados[4].ListAristas[0].oriy = visitados[4].y;
-            visitados[4].ListAristas[0].destx = visitados[0].x+20;
-            visitados[4].ListAristas[0].desty = visitados[0].y+40;
-        }
-
-        public void Dibuja()
-        {
-            label1.Text = "";
-            foreach (CVertice v in visitados)
-                label1.Text += " " + v.name;
-            //visitados[2].ListAristas[1].Tipo = 3;
-            int x = 200, x1 = 220, y = 20;
-            for(int i = 0; i < visitados.Count; i++)
-            {
-                CVertice ver = visitados[i];
-                if (i == 0 || i == visitados.Count - 1)
-                {
-                    ver.x = x;
-                    ver.y = y;
-                }
-                else
-                {
-                    ver.x = x1;
-                    ver.y = y;
-                }
-                y += 80;
-                foreach (Arista a in ver.ListAristas)
-                {
-                    if (a.Tipo == 0)
-                    {
-                        a.orix = ver.x;
-                        a.oriy = ver.y + (he / 2);
-                    }
-                    if (a.Tipo == 1)
-                    {
-                        a.orix = ver.x + (wid / 2);
-                        a.oriy = ver.y + he;
-                    }
-                    if(a.Tipo == 3)
-                    {
-                        a.orix = ver.x + (wid / 2)-20;
-                        a.oriy = ver.y +20;
-                    }
-                   
-                }
-            }
-            for (int i = 0; i < visitados.Count; i++)
-            {
-                CVertice ver = visitados[i];
-                foreach (Arista a in ver.ListAristas)
-                {
-                    if (a.Tipo == 0)
-                    {
-                        a.destx = a.destino.x;
-                        a.desty = a.destino.y + (he / 2);
-                    }
-                    if (a.Tipo == 1)
-                    {
-                        a.destx = a.destino.x + (wid / 2);
-                        a.desty = a.destino.y + (he / 4);
-                    }
-                    if(a.Tipo == 3)
-                    {
-                        a.destx = a.destino.x + (wid / 2);
-                        a.desty = a.destino.y + 40;
-                    }
-                   
-                }
+                x += 350;
             }
         }
 
+
+        /**
+         * Paint de la forma en donde se dibujaran los vértices y aristas
+         * **/
         private void Bosque_Paint(object sender, PaintEventArgs e)
         {
             PointF[] puntos;

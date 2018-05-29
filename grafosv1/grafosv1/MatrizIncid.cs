@@ -10,11 +10,21 @@ namespace grafosv1
     [Serializable()]
     public class MatrizIncid
     {
+        /**
+         * Clase que crea la matriz de incidencia
+         * n, m -> n es el total de vértices, m es el total de aristas
+         * matrizI -> Es la matriz que se crea para la matriz de incidencia
+         * total ->Lista que almacena el total de aristas
+         * **/
         private int n, m;
         private int[,] matrizI;
         List<int> total = new List<int>();
 
-        public MatrizIncid(int i, int TArista) //List<int> TArista
+        /**
+         * Constructor de la matriz de incidencia
+         * Se pasa por parámetro el total de vértices y el total de aristas
+         * **/
+        public MatrizIncid(int i, int TArista) 
         {
             n = i;
             m = TArista;
@@ -24,6 +34,10 @@ namespace grafosv1
             matrizI = new int[n,m];
         }
 
+        /**
+         * Método que crea la matriz de incidencia
+         * Se inicializa la matriz en 0 y después se va llenando dependiendo de las posiciones de los vértices origen y destino
+         * **/
         public void CreaMatrizI(List<CVertice> vertice, RichTextBox t)
         {
             List<string> listv = new List<string>();

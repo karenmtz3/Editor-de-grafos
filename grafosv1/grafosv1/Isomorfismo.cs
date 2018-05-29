@@ -10,16 +10,28 @@ namespace grafosv1
     [Serializable()]
     public class Isomorfismo
     {
+        /**
+         * Clase Isomorfismo
+         * grafo1 -> El primer grafo a comparar
+         * grafo2 -> El segundo grafo a comparar
+         * **/
         private Grafo grafo1;
         private Grafo grafo2;
         
-
+        /**
+         * Constructor de la clase isomorfismo
+         * Se para los grafos a comparar
+         * **/
         public Isomorfismo(Grafo g1, Grafo g2)
         {
             grafo1 = g1;
             grafo2 = g2;
         }
 
+        /**
+         * Checa si la cantidad de vértices de los dos grafos son iguales
+         * Regresa un true si son iguales o un false si son diferentes
+         * **/
         public bool MismosVertices()
         {
             if (grafo1.ListaVer.Count == grafo2.ListaVer.Count)
@@ -28,6 +40,10 @@ namespace grafosv1
                 return false;
         }
 
+        /**
+         * Checa si el total de aristas de cada uno de los grafos son los mismos
+         * Regresa un true si son iguales o un false si son diferentes
+         * **/
         public bool CantAristas()
         {
             
@@ -37,20 +53,10 @@ namespace grafosv1
                 return false;
         }
 
-        /*public bool Aristas()
-        {
-            grafo1.setAris = grafo2.setAris;
-            if (grafo1.setAris == grafo2.setAris)
-                return true;
-            else
-                return false;
-        }
-
-        public bool Coinciden()
-        {
-            return true;
-        }*/
-
+        /**
+         * Checa si los grados de un grafo coinciden con el otro grafo
+         * Regresa un true si son iguales o un false si son diferentes
+         * **/
         public bool MismosGrados()
         {
             List<int> grad1 = new List<int>();
@@ -70,6 +76,10 @@ namespace grafosv1
             return false;
         }
 
+        /**
+         * Checa si existe la misma secuencia de grados en cada uno de los grafos 
+         * Regresa un true si son iguales o un false si son diferentes
+         * **/
         public bool GradosCoinc()
         {
             //Console.WriteLine("grafo 2 / posición 0 / Lista de los grados adyacentes ");
@@ -117,12 +127,14 @@ namespace grafosv1
             else
                 return false;
         }
-
+        
+        /**
+         * Método que regres un true si se cumplen las cuatros condiciones anteriores
+         * En caso de no cumplirlas regresaun false
+         * **/
         public bool SonIsomosfos()
-        {
-            //if (MismosVertices() && MismosGrados() && Aristas() && Coinciden())
-                
-                if (MismosVertices() && MismosGrados() && CantAristas() && GradosCoinc())
+        {                
+            if (MismosVertices() && MismosGrados() && CantAristas() && GradosCoinc())
                 return true;
             else
                 return false;

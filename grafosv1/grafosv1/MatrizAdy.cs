@@ -10,12 +10,26 @@ namespace grafosv1
     [Serializable()]
     public class MatrizAdy
     {
+        /**
+         * Clase de matriz de adyacencia
+         * n -> Tamaño de la matriz
+         * matriz -> matriz de adyacencia
+         * matrizP -> matriz de costos, se utiliza para el algoritmo de floyd
+         * caminos -> matriz de caminos, se utiliza para el algoritmo de floyd e impresión de caminos
+         * cont, cont2 -> El primero cuenta las aristas origen, el segundo cuenta las aristas origen
+         * arr, arr2 -> Se almacenan los contadores anteriores
+         * max -> valor maximo, se utiliza para el algoritmo de floyd
+         * **/
         private int n;
         private int[,] matriz, matrizP, caminos;
         private int cont = 0, cont2 = 0;
         private List<int> arr, arr2;
         private int max = int.MaxValue;
 
+        /**
+         * Contructor de matriz de adyacencia
+         * Se pasa por parámetros el tañano de la matriz
+         * **/
         public MatrizAdy(int i)
         {
             n = i;
@@ -27,6 +41,11 @@ namespace grafosv1
         }
 
 
+        /**
+         * Método que inicializa la matriz de caminos en si mismo y la matriz de ponderados en el valor maximo
+         * Después en la matriz de pesos se guardarán los pesos de cada una de las aristas
+         * Se pasa por parámetros una lista de vértices
+         * **/
         public void CreaMatrizPon(List<CVertice> ver, RichTextBox t)
         {
             List<string> ListVer = new List<string>();
@@ -95,6 +114,10 @@ namespace grafosv1
             get => caminos;
         }
 
+        /**
+         * Método que inicializa la matriz de adyacencia en 0
+         * Se recorre la matriz y se asignará un 1 en donde hay relación 
+         * **/
         public void CreaMatriz(List<CVertice> ver, RichTextBox t, bool dir)
         {
             List<string> ListVer = new List<string>();
